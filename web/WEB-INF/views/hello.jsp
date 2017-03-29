@@ -5,5 +5,7 @@
 </head>
 <body>
 <p>Hello</p>
+<p>${info}</p>
+<p>${answ}</p>
 </body>
 </html>
