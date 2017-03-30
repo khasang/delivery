@@ -20,6 +20,8 @@ public class AppController {
     private TableUpdater tableUpdater;
     @Autowired
     private TableDeletor tableDeletor;
+    @Autowired
+    private TableSelector tableSelector;
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -51,4 +53,11 @@ public class AppController {
         model.addAttribute("delete", tableDeletor.deleteExistingTable());
         return "delete";
     }
+
+    @RequestMapping("/select")
+    public String select(Model model){
+        model.addAttribute("select", tableSelector.selectDataFromTable());
+        return "select";
+    }
+
 }
