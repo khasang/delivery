@@ -1,7 +1,10 @@
 package io.delivery.config;
 
+import io.delivery.model.Company;
 import io.delivery.model.TableCreator;
 import io.delivery.service.CreateTable;
+import io.delivery.service.DAO;
+import io.delivery.service.impl.CompanyDAO;
 import io.delivery.service.impl.CreateTableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -42,5 +45,18 @@ public class AppConfig {
     @Bean
     public CreateTable createTable(){
         return new CreateTableImpl("asd");
+    }
+
+    @Bean
+    public Company company() {
+        Company company = new Company();
+        company.setId(1);
+        company.setTitle("Fast&Furious");
+        return company;
+    }
+
+    @Bean
+    public DAO companyDao() {
+        return new CompanyDAO(jdbcTemplate(), company());
     }
 }
