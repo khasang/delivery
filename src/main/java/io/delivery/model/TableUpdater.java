@@ -11,8 +11,8 @@ public class TableUpdater {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public String updateDataInTable(String query){
-        jdbcTemplate.execute(query);
+    public String updateDataInTable(){
+        jdbcTemplate.execute("update companies set code='22222', title='Title_2', did='22' where code='11111'");
         return "Data updated";
     }
 }

@@ -12,8 +12,8 @@ public class TableInsertor {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public String insertNewDataIntoTable(String query){
-        jdbcTemplate.execute(query);
+    public String insertNewDataIntoTable(){
+        jdbcTemplate.execute("insert into companies (code, title, did) values(11111, 'Title_1', 10)");
         return "Data inserted";
     }
 }
