@@ -1,7 +1,19 @@
 package io.delivery.model;
 
-/**
- * Created by fixer on 30.03.2017.
- */
+
+import org.springframework.jdbc.core.JdbcTemplate;
+
 public class TableInsertor {
+    private JdbcTemplate jdbcTemplate;
+
+    public TableInsertor(){}
+
+    public TableInsertor(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public String insertNewDataIntoTable(String query){
+        jdbcTemplate.execute(query);
+        return "Data inserted";
+    }
 }
