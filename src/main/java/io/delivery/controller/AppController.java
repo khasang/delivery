@@ -36,16 +36,13 @@ public class AppController {
 
     @RequestMapping("/insert")
     public String insert(Model model){
-        model.addAttribute("insert", tableInsertor.insertNewDataIntoTable("insert into " +
-                "companies (code, title, did) values(11111, 'Title_1', 10)"));
+        model.addAttribute("insert", tableInsertor.insertNewDataIntoTable());
         return "insert";
     }
 
     @RequestMapping("/update")
     public String update(Model model){
-        model.addAttribute("update", tableUpdater.updateDataInTable("update companies " +
-                "set code='22222', title='Title_2', did='22' " +
-                "where code='11111'"));
+        model.addAttribute("update", tableUpdater.updateDataInTable());
         return "update";
     }
 
