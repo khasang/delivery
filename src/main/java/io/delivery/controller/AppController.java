@@ -1,8 +1,10 @@
 package io.delivery.controller;
 
 import io.delivery.model.Answer;
-import io.delivery.service.CreateTable;
+import io.delivery.model.Company;
 import io.delivery.model.Message;
+import io.delivery.service.CreateTable;
+import io.delivery.service.InsertItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,8 @@ public class AppController {
     private Message message;
     @Autowired
     private CreateTable createTable;
+    @Autowired
+    private InsertItem insertItem;
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -28,5 +32,11 @@ public class AppController {
     public String create(Model model) {
         model.addAttribute("status", createTable.createCompany());
         return "create";
+    }
+
+    @RequestMapping("/insert")
+    public String insert(Model model) {
+        model.addAttribute("status", insertItem.createItem(new Company(1, "Google", 1500)));
+        return "insert";
     }
 }

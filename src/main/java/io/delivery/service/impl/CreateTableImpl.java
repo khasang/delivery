@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class CreateTableImpl implements CreateTable {
     private JdbcTemplate jdbcTemplate;
+    private String query;
 
     public CreateTableImpl() {
     }
@@ -13,17 +14,19 @@ public class CreateTableImpl implements CreateTable {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
     @Override
     public String createCompany() {
         String preQuery = "DROP TABLE IF EXISTS companies";
-        String query = ("CREATE TABLE companies (\n" +
-                "code           char(5) CONSTRAINT firstkey PRIMARY KEY, \n" +
-                "title          varchar(40) NOT NULL,\n" +
-                "did            integer NOT NULL,\n" +
-                "date_prod      date,\n" +
-                "kind           varchar(10),\n" +
-                "len            interval hour to minute\n" +
-                ");");
+
+        query = "CREATE TABLE companies (\n" +
+                "    id int CONSTRAINT firstkey PRIMARY KEY,\n" +
+                "    name varchar(255) NOT NULL,\n" +
+                "    size integer NOT NULL\n" +
+                ");";
         jdbcTemplate.execute(preQuery);
         jdbcTemplate.execute(query);
         return "table created";

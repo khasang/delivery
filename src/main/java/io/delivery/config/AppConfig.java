@@ -1,7 +1,9 @@
 package io.delivery.config;
 
 import io.delivery.service.CreateTable;
+import io.delivery.service.InsertItem;
 import io.delivery.service.impl.CreateTableImpl;
+import io.delivery.service.impl.InsertItemImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,5 +38,10 @@ public class AppConfig {
     @Bean
     public CreateTable createTable() {
         return new CreateTableImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public InsertItem insertItem() {
+        return new InsertItemImpl(jdbcTemplate());
     }
 }
