@@ -3,6 +3,7 @@ package io.delivery.controller;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
+import io.delivery.model.impl.TableCreatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ public class AppController {
     @Autowired
     private TableCreator tableCreator;
 
+    // localhost:8080
     @RequestMapping("/")
     public String hello(Model model) {
         model.addAttribute("info", message.getInfoMessage());
@@ -28,5 +30,10 @@ public class AppController {
     public String create(Model model){
         model.addAttribute("status", tableCreator.createCompany());
         return "create";
+    }
+
+    @RequestMapping("/secure")
+    public String secure(){
+        return "/secure";
     }
 }
