@@ -1,6 +1,7 @@
 package io.delivery.controller;
 
 import io.delivery.model.Answer;
+import io.delivery.service.CreateTable;
 import io.delivery.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ public class AppController {
     private Answer answer;
     @Autowired
     private Message message;
+    @Autowired
+    private CreateTable createTable;
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -21,4 +24,9 @@ public class AppController {
         return "hello";
     }
 
+    @RequestMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("status", createTable.createCompany());
+        return "create";
+    }
 }
