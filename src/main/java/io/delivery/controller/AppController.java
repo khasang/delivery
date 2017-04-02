@@ -1,8 +1,6 @@
 package io.delivery.controller;
 
-import io.delivery.model.Answer;
-import io.delivery.model.Message;
-import io.delivery.model.TableCreator;
+import io.delivery.model.*;
 import io.delivery.model.impl.TableCreatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +15,12 @@ public class AppController {
     private Message message;
     @Autowired
     private TableCreator tableCreator;
+    @Autowired
+    private TableInsertor tableInsertor;
+    @Autowired
+    private TableUpdated tableUpdated;
+    @Autowired
+    private TableDeleted tableDeleted;
 
     // localhost:8080
     @RequestMapping("/")
@@ -30,6 +34,24 @@ public class AppController {
     public String create(Model model){
         model.addAttribute("status", tableCreator.createCompany());
         return "create";
+    }
+
+    @RequestMapping("/insert")
+    public String insert(Model model){
+        model.addAttribute("status", tableInsertor.insertCompany());
+        return "insert";
+    }
+
+    @RequestMapping("/update")
+    public String update(Model model){
+        model.addAttribute("status", tableUpdated.updateCompany());
+        return "update";
+    }
+
+    @RequestMapping("/update")
+    public String delete(Model model){
+        model.addAttribute("status", tableDeleted.deleteCompany());
+        return "delete";
     }
 
     @RequestMapping("/secure")

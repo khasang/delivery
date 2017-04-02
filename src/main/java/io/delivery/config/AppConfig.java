@@ -1,10 +1,18 @@
 package io.delivery.config;
 
-import io.delivery.model.Answer;
-import io.delivery.model.TableCreator;
+import io.delivery.model.*;
 import io.delivery.model.impl.TableCreatorImpl;
+import io.delivery.model.impl.TableDeletedImpl;
+import io.delivery.model.impl.TableInsertorImpl;
+import io.delivery.model.impl.TableUpdatedImpl;
 import io.delivery.service.CreateTable;
+import io.delivery.service.DeleteTable;
+import io.delivery.service.InsertTable;
+import io.delivery.service.UpdateTable;
 import io.delivery.service.impl.CreateTableImpl;
+import io.delivery.service.impl.DeleteTableImpl;
+import io.delivery.service.impl.InsertTableImpl;
+import io.delivery.service.impl.UpdateTableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +52,35 @@ public class AppConfig {
     @Bean
     public CreateTable createTable(){
         return new CreateTableImpl("asd");
+    }
+
+    @Bean
+    public TableInsertor tableInsertor(){
+        return new TableInsertorImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public InsertTable insertTable(){
+        return new InsertTableImpl("abybe");
+    }
+
+    @Bean
+    public TableUpdated tableUpdated(){
+        return new TableUpdatedImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public UpdateTable updateTable(){
+        return new UpdateTableImpl("asdr");
+    }
+
+    @Bean
+    public TableDeleted tableDeleted(){
+        return new TableDeletedImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public DeleteTable deleteTable(){ return new DeleteTableImpl("asde");
     }
 
     @Bean
