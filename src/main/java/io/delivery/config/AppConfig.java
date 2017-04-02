@@ -1,8 +1,7 @@
 package io.delivery.config;
 
-import io.delivery.model.TableCreator;
-import io.delivery.service.CreateTable;
-import io.delivery.service.impl.CreateTableImpl;
+import io.delivery.service.*;
+import io.delivery.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +24,7 @@ public class AppConfig {
         dataSource.setUsername(environment.getProperty("jdbc.postgresql.username"));
         dataSource.setPassword(environment.getProperty("jdbc.postgresql.password"));
         return dataSource;
-    }
+}
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
@@ -35,12 +34,32 @@ public class AppConfig {
     }
 
     @Bean
-    public TableCreator tableCreator(){
-        return new TableCreator(jdbcTemplate());
+    public CreateTable createTable(){
+        return new CreateTableImpl(jdbcTemplate());
     }
 
     @Bean
-    public CreateTable createTable(){
-        return new CreateTableImpl("asd");
+    public InsertUser insertUser() {
+        return new InsertUserImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public UpdateTable updateTable(){
+        return new UpdateTableImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public SelectTable selectTable() {
+        return new SelectTableImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public PreparedSQL preparedSQL() {
+        return new PreparedSQLImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public DumpDB dumpDB() {
+        return new DumpDbImpl();
     }
 }
