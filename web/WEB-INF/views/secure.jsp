@@ -4,8 +4,6 @@
     <title>Title</title>
 </head>
 <body>
-<p>Hello</p>
-<p>${info}</p>
-<p>${answ}</p>
+<p>It's very secure path!</p>
 </body>
 </html>
