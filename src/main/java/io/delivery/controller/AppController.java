@@ -3,6 +3,8 @@ package io.delivery.controller;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
+import io.delivery.service.QueryCreator;
+import io.delivery.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,10 @@ public class AppController {
     @Autowired
     private Message message;
     @Autowired
-    private TableCreator tableCreator;
+    private QueryCreator queryCreator;
+    @Autowired
+    private PreparedStatementQuery preparedStatementQuery;
+
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -26,7 +31,36 @@ public class AppController {
 
     @RequestMapping("/create")
     public String create(Model model){
-        model.addAttribute("status", tableCreator.createCompany());
+        model.addAttribute("status", queryCreator.createQuery(new CreateTableImpl(),"Table create"));
         return "create";
+    }
+    @RequestMapping("/delete")
+    public String delete(Model model){
+        model.addAttribute("status", queryCreator.createQuery(new DeleteTableImpl(),"Del table"));
+        return "delete";
+    }
+
+    @RequestMapping("/ins")
+    public String ins(Model model){
+        model.addAttribute("status", queryCreator.createQuery(new InsertQueryImpl(),"Insert into table"));
+        return "ins";
+    }
+
+    @RequestMapping("/update")
+    public String update(Model model){
+        model.addAttribute("status", queryCreator.createQuery(new UpdateQueryImpl(),"Update table"));
+        return "update";
+    }
+
+    @RequestMapping("/del")
+    public String del(Model model){
+        model.addAttribute("status", queryCreator.createQuery(new DeleteQueryImpl(),"Delete from table"));
+        return "del";
+    }
+
+    @RequestMapping("/upd")
+    public String upd(Model model){
+        model.addAttribute("status", preparedStatementQuery.createQuety());
+        return "upd";
     }
 }

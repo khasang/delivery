@@ -1,28 +1,25 @@
 package io.delivery.service.impl;
 
-import io.delivery.service.CreateTable;
+import io.delivery.service.SetQuery;
 
-public class CreateTableImpl implements CreateTable {
-    private String query;
+public class CreateTableImpl implements SetQuery {
 
-    public CreateTableImpl(String query) {
-        this.query = query;
-    }
-
-    public CreateTableImpl() {
-    }
-
-    public String getQuery() {
-
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
+    @Override
+    public String getPreQuery() {
+        return "DROP TABLE IF EXISTS companies";
     }
 
     @Override
-    public String createCompany() {
+    public String getQuery() {
+        String query = ("CREATE TABLE companies (\n" +
+                "    code        char(5) CONSTRAINT firstkey PRIMARY KEY,\n" +
+                "    title       varchar(40) NOT NULL,\n" +
+                "    did         integer NOT NULL,\n" +
+                "    date_prod   date,\n" +
+                "    kind        varchar(10),\n" +
+                "    len         interval hour to minute\n" +
+                ");");
         return query;
     }
 }
+
