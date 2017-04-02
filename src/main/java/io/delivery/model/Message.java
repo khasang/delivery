@@ -6,19 +6,22 @@ import org.springframework.stereotype.Component;
 public class Message {
     private String infoMessage;
 
-    public Message(String infoMessage) { this.infoMessage = infoMessage;}
-
-    public Message() {
-
+    public Message(String infoMessage) {
+        this.infoMessage = infoMessage;
     }
 
-    public String getInfoMessage() {return infoMessage; }
+    public Message() {
+    }
+
+    public String getInfoMessage() {
+        return infoMessage;
+    }
 
     public void setInfoMessage(String infoMessage) {
         this.infoMessage = infoMessage;
     }
 
-    public void sqlTask(){
+    public void sqlTask() {
 
     }
 }
