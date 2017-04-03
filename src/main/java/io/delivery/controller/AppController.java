@@ -2,7 +2,7 @@ package io.delivery.controller;
 
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
-import io.delivery.model.TableCreator;
+import io.delivery.service.DBOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ public class AppController {
     @Autowired
     private Message message;
     @Autowired
-    private TableCreator tableCreator;
+    private DBOperations dbOperations;
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -23,10 +23,29 @@ public class AppController {
         model.addAttribute("answ", answer.getInfoAnswer());
         return "hello";
     }
-
     @RequestMapping("/create")
     public String create(Model model){
-        model.addAttribute("status", tableCreator.createCompany());
+        model.addAttribute("status", dbOperations.createTable());
         return "create";
+    }
+    @RequestMapping("/delete")
+    public String delete(Model model){
+        model.addAttribute("status", dbOperations.deleteFromTable());
+        return "delete";
+    }
+    @RequestMapping("/insert")
+    public String insert(Model model){
+        model.addAttribute("status", dbOperations.insertToTable());
+        return "insert";
+    }
+    @RequestMapping("/update")
+    public String update(Model model){
+        model.addAttribute("count", dbOperations.updateTable());
+        return "update";
+    }
+    @RequestMapping("/backup")
+    public String backup(Model model){
+        model.addAttribute("status", dbOperations.backUp());
+        return "backup";
     }
 }

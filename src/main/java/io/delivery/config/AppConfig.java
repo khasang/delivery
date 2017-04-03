@@ -1,8 +1,6 @@
 package io.delivery.config;
 
-import io.delivery.model.TableCreator;
-import io.delivery.service.CreateTable;
-import io.delivery.service.impl.CreateTableImpl;
+import io.delivery.service.impl.DBOperationsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,12 +33,11 @@ public class AppConfig {
     }
 
     @Bean
-    public TableCreator tableCreator(){
-        return new TableCreator(jdbcTemplate());
-    }
-
-    @Bean
-    public CreateTable createTable(){
-        return new CreateTableImpl("asd");
+    public DBOperationsImpl dbOperations(){
+        return new DBOperationsImpl(jdbcTemplate(),
+                environment.getProperty("SQL.update"),
+                environment.getProperty("SQL.insert"),
+                environment.getProperty("SQL.delete"),
+                environment.getProperty("jdbc.postgresql.pgdump"));
     }
 }
