@@ -11,4 +11,5 @@ public interface TableDAO {
     String updateDataInTable();
     String selectDataFromTable();
     String deleteExistingTable();
+    String backupTable();
 }

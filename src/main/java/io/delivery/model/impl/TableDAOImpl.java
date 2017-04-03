@@ -4,6 +4,8 @@ import io.delivery.model.TableDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 
+import java.io.IOException;
+
 public class TableDAOImpl implements TableDAO{
     JdbcTemplate jdbcTemplate;
 
@@ -12,7 +14,6 @@ public class TableDAOImpl implements TableDAO{
     public TableDAOImpl(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
-
 
     @Override
     public String createCompany() {
@@ -63,4 +64,27 @@ public class TableDAOImpl implements TableDAO{
         jdbcTemplate.execute(query);
         return "companies DELETED";
     }
+
+    @Override
+    public String backupTable() {
+        String answer = null;
+        Runtime runtime = Runtime.getRuntime();
+        String cmd1 = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump.exe\" -U root -w delivery > C:\\delivery.sql";
+        String[] cmd = {
+                "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump.exe\"",
+                "--host", "localhost",
+                "--port", "5432",
+                "--username", "root",
+                "--password", "root",
+                "--file", "D:\\delivery.sql"
+        };
+        try{
+            runtime.exec(cmd1);
+            answer = "Backup dumped!";
+        }catch (IOException e){
+            answer = "ERROR! Backup not dumped!";
+        }
+        return answer;
+    }
+
 }

@@ -12,7 +12,7 @@ public class AppController {
     private Answer answer;
     @Autowired
     private Message message;
-   @Autowired
+    @Autowired
     private TableDAO tableDAO;
 
     @RequestMapping("/")
@@ -52,4 +52,9 @@ public class AppController {
         return "select";
     }
 
+    @RequestMapping("/backup")
+    public String pgDump(Model model){
+        model.addAttribute("backup", tableDAO.backupTable());
+        return "backup";
+    }
 }

@@ -35,6 +35,6 @@ public class AppConfig {
         return jdbcTemplate;
     }
 
-        @Bean
+    @Bean
     public TableDAO tableDAOImpl(){ return new TableDAOImpl(jdbcTemplate()); }
 }
