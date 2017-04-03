@@ -1,9 +1,12 @@
 package io.delivery.config;
 
+import io.delivery.model.Company;
 import io.delivery.service.CreateTable;
 import io.delivery.service.InsertItem;
+import io.delivery.service.Prepared;
 import io.delivery.service.impl.CreateTableImpl;
 import io.delivery.service.impl.InsertItemImpl;
+import io.delivery.service.impl.PreparedImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +44,21 @@ public class AppConfig {
     }
 
     @Bean
+    public Company company() {
+        Company company = new Company();
+        company.setId(1);
+        company.setName("Yandex");
+        company.setSize(1000);
+        return company;
+    }
+
+    @Bean
     public InsertItem insertItem() {
-        return new InsertItemImpl(jdbcTemplate());
+        return new InsertItemImpl(jdbcTemplate(), company());
+    }
+
+    @Bean
+    public Prepared prepared() {
+        return new PreparedImpl(jdbcTemplate(), company());
     }
 }

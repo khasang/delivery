@@ -4,8 +4,8 @@ import io.delivery.model.Company;
 
 public interface InsertItem {
     /**
-     * Inserts a row into table
-     * @return  state result
+     * Inserts a row into the table
+     * @return  state result of inserting
      */
-    String createItem(Company company);
+    String insertItem();
 }

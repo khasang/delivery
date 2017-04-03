@@ -11,33 +11,24 @@ import java.sql.SQLException;
 
 public class InsertItemImpl implements InsertItem {
     private JdbcTemplate jdbcTemplate;
+    private Company company;
     private String query;
 
-    public InsertItemImpl(JdbcTemplate jdbcTemplate) {
+    public InsertItemImpl(JdbcTemplate jdbcTemplate, Company company) {
         this.jdbcTemplate = jdbcTemplate;
-    }
-
-    public InsertItemImpl() {
+        this.company = company;
     }
 
     public void setQuery(String query) {
         this.query = query;
     }
 
+
     @Override
-    public String createItem(Company company) {
-//        query = ("INSERT INTO companies " +
-//                "VALUES (1,'Yandex',1500);");
-        query = "INSERT INTO companies VALUES (?,?,?)";
-        jdbcTemplate.execute(query, new PreparedStatementCallback<Integer>() {
-            @Override
-            public Integer doInPreparedStatement(PreparedStatement preparedStatement) throws SQLException, DataAccessException {
-                preparedStatement.setInt(1, company.getId());
-                preparedStatement.setString(2, company.getName());
-                preparedStatement.setInt(3, company.getSize());
-                return preparedStatement.executeUpdate();
-            }
-        });
-        return "Item created";
+    public String insertItem() {
+        query = ("INSERT INTO companies " +
+                "VALUES (1,'Google',2000);");
+        jdbcTemplate.execute(query);
+        return "Insert done";
     }
 }
