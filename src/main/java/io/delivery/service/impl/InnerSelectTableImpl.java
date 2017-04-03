@@ -1,15 +1,15 @@
 package io.delivery.service.impl;
 
 
-import io.delivery.service.DeleteTable;
+import io.delivery.service.InnerSelectTable;
 
-public class DeleteTableImpl implements DeleteTable{
+public class InnerSelectTableImpl implements InnerSelectTable{
     private String query;
 
-    public DeleteTableImpl() {
+    public InnerSelectTableImpl() {
     }
 
-    public DeleteTableImpl(String query) {
+    public InnerSelectTableImpl(String query) {
         this.query = query;
     }
 
@@ -22,7 +22,7 @@ public class DeleteTableImpl implements DeleteTable{
     }
 
     @Override
-    public String deleteCompany() {
+    public String innerCompany() {
         return query;
     }
 }

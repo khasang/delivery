@@ -1,18 +1,9 @@
 package io.delivery.config;
 
 import io.delivery.model.*;
-import io.delivery.model.impl.TableCreatorImpl;
-import io.delivery.model.impl.TableDeletedImpl;
-import io.delivery.model.impl.TableInsertorImpl;
-import io.delivery.model.impl.TableUpdatedImpl;
-import io.delivery.service.CreateTable;
-import io.delivery.service.DeleteTable;
-import io.delivery.service.InsertTable;
-import io.delivery.service.UpdateTable;
-import io.delivery.service.impl.CreateTableImpl;
-import io.delivery.service.impl.DeleteTableImpl;
-import io.delivery.service.impl.InsertTableImpl;
-import io.delivery.service.impl.UpdateTableImpl;
+import io.delivery.model.impl.*;
+import io.delivery.service.*;
+import io.delivery.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -80,7 +71,18 @@ public class AppConfig {
     }
 
     @Bean
-    public DeleteTable deleteTable(){ return new DeleteTableImpl("asde");
+    public DeleteTable deleteTable(){
+        return new DeleteTableImpl("abybe");
+    }
+
+    @Bean
+    public TableInnerSelecter tableInnerSelecter(){
+        return new TableInnerSelecterImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public InnerSelectTable innerSelectTable(){
+        return new InnerSelectTableImpl ("abybe3");
     }
 
     @Bean

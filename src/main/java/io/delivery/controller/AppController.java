@@ -21,6 +21,8 @@ public class AppController {
     private TableUpdated tableUpdated;
     @Autowired
     private TableDeleted tableDeleted;
+    @Autowired
+    private TableInnerSelecter tableInnerSelecter;
 
     // localhost:8080
     @RequestMapping("/")
@@ -48,10 +50,16 @@ public class AppController {
         return "update";
     }
 
-    @RequestMapping("/update")
+    @RequestMapping("/delete")
     public String delete(Model model){
         model.addAttribute("status", tableDeleted.deleteCompany());
         return "delete";
+    }
+
+    @RequestMapping("/innerSelect")
+    public String innerSelect(Model model){
+        model.addAttribute("status", tableInnerSelecter.innerCompany());
+        return "innerSelect";
     }
 
     @RequestMapping("/secure")

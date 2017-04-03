@@ -25,6 +25,7 @@ public class TableCreatorImpl implements TableCreator{
                 ");");
         jdbcTemplate.execute(preQuery);
         jdbcTemplate.execute(query);
+
         return "table created";
     }
 }

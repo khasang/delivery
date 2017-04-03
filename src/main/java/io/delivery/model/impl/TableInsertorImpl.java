@@ -17,7 +17,6 @@ public class TableInsertorImpl implements TableInsertor{
     public String insertCompany(){
         String preQuery = ("INSERT INTO companies (code, title, did) VALUES (1, 'spider-man', 1)");
         String query = ("INSERT INTO companies (code, title, did) VALUES (2, 'Vasya', 2)");
-
         jdbcTemplate.execute(preQuery);
         jdbcTemplate.execute(query);
 
