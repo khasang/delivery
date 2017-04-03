@@ -1,8 +1,6 @@
 package io.delivery.controller;
 
-import io.delivery.model.Answer;
-import io.delivery.model.Message;
-import io.delivery.model.TableCreator;
+import io.delivery.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +12,8 @@ public class AppController {
     private Answer answer;
     @Autowired
     private Message message;
-    @Autowired
-    private TableCreator tableCreator;
+   @Autowired
+    private TableDAO tableDAO;
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -26,7 +24,32 @@ public class AppController {
 
     @RequestMapping("/create")
     public String create(Model model){
-        model.addAttribute("status", tableCreator.createCompany());
+        model.addAttribute("status", tableDAO.createCompany());
         return "create";
     }
+
+    @RequestMapping("/insert")
+    public String insert(Model model){
+        model.addAttribute("insert", tableDAO.insertNewDataIntoTable());
+        return "insert";
+    }
+
+    @RequestMapping("/update")
+    public String update(Model model){
+        model.addAttribute("update", tableDAO.updateDataInTable());
+        return "update";
+    }
+
+    @RequestMapping("/delete")
+    public String delete(Model model){
+        model.addAttribute("delete", tableDAO.deleteExistingTable());
+        return "delete";
+    }
+
+    @RequestMapping("/select")
+    public String select(Model model){
+        model.addAttribute("select", tableDAO.selectDataFromTable());
+        return "select";
+    }
+
 }

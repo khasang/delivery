@@ -1,6 +1,7 @@
 package io.delivery.config;
 
-import io.delivery.model.TableCreator;
+import io.delivery.model.*;
+import io.delivery.model.impl.TableDAOImpl;
 import io.delivery.service.CreateTable;
 import io.delivery.service.impl.CreateTableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +35,6 @@ public class AppConfig {
         return jdbcTemplate;
     }
 
-    @Bean
-    public TableCreator tableCreator(){
-        return new TableCreator(jdbcTemplate());
-    }
-
-    @Bean
-    public CreateTable createTable(){
-        return new CreateTableImpl("asd");
-    }
+        @Bean
+    public TableDAO tableDAOImpl(){ return new TableDAOImpl(jdbcTemplate()); }
 }
