@@ -12,16 +12,8 @@ public class AppController {
     private Answer answer;
     @Autowired
     private Message message;
-    @Autowired
-    private TableCreator tableCreator;
-    @Autowired
-    private TableInsertor tableInsertor;
-    @Autowired
-    private TableUpdater tableUpdater;
-    @Autowired
-    private TableDeletor tableDeletor;
-    @Autowired
-    private TableSelector tableSelector;
+   @Autowired
+    private TableDAO tableDAO;
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -32,31 +24,31 @@ public class AppController {
 
     @RequestMapping("/create")
     public String create(Model model){
-        model.addAttribute("status", tableCreator.createCompany());
+        model.addAttribute("status", tableDAO.createCompany());
         return "create";
     }
 
     @RequestMapping("/insert")
     public String insert(Model model){
-        model.addAttribute("insert", tableInsertor.insertNewDataIntoTable());
+        model.addAttribute("insert", tableDAO.insertNewDataIntoTable());
         return "insert";
     }
 
     @RequestMapping("/update")
     public String update(Model model){
-        model.addAttribute("update", tableUpdater.updateDataInTable());
+        model.addAttribute("update", tableDAO.updateDataInTable());
         return "update";
     }
 
     @RequestMapping("/delete")
     public String delete(Model model){
-        model.addAttribute("delete", tableDeletor.deleteExistingTable());
+        model.addAttribute("delete", tableDAO.deleteExistingTable());
         return "delete";
     }
 
     @RequestMapping("/select")
     public String select(Model model){
-        model.addAttribute("select", tableSelector.selectDataFromTable());
+        model.addAttribute("select", tableDAO.selectDataFromTable());
         return "select";
     }
 
