@@ -4,6 +4,7 @@ import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.service.CreateTable;
 import io.delivery.service.InsertItem;
+import io.delivery.service.PgDump;
 import io.delivery.service.Prepared;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class AppController {
     private InsertItem insertItem;
     @Autowired
     private Prepared prepared;
+    @Autowired
+    private PgDump pgDump;
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -46,6 +49,12 @@ public class AppController {
     public String update(Model model) {
         model.addAttribute("status", prepared.update());
         return "update";
+    }
+
+    @RequestMapping("/dump")
+    public String dump(Model model) {
+        model.addAttribute("status", pgDump.dump());
+        return "dump";
     }
 }
 
