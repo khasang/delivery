@@ -18,9 +18,6 @@ public class AppController {
     private Message message;
     @Autowired
     private QueryCreator queryCreator;
-    @Autowired
-    private PreparedStatementQuery preparedStatementQuery;
-
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -31,13 +28,9 @@ public class AppController {
 
     @RequestMapping("/create")
     public String create(Model model){
+        model.addAttribute("delete", queryCreator.createQuery(new DeleteTableImpl(), "Delete table"));
         model.addAttribute("status", queryCreator.createQuery(new CreateTableImpl(),"Table create"));
         return "create";
-    }
-    @RequestMapping("/delete")
-    public String delete(Model model){
-        model.addAttribute("status", queryCreator.createQuery(new DeleteTableImpl(),"Del table"));
-        return "delete";
     }
 
     @RequestMapping("/ins")
@@ -60,7 +53,7 @@ public class AppController {
 
     @RequestMapping("/upd")
     public String upd(Model model){
-        model.addAttribute("status", preparedStatementQuery.createQuety());
+        model.addAttribute("status", queryCreator.updateQuery("PrepareStatment update"));
         return "upd";
     }
 }

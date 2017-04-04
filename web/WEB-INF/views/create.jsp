@@ -4,6 +4,7 @@
     <title>Title</title>
 </head>
 <body>
+${delete}
 ${status}
 </body>
 </html>

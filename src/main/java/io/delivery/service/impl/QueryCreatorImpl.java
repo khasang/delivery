@@ -4,19 +4,16 @@ import io.delivery.service.QueryCreator;
 import io.delivery.service.SetQuery;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.sql.PreparedStatement;
+
 public class QueryCreatorImpl implements QueryCreator {
 
     private JdbcTemplate jdbcTemplate;
-    private String preQuery;
     private String query;
 
 
     public QueryCreatorImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-    }
-
-    public void setPreQuery(String query) {
-        this.preQuery = query;
     }
 
     public void setQuery(String query) {
@@ -28,14 +25,22 @@ public class QueryCreatorImpl implements QueryCreator {
 
     @Override
     public String createQuery(SetQuery setQuery, String status) {
-        setPreQuery(setQuery.getPreQuery());
         setQuery(setQuery.getQuery());
-        if (preQuery != null) {
-            jdbcTemplate.execute(preQuery);
-        }
         if (query != null) {
             jdbcTemplate.execute(query);
         }
+        return status;
+    }
+
+    public String updateQuery(String status) {
+        jdbcTemplate.update(connection ->{
+            setQuery("UPDATE comanies Set name = ? WHERE id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, "Hello World");
+            preparedStatement.setInt(2,2);
+        return preparedStatement;
+        });
+
         return status;
     }
 }
