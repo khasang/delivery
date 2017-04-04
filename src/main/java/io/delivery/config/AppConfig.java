@@ -2,6 +2,7 @@ package io.delivery.config;
 
 import io.delivery.model.Company;
 import io.delivery.model.TableCreator;
+import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.CreateTable;
 import io.delivery.service.DAO;
 import io.delivery.service.impl.CompanyDAO;
