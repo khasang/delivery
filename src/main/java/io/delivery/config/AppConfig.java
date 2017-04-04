@@ -62,4 +62,9 @@ public class AppConfig {
     public DumpDB dumpDB() {
         return new DumpDbImpl();
     }
+
+    @Bean
+    public Test test() {
+        return new TestImpl("test");
+    }
 }

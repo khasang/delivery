@@ -11,7 +11,7 @@ public class DumpDbImpl implements DumpDB {
     public String execute() {
         String postgre = System.getenv("POSTGRESQL");
         System.out.println(postgre);
-        String command = "cmd.exe /C \""+postgre+"\\pg_dump.exe\" -f D:\\dump.sql -F p -U root delivery";
+        String command = "\""+postgre+"\\pg_dump.exe\" -f D:\\dump.sql -F p -U root delivery";
         Process p;
         try {
             p = Runtime.getRuntime().exec(command);

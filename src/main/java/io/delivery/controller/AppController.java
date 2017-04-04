@@ -27,6 +27,8 @@ public class AppController {
     private PreparedSQL preparedSQL;
     @Autowired
     private DumpDB dumpDB;
+    @Autowired
+    private Test test;
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -69,5 +71,16 @@ public class AppController {
     public String dumpDB(Model model) {
         model.addAttribute("status", dumpDB.execute());
         return "dump";
+    }
+
+    @RequestMapping("/test")
+    public String test(Model model) {
+        model.addAttribute("status", test.toString());
+        return "test";
+    }
+
+    @RequestMapping("/secure")
+    public String secure() {
+        return "secure";
     }
 }
