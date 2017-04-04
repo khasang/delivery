@@ -51,4 +51,9 @@ public class AppController {
         model.addAttribute("delete", tableDeleter.deleteValue());
         return "delete";
     }
+
+    @RequestMapping("/secure")
+    public String secure() {
+        return "/secure";
+    }
 }

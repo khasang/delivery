@@ -11,6 +11,7 @@
 
     <properties>
         <spring.version>4.3.7.RELEASE</spring.version>
+        <spring.sequrity.version>4.2.0.RELEASE</spring.sequrity.version>
     </properties>
 
     <dependencies>
@@ -28,6 +29,21 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.sequrity.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.sequrity.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.sequrity.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

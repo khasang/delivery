@@ -1,9 +1,6 @@
 package io.delivery.config;
 
-import io.delivery.model.TableCreator;
-import io.delivery.model.TableDeleter;
-import io.delivery.model.TableInserter;
-import io.delivery.model.TableUpdater;
+import io.delivery.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,6 +50,11 @@ public class AppConfig {
     @Bean
     public TableDeleter tableDeleter(){
         return new TableDeleter(jdbcTemplate());
+    }
+
+    @Bean
+    public Answer answer() {
+        return new Answer();
     }
 
 //    @Bean
