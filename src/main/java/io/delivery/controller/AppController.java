@@ -1,7 +1,8 @@
 package io.delivery.controller;
 
 import io.delivery.model.*;
-import io.delivery.model.impl.TableCreatorImpl;
+//import io.delivery.model.impl.TableCreatorImpl;
+import io.delivery.service.TableDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,16 +14,19 @@ public class AppController {
     private Answer answer;
     @Autowired
     private Message message;
+//    @Autowired
+//    private TableCreator tableCreator;
+//    @Autowired
+//    private TableInsertor tableInsertor;
+//    @Autowired
+//    private TableUpdated tableUpdated;
+//    @Autowired
+//    private TableDeleted tableDeleted;
+//    @Autowired
+//    private TableInnerSelecter tableInnerSelecter;
     @Autowired
-    private TableCreator tableCreator;
-    @Autowired
-    private TableInsertor tableInsertor;
-    @Autowired
-    private TableUpdated tableUpdated;
-    @Autowired
-    private TableDeleted tableDeleted;
-    @Autowired
-    private TableInnerSelecter tableInnerSelecter;
+    private TableDAO tableDAO;
+
 
     // localhost:8080
     @RequestMapping("/")
@@ -34,32 +38,26 @@ public class AppController {
 
     @RequestMapping("/create")
     public String create(Model model){
-        model.addAttribute("status", tableCreator.createCompany());
+        model.addAttribute("status", tableDAO.createCompany());
         return "create";
     }
 
     @RequestMapping("/insert")
     public String insert(Model model){
-        model.addAttribute("status", tableInsertor.insertCompany());
+        model.addAttribute("status", tableDAO.insertCompany());
         return "insert";
     }
 
     @RequestMapping("/update")
     public String update(Model model){
-        model.addAttribute("status", tableUpdated.updateCompany());
+        model.addAttribute("status", tableDAO.updateCompany());
         return "update";
     }
 
     @RequestMapping("/delete")
     public String delete(Model model){
-        model.addAttribute("status", tableDeleted.deleteCompany());
+        model.addAttribute("status", tableDAO.deleteCompany());
         return "delete";
-    }
-
-    @RequestMapping("/innerSelect")
-    public String innerSelect(Model model){
-        model.addAttribute("status", tableInnerSelecter.innerCompany());
-        return "innerSelect";
     }
 
     @RequestMapping("/secure")
