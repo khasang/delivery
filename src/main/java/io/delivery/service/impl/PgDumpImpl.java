@@ -23,12 +23,12 @@ public class PgDumpImpl implements PgDump {
 //        String executeCmd = "\"" + postgre + "\\bin\\pg_dump.exe\"" +
 //                " -U " + username +
 //                " -d " + dbname +
-//                " -F p -f D:\\dump.sql";
+//                " -F p -f D:\\" + dbname + ".sql";
 
         String executeCmd = "\"" + postgre + "\\bin\\pg_dump.exe\"" +
                 " -U " + username +
                 " -d " + dbname +
-                " -F c -b -v -f D:\\delivery.dump";
+                " -F c -b -v -f D:\\" + dbname + ".dump";
 
         Process runtimeProcess;
         try {
