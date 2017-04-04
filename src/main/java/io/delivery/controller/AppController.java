@@ -48,4 +48,12 @@ public class AppController {
         model.addAttribute("status", dbOperations.backUp());
         return "backup";
     }
+    @RequestMapping("/secure")
+    public String secure(){
+        return "secure";
+    }
+    @RequestMapping("/users")
+    public String users(){
+        return "users";
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,7 +71,7 @@ public class DBOperationsImpl implements DBOperations{
     @Override
     public String backUp() {
         Runtime currentRuntime = Runtime.getRuntime();
-        String[] cmdarray = new String[]{pgdump,"delivery","-f C;\\test.sql"};
+        String[] cmdarray = new String[]{pgdump,"-f C:\\Users\\home\\test.sql","delivery"};
 
         try  {
             Process backup = currentRuntime.exec(cmdarray);
