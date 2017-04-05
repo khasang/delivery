@@ -1,12 +1,14 @@
 package io.delivery.model.impl;
 
 import io.delivery.model.TableDAO;
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 
 import java.io.IOException;
 
 public class TableDAOImpl implements TableDAO{
+    private static final Logger LOG = Logger.getLogger(TableDAOImpl.class);
     JdbcTemplate jdbcTemplate;
 
     public TableDAOImpl(){}
@@ -69,20 +71,25 @@ public class TableDAOImpl implements TableDAO{
     public String backupTable() {
         String answer = null;
         Runtime runtime = Runtime.getRuntime();
-        String cmd1 = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump.exe\" -U root -w delivery > C:\\delivery.sql";
-        String[] cmd = {
-                "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump.exe\"",
-                "--host", "localhost",
-                "--port", "5432",
-                "--username", "root",
-                "--password", "root",
-                "--file", "D:\\delivery.sql"
-        };
+        Process process;
+        String cmd1 = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump.exe\" " +
+                "-U root -w delivery > C:\\Users\\fixer\\PGDump\\delivery.backup";
+//        String[] cmd = {
+//                "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump.exe\"",
+//                "--host", "localhost",
+//                "--port", "5432",
+//                "--username", "root",
+//                "--password", "root",
+//                "--file", "C:\\Users\\fixer\\PGDump\\delivery.backup"
+//        };
         try{
-            runtime.exec(cmd1);
+            process = runtime.exec(cmd1);
+            process.waitFor();
+            LOG.info("Backup dumped with request: " + cmd1);
             answer = "Backup dumped!";
-        }catch (IOException e){
+        }catch (IOException | InterruptedException e){
             answer = "ERROR! Backup not dumped!";
+            LOG.error("Problem with backupTable method with request: " + cmd1 + " " + e.getMessage());
         }
         return answer;
     }
