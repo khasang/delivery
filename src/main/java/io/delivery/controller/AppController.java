@@ -57,4 +57,19 @@ public class AppController {
         model.addAttribute("backup", tableDAO.backupTable());
         return "backup";
     }
+
+    @RequestMapping("/secure")
+    public String secure(){
+        return "secure";
+    }
+
+    @RequestMapping("/vasya")
+    public String secureVasya(){
+        return "secure";
+    }
+
+    @RequestMapping("/valera")
+    public String secureValera(){
+        return "valera";
+    }
 }
