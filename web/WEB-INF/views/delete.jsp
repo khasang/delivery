@@ -12,5 +12,6 @@
 </head>
 <body>
 ${status}
+<p>It's secure delete. Login "guest3"</p>
 </body>
 </html>

@@ -12,5 +12,6 @@
 </head>
 <body>
 ${status}
+<p>It's secure update. Login "guest2"</p>
 </body>
 </html>

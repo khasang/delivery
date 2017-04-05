@@ -12,5 +12,6 @@
 </head>
 <body>
 ${status}
+<p>It's secure insert. Login "guest"</p>
 </body>
 </html>

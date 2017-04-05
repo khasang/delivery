@@ -12,5 +12,6 @@
 </head>
 <body>
 ${status}
+<p>It's secure create. Login "user"</p>
 </body>
 </html>
