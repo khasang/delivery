@@ -55,4 +55,12 @@ public class TableDAOImpl implements TableDAO {
 
         return "table deleted";
     }
+
+    @Override
+    public String userCompany() {
+//        String query = ("DELETE FROM companies WHERE did = 2");
+//        jdbcTemplate.execute(query);
+
+        return "Welcome, user !";
+    }
 }

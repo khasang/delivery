@@ -18,16 +18,6 @@ public class AppController {
     private Answer answer;
     @Autowired
     private Message message;
-    //    @Autowired
-//    private TableCreator tableCreator;
-//    @Autowired
-//    private TableInsertor tableInsertor;
-//    @Autowired
-//    private TableUpdated tableUpdated;
-//    @Autowired
-//    private TableDeleted tableDeleted;
-//    @Autowired
-//    private TableInnerSelecter tableInnerSelecter;
     @Autowired
     private TableDAO tableDAO;
 
@@ -76,6 +66,12 @@ public class AppController {
         modelAndView.addObject("crypt", new BCryptPasswordEncoder().encode(password));
         return modelAndView;
 
+    }
+
+    @RequestMapping("/user")
+    public String user(Model model) {
+        model.addAttribute("status", tableDAO.userCompany());
+        return "user";
     }
 
 

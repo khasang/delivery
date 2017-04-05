@@ -4,7 +4,6 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Password for user:</h1>
-<p>${crypt}</p>
+<p>It's free path! Welcome user !</p>
 </body>
 </html>

@@ -21,4 +21,10 @@ public interface TableDAO {
      * @return status table deleted
      * */
     String deleteCompany();
+
+    /**
+     * @return status user
+     * */
+    String userCompany();
+
 }
