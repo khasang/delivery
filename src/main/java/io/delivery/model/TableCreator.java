@@ -1,9 +1,12 @@
 package io.delivery.model;
 
+import org.apache.log4j.Logger;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class TableCreator {
     private JdbcTemplate jdbcTemplate;
+    private final static Logger LOG = Logger.getLogger(TableCreator.class);
 
     public TableCreator() {
     }
@@ -29,8 +32,13 @@ public class TableCreator {
                 "    company     varchar(40) NOT NULL\n" +
                 ");");
 
-        jdbcTemplate.execute(preQuery);
-        jdbcTemplate.execute(query);
+        try {
+            jdbcTemplate.execute(preQuery);
+            jdbcTemplate.execute(query);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            LOG.error("ERROR: " + e.getMessage());
+        }
         return "table created";
     }
 }
