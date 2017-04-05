@@ -3,8 +3,11 @@ package io.delivery.service.impl;
 import io.delivery.model.Answer;
 import io.delivery.service.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
 
 public class CreateTableImpl implements CreateTable {
+    Logger LOG = Logger.getLogger(CreateTableImpl.class);
+
     @Autowired
     private Answer answer;
 
@@ -32,6 +35,8 @@ public class CreateTableImpl implements CreateTable {
 
     @Override
     public String createCompany() {
+        LOG.debug("our query: " + query);
+
         return query;
     }
 }

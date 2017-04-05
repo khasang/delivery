@@ -4,9 +4,13 @@ import io.delivery.model.*;
 //import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.TableDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AppController {
@@ -14,7 +18,7 @@ public class AppController {
     private Answer answer;
     @Autowired
     private Message message;
-//    @Autowired
+    //    @Autowired
 //    private TableCreator tableCreator;
 //    @Autowired
 //    private TableInsertor tableInsertor;
@@ -37,32 +41,41 @@ public class AppController {
     }
 
     @RequestMapping("/create")
-    public String create(Model model){
+    public String create(Model model) {
         model.addAttribute("status", tableDAO.createCompany());
         return "create";
     }
 
     @RequestMapping("/insert")
-    public String insert(Model model){
+    public String insert(Model model) {
         model.addAttribute("status", tableDAO.insertCompany());
         return "insert";
     }
 
     @RequestMapping("/update")
-    public String update(Model model){
+    public String update(Model model) {
         model.addAttribute("status", tableDAO.updateCompany());
         return "update";
     }
 
     @RequestMapping("/delete")
-    public String delete(Model model){
+    public String delete(Model model) {
         model.addAttribute("status", tableDAO.deleteCompany());
         return "delete";
     }
 
     @RequestMapping("/secure")
-    public String secure(){
+    public String secure() {
         return "/secure";
+    }
+
+    @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
+    public ModelAndView passwordEncode(@PathVariable("password") String password) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("password");
+        modelAndView.addObject("crypt", new BCryptPasswordEncoder().encode(password));
+        return modelAndView;
+
     }
 
 
