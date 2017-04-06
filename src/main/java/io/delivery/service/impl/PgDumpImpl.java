@@ -1,9 +1,11 @@
 package io.delivery.service.impl;
 
 import io.delivery.service.PgDump;
+import org.apache.log4j.Logger;
 import org.springframework.core.env.Environment;
 
 public class PgDumpImpl implements PgDump {
+    private static final Logger LOGGER = Logger.getLogger(PgDumpImpl.class);
     private Environment environment;
 
     public PgDumpImpl() {
@@ -30,6 +32,7 @@ public class PgDumpImpl implements PgDump {
                 " -d " + dbname +
                 " -F c -b -v -f D:\\" + dbname + ".dump";
 
+
         Process runtimeProcess;
         try {
             runtimeProcess = Runtime.getRuntime().exec(executeCmd);
@@ -40,6 +43,7 @@ public class PgDumpImpl implements PgDump {
                 System.out.println("Could not create the backup");
             }
         } catch (Exception ex) {
+            LOGGER.error("Something wrong: " + ex);
             ex.printStackTrace();
         }
 

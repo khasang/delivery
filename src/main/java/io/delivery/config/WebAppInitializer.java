@@ -2,6 +2,7 @@ package io.delivery.config;
 
 import io.delivery.config.application.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+// соответствует файлу web.xml
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
