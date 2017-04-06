@@ -1,6 +1,7 @@
 package io.delivery.service.impl;
 
 import io.delivery.service.DBOperations;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 public class DBOperationsImpl implements DBOperations{
 
+//    private static final Logger LOG = Logger.getLogger(DBOperationsImpl.class);
     private JdbcTemplate jdbcTemplate;
     private String queryUpdate;
     private String queryInsert;
@@ -70,11 +72,13 @@ public class DBOperationsImpl implements DBOperations{
 
     @Override
     public String backUp() {
+        Process backup = null;
+//        LOG.info(backup);
         Runtime currentRuntime = Runtime.getRuntime();
-        String[] cmdarray = new String[]{pgdump,"-f C:\\Users\\home\\test.sql","delivery"};
+        String[] cmdarray = new String[]{pgdump,"-f c:\\user\\home\\test.sql","delivery"};
 
         try  {
-            Process backup = currentRuntime.exec(cmdarray);
+            backup = currentRuntime.exec(cmdarray);
         }
         catch (IOException e) {
             System.err.println("Wrong path to pg_dump or file not found");
