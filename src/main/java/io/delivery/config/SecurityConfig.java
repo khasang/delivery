@@ -18,8 +18,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/secure", "/create", "/insert", "/update", "/delete")
+                .antMatchers("/secure")
                 .access("hasRole('ADMIN')")
+                .and().csrf().disable().formLogin().defaultSuccessUrl("/", false);
+
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/create", "/insert", "/update", "/delete")
+                .access("hasRole('SUPERUSER')")
                 .and().csrf().disable().formLogin().defaultSuccessUrl("/", false);
     }
 
