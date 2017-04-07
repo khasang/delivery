@@ -33,7 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().
                 antMatchers("/").permitAll().
                 antMatchers("/secure").access("hasRole('ADMIN')").
-                antMatchers("/users").access("hasRole('USER')").
+                antMatchers("/create").access("hasRole('ADMIN')").
+                antMatchers("/delete").access("hasRole('ADMIN')").
+                antMatchers("/backup").access("hasRole('ADMIN')").
+                antMatchers("/users").access("hasRole('ADMIN') or hasRole('USER')").
+                antMatchers("/insert").access("hasRole('ADMIN') or hasRole('USER')").
+                antMatchers("/update").access("hasRole('ADMIN') or hasRole('USER')").
                 and().csrf().disable().formLogin().defaultSuccessUrl("/", false);
     }
 
