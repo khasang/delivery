@@ -1,6 +1,7 @@
 package io.delivery.controller;
 
 import io.delivery.model.*;
+import io.delivery.model.impl.TableCreatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,9 @@ public class AppController {
     @Autowired
     private Answer answer;
     @Autowired
-    private CreateTable createTable;
+    private Message message;
+    @Autowired
+    private TableCreator tableCreator;
     @Autowired
     private InsertInTable insertInTable;
     @Autowired
@@ -22,13 +25,15 @@ public class AppController {
 
     @RequestMapping("/")
     public String hello(Model model) {
+        answer.setInfoAnswer("something");
+        model.addAttribute("info", message.getInfoMessage());
         model.addAttribute("answ", answer.getInfoAnswer());
         return "hello";
     }
 
     @RequestMapping("/create")
     public String create(Model model){
-        model.addAttribute("status", createTable.createCompany());
+        model.addAttribute("status", tableCreator.createCompany());
         return "create";
     }
 
@@ -40,13 +45,17 @@ public class AppController {
 
     @RequestMapping("/update")
     public String updateTable(Model model){
-        model.addAttribute("status", updateTable.updateRows());
+        model.addAttribute("status", updateTable.updateRows("Oracle", 3));
         return "update";
     }
     @RequestMapping("/delete")
     public String delete(Model model){
         model.addAttribute("status", delete.deleteRows());
         return "delete";
+    }
+    @RequestMapping
+    public String secure(){
+        return "/secure";
     }
 }
 

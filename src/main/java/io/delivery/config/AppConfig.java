@@ -1,10 +1,10 @@
 package io.delivery.config;
 
 
-import io.delivery.model.CreateTable;
-import io.delivery.model.Delete;
-import io.delivery.model.InsertInTable;
-import io.delivery.model.UpdateTable;
+import io.delivery.model.*;
+import io.delivery.model.impl.TableCreatorImpl;
+import io.delivery.service.CreateTable;
+import io.delivery.service.impl.CreateTableimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +12,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
-import java.sql.PreparedStatement;
 
 
 @Configuration
@@ -40,8 +38,13 @@ public class AppConfig {
     }
 
     @Bean
-    public CreateTable createTable() {
-        return new CreateTable(jdbcTemplate());
+    public Answer answer(){
+        return new Answer();
+    }
+
+    @Bean
+    public TableCreator tableCreator() {
+        return new TableCreatorImpl(jdbcTemplate());
     }
 
     @Bean
@@ -57,5 +60,12 @@ public class AppConfig {
     public Delete delete(){
         return new Delete(jdbcTemplate());
     }
+
+    @Bean
+    public CreateTable createTable(){
+        return new CreateTableimpl("dfsdf");
+    }
+
+
 }
 
