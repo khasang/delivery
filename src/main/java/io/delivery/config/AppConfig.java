@@ -1,6 +1,10 @@
 package io.delivery.config;
 
-import io.delivery.service.impl.CompanyDAOImpl;
+import io.delivery.model.Answer;
+import io.delivery.model.TableCreator;
+import io.delivery.model.impl.TableCreatorImpl;
+import io.delivery.service.CreateTable;
+import io.delivery.service.impl.CreateTableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,5 +49,17 @@ public class AppConfig {
     }
 
     @Bean
-    public CompanyDAOImpl dbOperations(){  return new CompanyDAOImpl(jdbcTemplate());  }
+    public TableCreator tableCreator(){
+        return new TableCreatorImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public CreateTable createTable(){
+        return new CreateTableImpl("asd");
+    }
+
+    @Bean
+    public Answer answer(){
+        return new Answer();
+    }
 }
