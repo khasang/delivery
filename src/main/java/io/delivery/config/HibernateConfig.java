@@ -22,12 +22,12 @@ public class HibernateConfig {
     private Environment environment;
 
     @Autowired
-    HibernateConfig(Environment environment){
+    HibernateConfig(Environment environment) {
         this.environment = environment;
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(){
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource());
         localSessionFactoryBean.setPackagesToScan("io.delivery.entity");
@@ -36,7 +36,7 @@ public class HibernateConfig {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getProperty("hibernate.driverClass"));
         dataSource.setUrl(environment.getProperty("hibernate.url"));
@@ -45,7 +45,7 @@ public class HibernateConfig {
         return dataSource;
     }
 
-    private Properties hibernateProperties(){
+    private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
@@ -57,7 +57,7 @@ public class HibernateConfig {
 
     @Bean
     @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory);
         return transactionManager;

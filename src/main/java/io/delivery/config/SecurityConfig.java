@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
@@ -34,6 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 antMatchers("/").permitAll().
                 antMatchers("/secure").access("hasRole('ADMIN')").
                 antMatchers("/users").access("hasRole('USER')").
+                antMatchers("/create").access("hasRole('ADMIN')").
+                antMatchers("/delete").access("hasRole('ADMIN')").
+                antMatchers("/backup").access("hasRole('ADMIN')").
+                antMatchers("/users").access("hasRole('ADMIN') or hasRole('USER')").
+                antMatchers("/insert").access("hasRole('ADMIN') or hasRole('USER')").
+                antMatchers("/update").access("hasRole('ADMIN') or hasRole('USER')").
                 and().csrf().disable().formLogin().defaultSuccessUrl("/", false);
     }
 

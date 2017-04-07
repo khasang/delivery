@@ -9,7 +9,7 @@ public class Document {
     @Column(name = "document_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-//    @Column(name = "document_name")
+    //    @Column(name = "document_name")
     private String name;
     private String specificInnerInfo;
 
