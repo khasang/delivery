@@ -32,7 +32,6 @@ public class AppController {
         return modelAndView;
     }
 
-    // localhost:8080
     @RequestMapping("/")
     public String hello(Model model) {
         model.addAttribute("info", message.getInfoMessage());
@@ -56,5 +55,4 @@ public class AppController {
         model.addAttribute("status", dbBackup.makeBackup());
         return "create";
     }
-
 }

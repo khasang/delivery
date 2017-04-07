@@ -1,6 +1,7 @@
 package io.delivery.service.impl;
 
 import io.delivery.service.DbBackup;
+import org.apache.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class DbBackupImpl implements DbBackup {
+    private static final Logger LOG = Logger.getLogger(DbBackup.class);
 
     public DbBackupImpl() {
     }
@@ -22,6 +24,7 @@ public class DbBackupImpl implements DbBackup {
     public String makeBackup() {
         int exitCode = -1;
         Resource resource = new ClassPathResource("dbBackup.properties");
+
         List<String> command = new ArrayList<String>();
         try {
             Properties props = PropertiesLoaderUtils.loadProperties(resource);
@@ -67,7 +70,7 @@ public class DbBackupImpl implements DbBackup {
             if (exitCode != 0) {
                 String line = reader.readLine();
                 while (line != null) {
-                    System.err.println(line);
+                    LOG.error(line);
                     line = reader.readLine();
                 }
                 reader.close();
@@ -86,14 +89,5 @@ public class DbBackupImpl implements DbBackup {
         else {
             return "Backup failed";
         }
-    }
-
-    private String getDbBackupFileName() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'_'HHmmss");
-
-        String fileName = "DeliveryDbBackup_" +
-                LocalDateTime.now().format(formatter) +
-                ".tar";
-        return fileName;
     }
 }
