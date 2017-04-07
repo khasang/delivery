@@ -1,6 +1,6 @@
 package io.delivery.service;
 
-public interface DBOperations {
+public interface CompanyDAO {
     String createTable();
     String insertToTable();
     String deleteFromTable();

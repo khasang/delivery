@@ -2,7 +2,7 @@ package io.delivery.controller;
 
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
-import io.delivery.service.DBOperations;
+import io.delivery.service.CompanyDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class AppController {
     @Autowired
     private Message message;
     @Autowired
-    private DBOperations dbOperations;
+    private CompanyDAO companyDAO;
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -30,31 +30,31 @@ public class AppController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        model.addAttribute("status", dbOperations.createTable());
+        model.addAttribute("status", companyDAO.createTable());
         return "create";
     }
 
     @RequestMapping("/delete")
     public String delete(Model model) {
-        model.addAttribute("status", dbOperations.deleteFromTable());
+        model.addAttribute("status", companyDAO.deleteFromTable());
         return "delete";
     }
 
     @RequestMapping("/insert")
     public String insert(Model model) {
-        model.addAttribute("status", dbOperations.insertToTable());
+        model.addAttribute("status", companyDAO.insertToTable());
         return "insert";
     }
 
     @RequestMapping("/update")
     public String update(Model model) {
-        model.addAttribute("count", dbOperations.updateTable());
+        model.addAttribute("count", companyDAO.updateTable());
         return "update";
     }
 
     @RequestMapping("/backup")
     public String backup(Model model) {
-        model.addAttribute("status", dbOperations.backUp());
+        model.addAttribute("status", companyDAO.backUp());
         return "backup";
     }
 

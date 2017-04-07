@@ -1,6 +1,6 @@
 package io.delivery.config;
 
-import io.delivery.service.impl.DBOperationsImpl;
+import io.delivery.service.impl.CompanyDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,11 +45,5 @@ public class AppConfig {
     }
 
     @Bean
-    public DBOperationsImpl dbOperations(){
-        return new DBOperationsImpl(jdbcTemplate(),
-                environment.getProperty("SQL.update"),
-                environment.getProperty("SQL.insert"),
-                environment.getProperty("SQL.delete"),
-                environment.getProperty("jdbc.postgresql.pgdump"));
-    }
+    public CompanyDAOImpl dbOperations(){  return new CompanyDAOImpl(jdbcTemplate());  }
 }
