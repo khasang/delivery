@@ -1,20 +1,22 @@
 package io.delivery.config;
 
 import io.delivery.model.Answer;
-import io.delivery.model.TableCreator;
-import io.delivery.model.impl.TableCreatorImpl;
-import io.delivery.service.CreateTable;
-import io.delivery.service.impl.CreateTableImpl;
+import io.delivery.model.CompanyDAO;
+import io.delivery.model.impl.CompanyDAOImpl;
+import io.delivery.service.DbBackup;
+import io.delivery.service.impl.DbBackupImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@PropertySource(value = {"classpath:util.properties"})
+@PropertySource(value = {"classpath:db.properties"})
 public class AppConfig {
     @Autowired
     private Environment environment;
@@ -37,17 +39,18 @@ public class AppConfig {
     }
 
     @Bean
-    public TableCreator tableCreator(){
-        return new TableCreatorImpl(jdbcTemplate());
+    public CompanyDAO companyDAO() {
+        return new CompanyDAOImpl();
     }
 
     @Bean
-    public CreateTable createTable(){
-        return new CreateTableImpl("asd");
+    public DbBackup dbBackup() {
+        return new DbBackupImpl();
     }
 
     @Bean
-    public Answer answer(){
+    public Answer answer() {
         return new Answer();
     }
 }
+

@@ -2,8 +2,8 @@ package io.delivery.controller;
 
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
-import io.delivery.model.TableCreator;
-import io.delivery.model.impl.TableCreatorImpl;
+import io.delivery.model.CompanyDAO;
+import io.delivery.service.DbBackup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +16,10 @@ public class AppController {
     @Autowired
     private Message message;
     @Autowired
-    private TableCreator tableCreator;
+    private CompanyDAO companyDAO;
+    @Autowired
+    private DbBackup dbBackup;
 
-    // localhost:8080
     @RequestMapping("/")
     public String hello(Model model) {
         model.addAttribute("info", message.getInfoMessage());
@@ -27,8 +28,8 @@ public class AppController {
     }
 
     @RequestMapping("/create")
-    public String create(Model model){
-        model.addAttribute("status", tableCreator.createCompany());
+    public String create(Model model) {
+        model.addAttribute("status", companyDAO.createCompanyTable());
         return "create";
     }
 
@@ -36,4 +37,11 @@ public class AppController {
     public String secure(){
         return "/secure";
     }
+
+    @RequestMapping("/dbBackup")
+    public String dbBackup(Model model) {
+        model.addAttribute("status", dbBackup.makeBackup());
+        return "create";
+    }
+
 }

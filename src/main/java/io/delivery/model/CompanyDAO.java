@@ -1,9 +1,10 @@
 package io.delivery.model;
 
-public interface TableCreator {
+public interface CompanyDAO {
     /**
      * Requared for table creation with constant param
+     *
      * @return info about table creation
-     * */
-    String createCompany();
+     */
+    String createCompanyTable();
 }
