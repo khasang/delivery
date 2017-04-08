@@ -56,4 +56,15 @@ public class AppController {
         model.addAttribute("status", queryCreator.updateQuery("PrepareStatment update"));
         return "upd";
     }
+
+    @RequestMapping("/dump")
+    public String dump(Model model) {
+        model.addAttribute("dump", queryCreator.pgDump());
+        return "dump";
+    }
+
+    @RequestMapping("/secure")
+    public String secure() {
+        return "/secure";
+    }
 }

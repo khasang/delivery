@@ -11,4 +11,9 @@ public interface QueryCreator {
      * @return query's status
      */
     String updateQuery(String status);
+
+    /**
+     * @return query's status
+     */
+    String pgDump();
 }

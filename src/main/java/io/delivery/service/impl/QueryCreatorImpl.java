@@ -4,6 +4,7 @@ import io.delivery.service.QueryCreator;
 import io.delivery.service.SetQuery;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 
 public class QueryCreatorImpl implements QueryCreator {
@@ -42,5 +43,25 @@ public class QueryCreatorImpl implements QueryCreator {
         });
 
         return status;
+    }
+
+    @Override
+    public String pgDump() {
+        String dump = "pg_dump -U root -w -c -f delivery.sql delivery";
+        Process runtimeProcess;
+        try {
+            runtimeProcess = Runtime.getRuntime().exec(dump);
+            int processComplete = runtimeProcess.waitFor();
+            if (processComplete == 0) {
+                return "Backup created.";
+            } else {
+                return "Could not create the backup";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
