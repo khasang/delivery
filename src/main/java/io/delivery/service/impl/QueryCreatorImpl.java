@@ -53,7 +53,7 @@ public class QueryCreatorImpl implements QueryCreator {
 
     @Override
     public String pgDump() {
-        String dump = "pg_dump -U root -w -c -f delivery.sql delivery";
+        String dump = "C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump -U root -w -c -f delivery.sql delivery";
         Process runtimeProcess;
         try {
             runtimeProcess = Runtime.getRuntime().exec(dump);
