@@ -2,6 +2,7 @@ package io.delivery.service.impl;
 
 import io.delivery.service.QueryCreator;
 import io.delivery.service.SetQuery;
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.sql.PreparedStatement;
 
 public class QueryCreatorImpl implements QueryCreator {
 
+    private static final Logger LOG = Logger.getLogger(QueryCreatorImpl.class);
     private JdbcTemplate jdbcTemplate;
     private String query;
 
@@ -28,7 +30,11 @@ public class QueryCreatorImpl implements QueryCreator {
     public String createQuery(SetQuery setQuery, String status) {
         setQuery(setQuery.getQuery());
         if (query != null) {
-            jdbcTemplate.execute(query);
+            try {
+                jdbcTemplate.execute(query);
+            } catch (Exception e) {
+                LOG.error("Something going wrong" + e);
+            }
         }
         return status;
     }
