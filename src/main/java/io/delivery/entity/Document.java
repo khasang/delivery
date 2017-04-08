@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Document {
     @Id
     @Column(name = "document_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 //    @Column(name = "document_name")
     private String name;
