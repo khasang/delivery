@@ -1,6 +1,6 @@
 package io.delivery.service.impl;
 
-import io.delivery.model.Company;
+import io.delivery.entity.Company;
 import io.delivery.service.Prepared;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;

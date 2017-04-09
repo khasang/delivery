@@ -1,9 +1,17 @@
-package io.delivery.model;
+package io.delivery.entity;
 
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
 
-@Component
+import javax.persistence.*;
+
+@Entity
+@Scope("prototype")
+@Table(name = "companies")
 public class Company {
+    @Id
+    @TableGenerator(name = "TABLE_COMP", table = "SEQUENCE_TABLE", pkColumnName = "SEQ_NAME",
+            valueColumnName = "SEQ_COUNT", pkColumnValue = "COMPANY_SEQ", initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_COMP")
     private int id;
     private String name;
     private int size;

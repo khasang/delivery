@@ -31,8 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/create").access("hasRole('ADMIN')")
+                .antMatchers("/insert").hasAnyRole("MANAGER","EDITOR")
+                .antMatchers("/update").hasRole("MANAGER")
+                .antMatchers("/dump").access("hasRole('ADMIN')")
                 .antMatchers("/secure").access("hasRole('ADMIN')")
-                .and().csrf().disable().formLogin().defaultSuccessUrl("/", false);
+                .and().csrf().disable().formLogin().defaultSuccessUrl("/", true);
     }
 
 //     // in memory authorization

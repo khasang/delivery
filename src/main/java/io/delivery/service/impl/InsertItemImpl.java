@@ -1,11 +1,11 @@
 package io.delivery.service.impl;
 
-import io.delivery.model.Company;
+import io.delivery.entity.Company;
 import io.delivery.service.InsertItem;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -23,12 +23,28 @@ public class InsertItemImpl implements InsertItem {
         this.query = query;
     }
 
-
     @Override
     public String insertItem() {
-        query = ("INSERT INTO companies " +
-                "VALUES (1,'Google',2000);");
-        jdbcTemplate.execute(query);
+        query = ("INSERT INTO companies(id, name, size) VALUES(?,?,?);");
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, company.getId());
+            preparedStatement.setString(2, company.getName());
+            preparedStatement.setInt(3, company.getSize());
+            return preparedStatement;
+        });
         return "Insert done";
     }
+
+
+//    @Override
+//    public String insertItem() {
+//        query = ("INSERT INTO companies " +
+//                "VALUES (1,'Google',2000);");
+//        jdbcTemplate.execute(query);
+//        return "Insert done";
+//    }
+
+
 }

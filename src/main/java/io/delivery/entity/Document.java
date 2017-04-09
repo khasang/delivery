@@ -7,7 +7,8 @@ import javax.persistence.*;
 public class Document {
     @Id
     @Column(name = "document_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableGenerator(name = "TABLE_DOC", table = "SEQUENCE_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "DOC_SEQ")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_DOC")
     private long id;
     @Column(name = "document_name")
     private String name;

@@ -1,6 +1,6 @@
 package io.delivery.config;
 
-import io.delivery.model.Company;
+import io.delivery.entity.Company;
 import io.delivery.service.CreateTable;
 import io.delivery.service.InsertItem;
 import io.delivery.service.PgDump;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -60,9 +61,9 @@ public class AppConfig {
     @Bean
     public Company company() {
         Company company = new Company();
-        company.setId(1);
-        company.setName("Yandex");
-        company.setSize(1000);
+//        company.setId(1);
+        company.setName("Yandex" + (int) (Math.random()*10));
+        company.setSize((int) (Math.random()*100));
         return company;
     }
 
