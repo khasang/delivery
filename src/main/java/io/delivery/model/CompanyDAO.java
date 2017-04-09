@@ -6,5 +6,11 @@ public interface CompanyDAO {
      *
      * @return info about table creation
      */
-    String createCompanyTable();
+    String createDbTable();
+
+    String createCompany(String name);
+
+    String deleteCompany(String name);
+
+    String updateCompany(String name, String newName);
 }

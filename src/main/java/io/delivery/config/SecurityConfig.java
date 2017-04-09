@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/secure").access("hasRole('ADMIN')")
+                .antMatchers("/secure").hasRole("ADMIN")
+                .antMatchers("/createCompaniesDbTable", "/dbBackup").hasAnyRole("ADMIN", "DBA")
                 .and().csrf().disable().formLogin().defaultSuccessUrl("/", false);
     }
 

@@ -9,8 +9,8 @@ public class Document {
     @Column(name = "document_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-//    @Column(name = "document_name")
     private String name;
+    @Transient
     private String specificInnerInfo;
 
     public Document() {

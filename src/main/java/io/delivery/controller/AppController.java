@@ -39,15 +39,33 @@ public class AppController {
         return "hello";
     }
 
-    @RequestMapping("/create")
-    public String create(Model model) {
-        model.addAttribute("status", companyDAO.createCompanyTable());
+    @RequestMapping("/createCompaniesDbTable")
+    public String createCompaniesDbTable(Model model) {
+        model.addAttribute("status", companyDAO.createDbTable());
+        return "create";
+    }
+
+    @RequestMapping("/createCompany")
+    public String createCompany(Model model) {
+        model.addAttribute("status", companyDAO.createCompany("Oracle"));
+        return "create";
+    }
+
+    @RequestMapping("/deleteCompany")
+    public String deleteCompany(Model model) {
+        model.addAttribute("status", companyDAO.deleteCompany("Oracle"));
+        return "create";
+    }
+
+    @RequestMapping("/updateCompany")
+    public String updateCompany(Model model) {
+        model.addAttribute("status", companyDAO.updateCompany("Oracle", "Sybase"));
         return "create";
     }
 
     @RequestMapping(value = "/secure")
     public String secure() {
-        return "/secure";
+        return "secure";
     }
 
     @RequestMapping("/dbBackup")
