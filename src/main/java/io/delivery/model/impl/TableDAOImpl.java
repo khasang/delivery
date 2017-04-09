@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class TableDAOImpl implements TableDAO{
     private static final Logger LOG = Logger.getLogger(TableDAOImpl.class);
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public TableDAOImpl(){}
 
@@ -69,29 +69,24 @@ public class TableDAOImpl implements TableDAO{
 
     @Override
     public String backupTable() {
+        //  SET PGPASSFILE=C:\Users\fixer\AppData\postgresql\pgpass.conf
         String answer = null;
         Runtime runtime = Runtime.getRuntime();
         Process process;
-        String cmd1 = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump.exe\" " +
-                "-U root -w delivery > C:\\Users\\fixer\\PGDump\\delivery.backup";
-//        String[] cmd = {
-//                "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump.exe\"",
-//                "--host", "localhost",
-//                "--port", "5432",
-//                "--username", "root",
-//                "--password", "root",
-//                "--file", "C:\\Users\\fixer\\PGDump\\delivery.backup"
-//        };
+        String cmd = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\pg_dump.exe\"" +
+                    " -U root" +
+                    " -w" +
+                    " -d delivery" +
+                    " -F c -f D:\\delivery.sql";
         try{
-            process = runtime.exec(cmd1);
+            process = runtime.exec(cmd);
             process.waitFor();
-            LOG.info("Backup dumped with request: " + cmd1);
+            LOG.info("Backup dumped with request: " + cmd);
             answer = "Backup dumped!";
         }catch (IOException | InterruptedException e){
             answer = "ERROR! Backup not dumped!";
-            LOG.error("Problem with backupTable method with request: " + cmd1 + " " + e.getMessage());
+            LOG.error("Problem with backupTable method with request: " + cmd + " " + e.getMessage());
         }
         return answer;
     }
-
 }
