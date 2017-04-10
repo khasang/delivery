@@ -1,5 +1,8 @@
 package io.delivery.config;
 
+import io.delivery.dao.DocumentDao;
+import io.delivery.dao.impl.DocumentdaoImpl;
+import io.delivery.entity.Document;
 import io.delivery.model.*;
 //import io.delivery.model.impl.*;
 import io.delivery.service.*;
@@ -105,5 +108,10 @@ public class AppConfig {
     @Bean
     public Answer answer(){
         return new Answer();
+    }
+
+    @Bean
+    DocumentDao documentDao() {
+        return new DocumentdaoImpl(Document.class);
     }
 }

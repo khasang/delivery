@@ -8,10 +8,18 @@ public class Document {
     @Id
     @Column(name = "document_id")
     private long id;
-//    @Column(name = "document_name")
+    @Column(name = "document_name")
     private String name;
     @Transient
     private String specificInnetInfo;
+
+    public String getSpecificInnetInfo() {
+        return specificInnetInfo;
+    }
+
+    public void setSpecificInnetInfo(String specificInnetInfo) {
+        this.specificInnetInfo = specificInnetInfo;
+    }
 
     public String getName() {
         return name;
