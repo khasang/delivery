@@ -18,4 +18,9 @@ public class DocumentserviceImpl implements DocumentService{
     public List<Document> getDocumentList() {
         return documentDao.getList();
     }
+
+    @Override
+    public List<Document> findByName(String name) {
+        return documentDao.findByName(name);
+    }
 }

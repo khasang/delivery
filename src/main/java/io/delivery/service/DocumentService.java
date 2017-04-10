@@ -11,4 +11,13 @@ public interface DocumentService {
      **/
     List<Document> getDocumentList();
 
+    /**
+     * Find documents by name at DB
+     *
+     * @Param name - value name of document
+     * @return document
+     **/
+
+    List<Document> findByName (String name);
+
 }
