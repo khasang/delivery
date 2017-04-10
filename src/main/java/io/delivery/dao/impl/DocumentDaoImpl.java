@@ -16,6 +16,4 @@ public class DocumentDaoImpl extends BasicDaoImpl<Document> implements DocumentD
                 createQuery("from Document as d where d.name = ?").
                 setParameter(0, name).list();
     }
-
-
 }
