@@ -36,4 +36,11 @@ public abstract class BasicdaoImpl<T> implements Basicdao<T> {
         criteriaQuery.select(root);
         return sessionFactory.getCurrentSession().createQuery(criteriaQuery).list();
     }
+
+// создание нашего DAO
+    @Override
+    public T create(T entity) {
+        getCurrentSession().save(entity);  // получаем текущую сессию и сохраняем наше entity
+        return entity;
+    }
 }
