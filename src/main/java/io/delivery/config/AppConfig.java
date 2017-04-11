@@ -1,9 +1,10 @@
 package io.delivery.config;
 
+import io.delivery.dao.DocumentDao;
+import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.entity.Document;
 import io.delivery.model.*;
 import io.delivery.model.impl.TableDAOImpl;
-import io.delivery.service.CreateTable;
-import io.delivery.service.impl.CreateTableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,4 +50,9 @@ public class AppConfig {
 
     @Bean
     public TableDAO tableDAOImpl(){ return new TableDAOImpl(jdbcTemplate()); }
+
+    @Bean
+    public DocumentDao documentDao(){
+        return new DocumentDaoImpl(Document.class);
+    }
 }
