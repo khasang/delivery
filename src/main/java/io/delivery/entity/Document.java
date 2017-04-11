@@ -7,15 +7,29 @@ import javax.persistence.*;
 public class Document {
     @Id
     @Column(name = "document_id")
-    @TableGenerator(name = "TABLE_DOC", table = "SEQUENCE_TABLE", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "DOC_SEQ")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_DOC")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "document_name")
     private String name;
-    @Transient
-    private String specificInnefInfo;
+    private String specificInnerInfo;
 
     public Document() {
+    }
+
+    public String getSpecificInnerInfo() {
+        return specificInnerInfo;
+    }
+
+    public void setSpecificInnerInfo(String specificInnefInfo) {
+        this.specificInnerInfo = specificInnefInfo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getId() {

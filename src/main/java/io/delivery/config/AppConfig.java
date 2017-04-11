@@ -1,6 +1,9 @@
 package io.delivery.config;
 
-import io.delivery.entity.Company;
+import io.delivery.dao.DocumentDao;
+import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.entity.Document;
+import io.delivery.model.Company;
 import io.delivery.service.CreateTable;
 import io.delivery.service.InsertItem;
 import io.delivery.service.PgDump;
@@ -13,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -61,7 +63,7 @@ public class AppConfig {
     @Bean
     public Company company() {
         Company company = new Company();
-//        company.setId(1);
+        company.setId(1);
         company.setName("Yandex" + (int) (Math.random()*10));
         company.setSize((int) (Math.random()*100));
         return company;
@@ -69,7 +71,7 @@ public class AppConfig {
 
     @Bean
     public InsertItem insertItem() {
-        return new InsertItemImpl(jdbcTemplate(), company());
+        return new InsertItemImpl(jdbcTemplate());
     }
 
     @Bean
@@ -80,6 +82,11 @@ public class AppConfig {
     @Bean
     public PgDump pgDump() {
         return new PgDumpImpl(environment);
+    }
+
+    @Bean
+    DocumentDao documentDao() {
+        return new DocumentDaoImpl(Document.class);
     }
 }
 
