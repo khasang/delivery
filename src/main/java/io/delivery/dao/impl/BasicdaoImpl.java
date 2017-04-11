@@ -43,4 +43,21 @@ public abstract class BasicdaoImpl<T> implements Basicdao<T> {
         getCurrentSession().save(entity);  // получаем текущую сессию и сохраняем наше entity
         return entity;
     }
+
+    @Override
+    public T update(T entity) {
+        getCurrentSession().update(entity);
+        return entity;
+    }
+
+    @Override
+    public T findById(long id) {
+        return getCurrentSession().get(entityClass, id);
+    }
+
+    @Override
+    public T delete(T entity) {
+        getCurrentSession().delete(entity);
+        return entity;
+    }
 }

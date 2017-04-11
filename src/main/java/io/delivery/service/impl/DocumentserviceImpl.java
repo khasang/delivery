@@ -28,4 +28,20 @@ public class DocumentserviceImpl implements DocumentService{
     public Document create(Document document) {
         return documentDao.create(document);
     }
+
+    @Override
+    public Document updateDocument(Document document) {
+        return documentDao.update(document);
+    }
+
+    @Override
+    public Document deleteDocument(long id) {
+       return documentDao.delete(findById(id));
+    }
+
+    @Override
+    public Document findById(long id) {
+        return documentDao.findById(id);
+    }
+
 }

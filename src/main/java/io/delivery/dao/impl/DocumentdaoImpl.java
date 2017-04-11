@@ -17,7 +17,9 @@ public class DocumentdaoImpl extends BasicdaoImpl<Document> implements DocumentD
     @Override
     public List<Document> findByName(String name) {
         return (List<Document>) sessionFactory.getCurrentSession().
-                createQuery("from document as d where d.name = ?").
+                createQuery("from Document as d where d.name = ?").
                 setParameter(0, name).list();
     }
+
+
 }
