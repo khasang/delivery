@@ -1,6 +1,6 @@
-package io.delivery.service.impl;
+package io.delivery.dao.impl;
 
-import io.delivery.service.CompanyDAO;
+import io.delivery.dao.CompanyDAO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
