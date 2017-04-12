@@ -1,7 +1,7 @@
 package io.delivery.model.impl;
 
 import io.delivery.model.CompanyDAO;
-import io.delivery.service.DbBackup;
+import io.delivery.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -9,13 +9,20 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import javax.sql.DataSource;
 
 @Repository
 public class CompanyDAOImpl implements CompanyDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private DocumentService documentService;
+
+    @Autowired
+    private DataSource dataSource;
+
+
 
     public String createDbTable() {
         Resource companiesCreateTableScript = new ClassPathResource("Companies_CreateTable.sql");

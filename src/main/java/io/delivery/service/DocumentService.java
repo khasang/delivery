@@ -1,6 +1,7 @@
 package io.delivery.service;
 
 import io.delivery.entity.Document;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

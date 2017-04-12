@@ -1,10 +1,14 @@
 package io.delivery.service.impl;
 
 import io.delivery.service.DbBackup;
+import io.delivery.service.DocumentService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+
+import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -18,10 +22,17 @@ import java.util.Properties;
 public class DbBackupImpl implements DbBackup {
     private static final Logger LOG = Logger.getLogger(DbBackup.class);
 
+    @Autowired
+    private DocumentService documentService;
+
+    @Autowired
+    private DataSource dataSource;
+
     public DbBackupImpl() {
     }
 
     public String makeBackup() {
+
         int exitCode = -1;
         Resource resource = new ClassPathResource("dbBackup.properties");
 

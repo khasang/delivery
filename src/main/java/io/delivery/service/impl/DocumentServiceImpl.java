@@ -13,6 +13,9 @@ public class DocumentServiceImpl implements DocumentService {
     @Autowired
     DocumentDao documentDao;
 
+    DocumentServiceImpl() {
+    }
+
     @Override
     public List<Document> getDocumentList() {
         return documentDao.getList();

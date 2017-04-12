@@ -1,10 +1,10 @@
 package io.delivery.document;
 
+import io.delivery.dao.DocumentDao;
 import io.delivery.entity.Document;
 import io.delivery.service.DocumentService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -13,7 +13,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@ComponentScan({"io.delivery.controller", "io.delivery.config", "io.delivery.model", "io.delivery.service", "io.delivery.dao"})
 public class DocumentIntegrationTest {
     private final String ROOT = "http://localhost:8080/document";
     private final String GET_ID = "/get/id/";
@@ -23,16 +22,9 @@ public class DocumentIntegrationTest {
     private final String ALL = "/all";
     private final String GET_NAME = "/get/name/";
 
-    private DocumentService documentService;
-
-    public DocumentService getDocumentService() {
-        return documentService;
-    }
 
     @Autowired
-    public void setDocumentService(DocumentService documentService) {
-        this.documentService = documentService;
-    }
+    private DocumentService documentService;
 
     @Test
     public void addDocumentAndGet() {
