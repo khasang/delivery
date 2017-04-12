@@ -38,4 +38,23 @@ public class DocumentController {
         return document;
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public Document updateDocument(@RequestBody Document document){
+        documentService.updateDocument(document);
+        return document;
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Document deleteDocument(@PathVariable(value = "id") String inputId){
+        return documentService.deleteDocument(Long.parseLong(inputId));
+    }
+
+    @RequestMapping(value = "/get/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Document getDocumentById(@PathVariable(value = "id") String inputId){
+        return documentService.findById(Long.parseLong(inputId));
+    }
+
 }
