@@ -2,7 +2,7 @@ package io.delivery.controller;
 
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
-import io.delivery.service.CompanyDAO;
+import io.delivery.dao.CompanyDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;

@@ -1,10 +1,11 @@
 package io.delivery.config;
 
+import io.delivery.dao.CompanyDAO;
 import io.delivery.dao.DocumentDao;
+import io.delivery.dao.impl.CompanyDAOImpl;
 import io.delivery.dao.impl.DocumentDaoImpl;
 import io.delivery.entity.Document;
 import io.delivery.model.Answer;
-import io.delivery.service.impl.CompanyDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,16 +50,6 @@ public class AppConfig {
     }
 
     @Bean
-    public TableCreator tableCreator() {
-        return new TableCreatorImpl(jdbcTemplate());
-    }
-
-    @Bean
-    public CreateTable createTable() {
-        return new CreateTableImpl("asd");
-    }
-
-    @Bean
     public Answer answer() {
         return new Answer();
     }
@@ -67,4 +58,10 @@ public class AppConfig {
     DocumentDao documentDao(){
         return new DocumentDaoImpl(Document.class);
     }
+
+    @Bean
+    CompanyDAO companyDao(){
+        return new CompanyDAOImpl(jdbcTemplate());
+    }
+
 }

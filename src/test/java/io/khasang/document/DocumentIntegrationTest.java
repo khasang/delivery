@@ -133,4 +133,22 @@ public class DocumentIntegrationTest {
         assertNotNull(resultUpdate.getId());
         assertEquals("Sword", resultUpdate.getName());
     }
+    @Test
+    public void getDocumentByName() {
+        RestTemplate restTemplate = new RestTemplate();
+        Document document = createDocument();
+        assertNotNull(document);
+
+        ResponseEntity<List<Document>> checkDocumentByName = restTemplate.exchange(
+                ROOT + GET_NAME + "{name}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Document>>() {
+                },
+                document.getName()
+        );
+        assertEquals(HttpStatus.OK, checkDocumentByName.getStatusCode());
+        assertNotNull(checkDocumentByName.getBody());
+
+    }
 }

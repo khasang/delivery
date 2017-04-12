@@ -11,7 +11,7 @@ public class Document {
     private long id;
     @Column(name = "document_name")
     private String name;
-    @Transient
+    //@Transient
     private String specificInnerInfo;
 
     public Document() {

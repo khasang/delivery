@@ -1,4 +1,4 @@
-package io.delivery.service;
+package io.delivery.dao;
 
 public interface CompanyDAO {
     String createTable();
