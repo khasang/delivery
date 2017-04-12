@@ -1,7 +1,10 @@
-package io.khasang.document;
+package io.delivery.document;
 
 import io.delivery.entity.Document;
+import io.delivery.service.DocumentService;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -10,6 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+@ComponentScan({"io.delivery.controller", "io.delivery.config", "io.delivery.model", "io.delivery.service", "io.delivery.dao"})
 public class DocumentIntegrationTest {
     private final String ROOT = "http://localhost:8080/document";
     private final String GET_ID = "/get/id/";
@@ -18,6 +22,17 @@ public class DocumentIntegrationTest {
     private final String DELETE = "/delete/";
     private final String ALL = "/all";
     private final String GET_NAME = "/get/name/";
+
+    private DocumentService documentService;
+
+    public DocumentService getDocumentService() {
+        return documentService;
+    }
+
+    @Autowired
+    public void setDocumentService(DocumentService documentService) {
+        this.documentService = documentService;
+    }
 
     @Test
     public void addDocumentAndGet() {
@@ -36,6 +51,8 @@ public class DocumentIntegrationTest {
         Document resultDocument = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(resultDocument);
+
+        documentService.deleteDocument(document.getId());
     }
 
     private Document createDocument() {
@@ -66,8 +83,7 @@ public class DocumentIntegrationTest {
     @Test
     public void getAllDocuments(){
         RestTemplate restTemplate = new RestTemplate();
-        createDocument();
-        createDocument();
+        Document document = createDocument();
 
         ResponseEntity<List<Document>> result = restTemplate.exchange(
                 ROOT + ALL,
@@ -80,6 +96,8 @@ public class DocumentIntegrationTest {
         assertNotNull(result.getBody());
         List<Document> list = result.getBody();
         assertNotNull(list.get(0));
+
+        documentService.deleteDocument(document.getId());
     }
 
     @Test
@@ -132,5 +150,7 @@ public class DocumentIntegrationTest {
         assertNotNull(resultUpdate);
         assertNotNull(resultUpdate.getId());
         assertEquals("Sword", resultUpdate.getName());
+
+        documentService.deleteDocument(document.getId());
     }
 }

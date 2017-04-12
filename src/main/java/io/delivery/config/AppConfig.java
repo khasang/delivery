@@ -10,6 +10,7 @@ import io.delivery.service.DbBackup;
 import io.delivery.service.impl.DbBackupImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 @Configuration
 @PropertySource(value = {"classpath:auth.properties"})
 @PropertySource(value = {"classpath:db.properties"})
+@ComponentScan({"io.delivery.controller", "io.delivery.config", "io.delivery.model", "io.delivery.service", "io.delivery.dao"})
 public class AppConfig {
     public Environment getEnvironment() {
         return environment;
