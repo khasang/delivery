@@ -1,5 +1,8 @@
 package io.delivery.config;
 
+import io.delivery.dao.DocumentDao;
+import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.entity.Document;
 import io.delivery.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -67,5 +70,10 @@ public class AppConfig {
     @Bean
     public Answer answer() {
         return new Answer();
+    }
+
+    @Bean
+    public DocumentDao documentDao() {
+        return new DocumentDaoImpl(Document.class);
     }
 }

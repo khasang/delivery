@@ -13,6 +13,7 @@
         <spring.version>4.3.7.RELEASE</spring.version>
         <spring.sequrity.version>4.2.0.RELEASE</spring.sequrity.version>
         <hibernate.version>5.2.4.Final</hibernate.version>
+        <jackson.version>2.7.8</jackson.version>
     </properties>
 
     <dependencies>
@@ -85,10 +86,22 @@
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
+        <!--for JPA-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
+        </dependency>
+        <!--Json-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 

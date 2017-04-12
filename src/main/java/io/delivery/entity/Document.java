@@ -3,16 +3,16 @@ package io.delivery.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "documents")
+@Table(name = "document")
 public class Document {
     @Id
     @Column(name = "document_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-//    @Column(name = "document_name")
+    @Column(name = "document_name")
     private String name;
 
-    @Transient
+//    @Transient
     private String specificInnerInfo;
 
     public Document() {
@@ -32,5 +32,13 @@ public class Document {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getSpecificInnerInfo() {
+        return specificInnerInfo;
+    }
+
+    public void setSpecificInnerInfo(String specificInnerInfo) {
+        this.specificInnerInfo = specificInnerInfo;
     }
 }
