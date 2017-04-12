@@ -40,4 +40,21 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
         getCurrentSession().save(entity);
         return entity;
     }
+
+    @Override
+    public T updateDocument(T entity) {
+        getCurrentSession().update(entity);
+        return entity;
+    }
+
+    @Override
+    public T findById(long id) {
+        return getCurrentSession().get(entityClass, id);
+    }
+
+    @Override
+    public T delete(T entity) {
+        getCurrentSession().delete(entity);
+        return entity;
+    }
 }
