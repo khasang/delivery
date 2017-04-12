@@ -27,4 +27,25 @@ public interface DocumentService {
      * @return created entity
      */
     Document create(Document document);
+
+    /**
+     * Update document at database
+     * @param document - current document for update
+     * @return updated document
+     */
+    Document updateDocument(Document document);
+
+    /**
+     * Delete document by id
+     * @param id - document id
+     * @return deleted document
+     */
+    Document deleteDocument(long id);
+
+    /**
+     * Find document by id
+     * @param id - document id
+     * @return document
+     */
+    Document findById(long id);
 }
