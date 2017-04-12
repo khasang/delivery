@@ -4,6 +4,7 @@ import io.delivery.dao.BasicDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -39,6 +40,23 @@ public abstract class BasicDaoImpl<T> implements BasicDao<T> {
     @Override
     public T create(T entity) {
         getCurrentSession().save(entity);
+        return entity;
+    }
+
+    @Override
+    public T update(T entity) {
+        getCurrentSession().update(entity);
+        return entity;
+    }
+
+    @Override
+    public T findById(long id) {
+        return getCurrentSession().get(entityClass, id);
+    }
+
+    @Override
+    public T delete(T entity) {
+        getCurrentSession().delete(entity);
         return entity;
     }
 }

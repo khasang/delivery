@@ -27,4 +27,25 @@ public interface BasicDao<T> {
      */
     T create(T entity);
 
+    /**
+     * Update entity at database
+     * @param entity - current entity for update
+     * @return entity
+     */
+    T update(T entity);
+
+    /**
+     * Find entity by id at database
+     * @param id - entity id
+     * @return entity
+     */
+    T findById(long id);
+
+    /**
+     * Delete entity at database
+     * @param entity - entity for delete
+     * @return deleted entity
+     */
+    T delete(T entity);
+
 }
