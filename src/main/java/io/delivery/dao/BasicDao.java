@@ -25,4 +25,20 @@ public interface BasicDao<T> {
      * @return created entity
      */
     T create(T entity);
+
+    /**
+     * @param entity - entity for update
+     * @return entity
+     */
+    T update(T entity);
+
+    /**
+     *
+     */
+    T findById(long id);
+
+    /**
+     *
+     */
+    T delete(T entity);
 }
