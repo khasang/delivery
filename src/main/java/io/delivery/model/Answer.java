@@ -1,9 +1,5 @@
 package io.delivery.model;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-@Component
 public class Answer {
     private String infoAnswer;
 
