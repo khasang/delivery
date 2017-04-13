@@ -6,28 +6,26 @@ import java.util.List;
 
 public interface DocumentService {
     /**
-     * Receibe all documents from db
+     * Receive all documents from db
      *
      * @return document list
      */
     List<Document> getDocumentList();
 
     /**
-     * Find documents by name at DB
+     * Find documents by name at database
      *
+     * @param name - value name of document
      * @return document
-     * @Param name - value name of document
      */
-
     List<Document> findByName(String name);
 
     /**
-     * Create document at DB
+     * Create document at database
      *
+     * @param document - current document for creation
      * @return created document
-     * @Param document - current document for creation
      */
-
     Document create(Document document);
 
     /**
@@ -37,7 +35,7 @@ public interface DocumentService {
     Document updateDocument(Document document);
 
     /**
-     * @param id - document id
+     * @param id = document id
      * @return deleted document
      */
     Document deleteDocument(long id);

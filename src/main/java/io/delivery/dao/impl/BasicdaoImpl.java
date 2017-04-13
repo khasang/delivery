@@ -1,10 +1,12 @@
 package io.delivery.dao.impl;
 
 import io.delivery.dao.Basicdao;
+import io.delivery.dao.Basicdao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -12,16 +14,13 @@ import java.util.List;
 
 @Transactional
 public abstract class BasicdaoImpl<T> implements Basicdao<T> {
-
+    @Autowired
+    protected SessionFactory sessionFactory;
     private Class<T> entityClass;
 
     public BasicdaoImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-
-    @Autowired
-    protected SessionFactory sessionFactory;
-
 
     @Override
     public Session getCurrentSession() {
@@ -37,22 +36,21 @@ public abstract class BasicdaoImpl<T> implements Basicdao<T> {
         return sessionFactory.getCurrentSession().createQuery(criteriaQuery).list();
     }
 
-// создание нашего DAO
     @Override
     public T create(T entity) {
-        getCurrentSession().save(entity);  // получаем текущую сессию и сохраняем наше entity
-        return entity;
-    }
-
-    @Override
-    public T update(T entity) {
-        getCurrentSession().update(entity);
+        getCurrentSession().save(entity);
         return entity;
     }
 
     @Override
     public T findById(long id) {
         return getCurrentSession().get(entityClass, id);
+    }
+
+    @Override
+    public T update(T entity) {
+        getCurrentSession().update(entity);
+        return entity;
     }
 
     @Override

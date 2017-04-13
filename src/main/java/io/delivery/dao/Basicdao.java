@@ -8,22 +8,23 @@ import java.util.List;
  * Basic methods for DAO
  */
 public interface Basicdao<T> {
+
     /**
      * @return current Hibernate session
      */
     Session getCurrentSession();
 
     /**
-     * @return List for entity
+     * @return list for entity
      */
     List<T> getList();
 
     /**
-     * Create entity at DB
-     * @param entity  - current entity
+     * Create entity at database
+     * @param entity - current entity
      * @return created entity
      */
-    T create (T entity);
+    T create(T entity);
 
     /**
      * @param entity - document for update
@@ -33,11 +34,12 @@ public interface Basicdao<T> {
 
     /**
      *
-     */
+     * */
     T findById(long id);
 
     /**
      *
-     */
+     * */
     T delete(T entity);
+
 }

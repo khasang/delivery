@@ -14,7 +14,6 @@ public class DocumentController {
 
     final private DocumentService documentService;
 
-
     @Autowired
     public DocumentController(DocumentService documentService) {
         this.documentService = documentService;
@@ -22,42 +21,39 @@ public class DocumentController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Document> getDocumentList () {
+    public List<Document> getDocumentList(){
         return documentService.getDocumentList();
     }
 
     @RequestMapping(value = "/get/name/{name}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Document> getDocumentByName (@PathVariable(value = "name") String name) {
+    public List<Document> getDocumentByName(@PathVariable(value = "name") String name){
         return documentService.findByName(name);
     }
 
-// При попытке обратиться по адресу document/add в пост формате в контент тайпе аппликейшн джейсон (кодировка), он будет парсить наш запрос  соответственно с телом документа, искать там 3 параметра (id, name, specificInnerInfo), с которыми мы работаем, с тем исключением, что на уровне Document у нас id генерируется автоматом, (его можем не передавать в принципе), он их спарсит в структуру java нашего документа из application/json, кинет всё это дальше на сервис, слой сервис перейдт на ДАО слой, ДАО слой переправит это во внутрь нашей таблицы. Если всё ок то он это всё создаст.
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody  // тело, чтобы мы могли видеть ответ
-    public Document addDocument(@RequestBody Document document) {
+    @ResponseBody
+    public Document addDocument(@RequestBody Document document){
         documentService.create(document);
         return document;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
-    @ResponseBody  // тело, чтобы мы могли видеть ответ
-    public Document updateDocument(@RequestBody Document document) {
+    @ResponseBody
+    public Document updateDocument(@RequestBody Document document){
         documentService.updateDocument(document);
         return document;
     }
 
-// Удаление по ID. Мы будем получать ID и по нему удалять
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public Document deleteDocument(@PathVariable(value = "id") String inputId) {
+    public Document deleteDocument(@PathVariable(value = "id") String inputId){
         return documentService.deleteDocument(Long.parseLong(inputId));
     }
 
     @RequestMapping(value = "/get/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Document getDocumentById(@PathVariable(value = "id") String id) {
+    public Document getDocumentById(@PathVariable(value = "id") String id){
         return documentService.findById(Long.parseLong(id));
     }
-
 }
