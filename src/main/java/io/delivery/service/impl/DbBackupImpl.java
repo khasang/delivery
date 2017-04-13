@@ -23,9 +23,6 @@ public class DbBackupImpl implements DbBackup {
     private static final Logger LOG = Logger.getLogger(DbBackup.class);
 
     @Autowired
-    private DocumentService documentService;
-
-    @Autowired
     private DataSource dataSource;
 
     public DbBackupImpl() {

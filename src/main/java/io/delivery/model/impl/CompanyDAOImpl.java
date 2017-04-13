@@ -17,12 +17,7 @@ public class CompanyDAOImpl implements CompanyDAO {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private DocumentService documentService;
-
-    @Autowired
     private DataSource dataSource;
-
-
 
     public String createDbTable() {
         Resource companiesCreateTableScript = new ClassPathResource("Companies_CreateTable.sql");
