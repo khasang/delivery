@@ -13,7 +13,7 @@ public class Customer {
     @Column
     private String address;
     @Column(name = "telephone_number")
-    private String telephoneNumber;
+    private String phoneNumber;
     @Column(name = "e-mail")
     private String eMail;
 
@@ -42,11 +42,11 @@ public class Customer {
     }
 
     public String getTelephoneNumber() {
-        return telephoneNumber;
+        return phoneNumber;
     }
 
     public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
+        this.phoneNumber = telephoneNumber;
     }
 
     public String geteMail() {
