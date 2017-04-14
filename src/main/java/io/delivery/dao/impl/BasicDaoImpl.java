@@ -42,7 +42,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     }
 
     @Override
-    public T updateDocument(T entity) {
+    public T updateEntity(T entity) {
         getCurrentSession().update(entity);
         return entity;
     }

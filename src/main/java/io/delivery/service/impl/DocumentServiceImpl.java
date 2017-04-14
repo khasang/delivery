@@ -30,7 +30,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public Document updateDocument(Document document) {
-        return documentDao.updateDocument(document);
+        return documentDao.updateEntity(document);
     }
 
     @Override
