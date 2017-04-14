@@ -37,4 +37,12 @@ public class CustomerDaoImpl extends BasicDaoImpl<Customer> implements CustomerD
                 createQuery("FROM Customer where eMail = ?").
                 setParameter(0, eMail);
     }
+
+    @Override
+    public Customer findCustomerByIdOrder (long id) {
+        return (Customer) sessionFactory.getCurrentSession().
+                createQuery("FROM Customer where id = ?").
+        setParameter(0, id);
+    }
+
 }

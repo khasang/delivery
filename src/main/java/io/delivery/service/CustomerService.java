@@ -7,30 +7,39 @@ import java.util.List;
 
 public interface CustomerService {
     /**
-     *
-     * @param name - current name at database
-     * @return customer name
+     * Find customers by name in database
+     * @param name - customer's name
+     * @return - list of customers
      */
     List<Customer> findCustomerByName(String name);
 
     /**
-     *
-     * @param address - current address at database
-     * @return customer address
+     * Find customers by address in database
+     * @param address - customer's address
+     * @return - list of customers, if more then one customer registered at same address
      */
     List<Customer> findCustomerByAddress(String address);
 
     /**
-     *
-     * @param phoneNumber - current phoneNumber at database
-     * @return customer phone number
+     * Find customer by phone number
+     * @param phoneNumber - customer's phone number
+     * @return - current customer
      */
     Customer findCustomerByPhoneNumber(String phoneNumber);
 
     /**
-     *
-     * @param eMail - current email at database
-     * @return customer email
+     * Find customer by e-mail
+     * @param eMail - customer's e-mail
+     * @return - current customer
      */
     Customer findCustomerByEmail(String eMail);
+
+    /**
+     * Find customer by id order
+     * @param idOrder - customer's id order
+     * @return - idOrder
+     */
+    Customer findCustomerByIdOrder(long idOrder);
+
+
 }

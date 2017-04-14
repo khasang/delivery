@@ -42,4 +42,9 @@ public interface BasicDao<T> {
      * */
     T delete(T entity);
 
+    /**
+     *
+     * */
+    T findByIdOrder(T entity);
+
 }
