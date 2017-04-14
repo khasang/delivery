@@ -19,6 +19,11 @@ public class FeedBack {
     public FeedBack() {
     }
 
+    public FeedBack(LocalDate date, String feedBackText) {
+        this.date = date;
+        this.feedBackText = feedBackText;
+    }
+
     public Long getId() {
         return id;
     }
@@ -48,11 +53,6 @@ public class FeedBack {
     }
 
     public void setFeedBackText(String feedBackText) {
-        this.feedBackText = feedBackText;
-    }
-
-    public FeedBack(LocalDate date, String feedBackText) {
-        this.date = date;
         this.feedBackText = feedBackText;
     }
 }
