@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/customers")
+@RequestMapping("/customer")
 public class CustomerController {
 
     final private CustomerService customerService;
@@ -28,13 +28,13 @@ public class CustomerController {
 
     @RequestMapping(value = "/get/eMail/{eMail}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Customer> getCustomerByEmail(@PathVariable(value = "eMail") String eMail){
+    public Customer getCustomerByEmail(@PathVariable(value = "eMail") String eMail){
         return customerService.findCustomerByEmail(eMail);
     }
 
     @RequestMapping(value = "/get/phoneNumber/{phoneNumber}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Customer> getCustomerByPhoneNumber(@PathVariable(value = "phoneNumber") String phoneNumber){
+    public Customer getCustomerByPhoneNumber(@PathVariable(value = "phoneNumber") String phoneNumber){
         return customerService.findCustomerByPhoneNumber(phoneNumber);
     }
 
