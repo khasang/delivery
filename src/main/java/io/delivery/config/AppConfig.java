@@ -1,7 +1,10 @@
 package io.delivery.config;
 
+import io.delivery.dao.CustomerDao;
 import io.delivery.dao.DocumentDao;
+import io.delivery.dao.impl.CustomerDaoImpl;
 import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.entity.Customer;
 import io.delivery.entity.Document;
 import io.delivery.model.Answer;
 import io.delivery.model.TableCreator;
@@ -70,4 +73,8 @@ public class AppConfig {
     DocumentDao documentDao(){
         return new DocumentDaoImpl(Document.class);
     }
+
+
+    @Bean
+    CustomerDao customerDao(){ return new CustomerDaoImpl(Customer.class); }
 }
