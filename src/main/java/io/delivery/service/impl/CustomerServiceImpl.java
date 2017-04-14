@@ -33,4 +33,9 @@ public class CustomerServiceImpl implements CustomerService{
         return customerDao.findCustomerByEmail(eMail);
     }
 
+    @Override
+    public Customer findCustomerByIdOrder(long idOrder) {
+        return customerDao.findCustomerByIdOrder(idOrder);
+    }
+
 }
