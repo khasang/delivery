@@ -12,8 +12,7 @@ import java.util.List;
 @RequestMapping("/document")
 public class DocumentController {
 
-    final
-    private DocumentService documentService;
+    final private DocumentService documentService;
 
     @Autowired
     public DocumentController(DocumentService documentService) {

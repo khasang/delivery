@@ -18,6 +18,10 @@ public class CreateTableImpl implements CreateTable {
         this.query = query;
     }
 
+    public String delete() {
+        return "done";
+    }
+
     @Override
     public String createCompany() {
         String preQuery = "DROP TABLE IF EXISTS companies";

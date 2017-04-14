@@ -32,7 +32,7 @@ public interface BasicDao<T> {
      * @param entity - entity for update
      * @return entity
      */
-    T updateDocument(T entity);
+    T updateEntity(T entity);
 
     /**
      * Find entity by id
