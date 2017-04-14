@@ -16,6 +16,17 @@ public class Customer {
     private String phoneNumber;
     @Column(name = "e-mail")
     private String eMail;
+    @Column(name = "order_id")
+    private long idOrder;
+
+
+    public long getIdOrder() {
+        return idOrder;
+    }
+
+    public void setIdOrder(long idOrder) {
+        this.idOrder = idOrder;
+    }
 
     public long getId() {
         return id;
