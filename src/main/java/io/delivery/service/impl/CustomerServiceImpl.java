@@ -14,28 +14,52 @@ public class CustomerServiceImpl implements CustomerService{
     CustomerDao customerDao;
 
     @Override
-    public List<Customer> findCustomerByName(String name) {
+    public List<Customer> getCustomerByName(String name) {
         return customerDao.findCustomerByName(name);
     }
 
     @Override
-    public List<Customer> findCustomerByAddress(String address) {
+    public List<Customer> getCustomerByAddress(String address) {
         return customerDao.findCustomerByAddress(address);
     }
 
     @Override
-    public Customer findCustomerByPhoneNumber(String phoneNumber) {
+    public Customer getCustomerByPhoneNumber(String phoneNumber) {
         return customerDao.findCustomerByPhoneNumber(phoneNumber);
     }
 
     @Override
-    public Customer findCustomerByEmail(String eMail) {
+    public Customer getCustomerByEmail(String eMail) {
         return customerDao.findCustomerByEmail(eMail);
     }
 
     @Override
-    public Customer findCustomerByIdOrder(long idOrder) {
+    public Customer getCustomerByIdOrder(long idOrder) {
         return customerDao.findCustomerByIdOrder(idOrder);
     }
 
+    @Override
+    public Customer getCustomerById(long id) {
+        return customerDao.findById(id);
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+        return customerDao.getList();
+    }
+
+    @Override
+    public Customer createCustomer(Customer customer) {
+        return customerDao.create(customer);
+    }
+
+    @Override
+    public Customer updateCustomer(Customer customer) {
+        return customerDao.update(customer);
+    }
+
+    @Override
+    public Customer deleteCustomer(long id) {
+        return customerDao.delete(customerDao.findById(id));
+    }
 }
