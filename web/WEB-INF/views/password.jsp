@@ -4,6 +4,7 @@
     <title>Title</title>
 </head>
 <body>
-${status}
+<h1>Password for user:</h1>
+<p>${crypt}</p>
 </body>
 </html>

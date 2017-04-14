@@ -10,10 +10,10 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"io.delivery.controller", "io.delivery.config", "io.delivery.model"})
-public class WebConfig extends WebMvcConfigurerAdapter{
+@ComponentScan({"io.delivery.controller", "io.delivery.config", "io.delivery.model", "io.delivery.service", "io.delivery.dao"})
+public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
-    public InternalResourceViewResolver viewResolver(){
+    public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/views/");

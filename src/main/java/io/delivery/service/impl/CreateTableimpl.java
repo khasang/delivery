@@ -1,13 +1,32 @@
 package io.delivery.service.impl;
 
+import io.delivery.model.Answer;
 import io.delivery.service.CreateTable;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class CreateTableimpl  implements CreateTable {
-    private JdbcTemplate jdbcTemplate;
-    private  String query;
+
+public class CreateTableImpl implements CreateTable {
+    private static final Logger LOG = Logger.getLogger(CreateTableImpl.class);
+
+    @Autowired
+    private Answer answer;
+
+    // Ошибка или антипаттерн
+//    Answer answer = new Answer();
+
+
+    private String query;
+
+    public CreateTableImpl(String query) {
+        this.query = query;
+    }
+
+    public CreateTableImpl() {
+    }
 
     public String getQuery() {
+
         return query;
     }
 
@@ -15,22 +34,9 @@ public class CreateTableimpl  implements CreateTable {
         this.query = query;
     }
 
-    public CreateTableimpl(String query) {
-        this.query = query;
-    }
-
-    public CreateTableimpl() {
-    }
-
     @Override
     public String createCompany() {
-        String preQuery = "DROP TABLE IF EXISTS companies";
-        String query = ("CREATE TABLE companies (\n" +
-                "    id         integer PRIMARY KEY,\n" +
-                "    name       varchar(40) NOT NULL\n" +
-                ");");
-        jdbcTemplate.execute(preQuery);
-        jdbcTemplate.execute(query);
+        LOG.info("our query: " + query);
         return query;
     }
 }

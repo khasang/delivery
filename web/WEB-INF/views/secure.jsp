@@ -4,6 +4,6 @@
     <title>Title</title>
 </head>
 <body>
-<p> It's very secure path!</p>
+<p>It's very secure path!</p>
 </body>
 </html>
