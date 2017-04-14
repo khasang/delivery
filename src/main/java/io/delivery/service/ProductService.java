@@ -53,5 +53,5 @@ public interface ProductService {
      * @param max maximum price
      * @return list of products with the price in the specified range
      */
-    List<Product> findWithPriceBetween(int min, int max);
+    List<Product> findByPriceRange(int min, int max);
 }

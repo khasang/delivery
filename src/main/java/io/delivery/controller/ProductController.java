@@ -58,7 +58,7 @@ public class ProductController {
 
     @RequestMapping(value = "/get/price/{min}/{max}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Product> getProductWithPriceBetween(@PathVariable(value = "min") int min, @PathVariable(value = "max") int max) {
-        return productService.findWithPriceBetween(min, max);
+    public List<Product> getProductByPriceRange(@PathVariable(value = "min") int min, @PathVariable(value = "max") int max) {
+        return productService.findByPriceRange(min, max);
 }
 }

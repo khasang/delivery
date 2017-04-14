@@ -3,8 +3,8 @@ package io.delivery.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "goods")
-public class Product {  // Singular form of 'goods' is not used
+@Table(name = "products")
+public class Product {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)

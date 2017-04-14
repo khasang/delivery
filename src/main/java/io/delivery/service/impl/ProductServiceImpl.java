@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> findWithPriceBetween(int min, int max) {
+    public List<Product> findByPriceRange(int min, int max) {
         return productDao.findByPriceRange(min, max);
     }
 }
