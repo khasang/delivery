@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan({"io.delivery.controller",
         "io.delivery.config",
         "io.delivery.model",
+        "io.delivery.dao",
         "io.delivery.service"})
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
