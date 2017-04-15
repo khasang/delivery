@@ -1,5 +1,8 @@
 package io.delivery.config;
 
+import io.delivery.dao.DocumentDao;
+import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.entity.Document;
 import io.delivery.model.TableCreator;
 import io.delivery.service.QueryCreator;
 import io.delivery.service.impl.QueryCreatorImpl;
@@ -54,5 +57,10 @@ public class AppConfig {
     @Bean
     public QueryCreator queryCreator() {
         return new QueryCreatorImpl(jdbcTemplate());
+    }
+
+    @Bean
+    DocumentDao documentDao() {
+        return new DocumentDaoImpl(Document.class);
     }
 }

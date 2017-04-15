@@ -1,4 +1,16 @@
 package io.delivery.dao;
 
-public interface DocumentDao {
+import io.delivery.entity.Document;
+
+import java.util.List;
+
+public interface DocumentDao extends BasicDao<Document> {
+    /**
+     * Find documents by name at db
+     *
+     * @param name - value name of document
+     * @return document
+     */
+
+    List<Document> findByName(String name);
 }
