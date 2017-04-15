@@ -16,6 +16,14 @@ public class Document {
     public Document() {
     }
 
+    public String getSpecificInnerInfo() {
+        return specificInnerInfo;
+    }
+
+    public void setSpecificInnerInfo(String specificInnerInfo) {
+        this.specificInnerInfo = specificInnerInfo;
+    }
+
     public String getName() {
         return name;
     }
