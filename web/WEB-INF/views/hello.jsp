@@ -5,24 +5,24 @@
         <table cellpadding=4 cellspacing=2 border=0>
 
             <th bgcolor="#CCCCFF" colspan=2>
-                <font size=5>РЕГИСТРАЦИЯ ЗАКАЗА</font>
+                <font size=5>РЕГИСТРАЦИЯ КЛИЕНТА</font>
                 <font size=1>* Обязательные поля</font>
             </th>
 
             <tr bgcolor="#c8d8f8">
                 <td valign=top>
-                    Имя*
+                    Имя
 
                     <input type="text" name="firstName" value="" size=15 maxlength=20></td>
                 <td  valign=top>
-                    Фамилия*
+                    Фамилия
 
                     <input type="text" name="lastName" value="" size=15 maxlength=20></td>
             </tr>
 
             <tr bgcolor="#c8d8f8">
                 <td valign=top>
-                    E-Mail*
+                    E-Mail
 
                     <input type="text" name="email" value="" size=25  maxlength=125>
                 </td>
@@ -39,22 +39,6 @@
                     <input type="text" name="address" size=50 value=""  maxlength=50>
                 </td>
             </tr>
-
-            <%--<tr bgcolor="#c8d8f8">--%>
-            <%--<td valign=top>--%>
-            <%--Пароль*--%>
-
-            <%--<input type="password" name="password1" size=10 value=""--%>
-            <%--maxlength=10></td>--%>
-            <%--<td  valign=top>--%>
-            <%--Подтвердить пароль*--%>
-
-            <%--<input type="password" name="password2" size=10 value=""--%>
-            <%--maxlength=10></td>--%>
-
-            <%--</tr>--%>
-
-
 
             <tr bgcolor="#c8d8f8">
                 <td  valign=top colspan=2>
