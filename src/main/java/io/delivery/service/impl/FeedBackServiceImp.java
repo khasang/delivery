@@ -10,7 +10,7 @@ import java.util.List;
 @Service("feedBackService")
 public class FeedBackServiceImp implements FeedbackService {
     @Autowired
-    FeedBackDao feedbackDao;
+    private FeedBackDao feedbackDao;
     @Override
     public List<FeedBack> getFeedbackList() {
         return feedbackDao.getList();
