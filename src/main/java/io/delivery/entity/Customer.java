@@ -7,14 +7,15 @@ import javax.persistence.*;
 public class Customer {
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column
     private String name;
     @Column
     private String address;
-    @Column(name = "telephone_number")
+    @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "e-mail")
+    @Column(name = "e_mail")
     private String eMail;
 
     public long getId() {
@@ -41,12 +42,12 @@ public class Customer {
         this.address = address;
     }
 
-    public String getTelephoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.phoneNumber = telephoneNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String geteMail() {
