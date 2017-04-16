@@ -1,7 +1,7 @@
 package io.delivery.entity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "feedbacks")
@@ -12,14 +12,14 @@ public class FeedBack {
     @Transient
     private Long userId;
     @Column(name = "feedback_date")
-    private LocalDate date;
+    private LocalDateTime date;
     @Column(name = "feedback_text")
     private String feedBackText;
 
     public FeedBack() {
     }
 
-    public FeedBack(LocalDate date, String feedBackText) {
+    public FeedBack(LocalDateTime date, String feedBackText) {
         this.date = date;
         this.feedBackText = feedBackText;
     }
@@ -40,11 +40,11 @@ public class FeedBack {
         this.userId = userId;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

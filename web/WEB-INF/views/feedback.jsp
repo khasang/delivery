@@ -12,10 +12,30 @@
         <form:form action="/feedback/add" method="POST" modelAttribute="feedbackDto">
             <form:input path="text" placeholder="Оставьте отзыв..."/>
             <br/>
-            <c:forEach items="${feedbacks}" var="feedback">
-                <c:out value="${feedback.feedBackText}"/>
-                <br/>
-            </c:forEach>
+            <h1>Отзывы</h1>
+            <c:if test="${!empty feedbacks}">
+                <table border="1px">
+                    <tr>
+                        <th>Покупатель</th>
+                        <th width="400">Отзыв</th>
+                    </tr>
+                    <c:forEach items="${feedbacks}" var="feedback">
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>Здесь могло быть имя юзера</td>
+                                    </tr>
+                                    <tr>
+                                        <td>${feedback.date}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>${feedback.feedBackText}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:if>
         </form:form>
     </div>
 </body>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service("feedBackService")
-public class FeedBackImp implements FeedbackService {
+public class FeedBackServiceImp implements FeedbackService {
     @Autowired
     FeedBackDao feedbackDao;
     @Override
