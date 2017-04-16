@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Controller
 @RequestMapping("/feedback")
@@ -27,7 +29,7 @@ public class FeedBackController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView addFeedBack(@ModelAttribute("feedbackDto") FeedBackDto feedBackDto) {
-        FeedBack feedBack = new FeedBack(LocalDateTime.now(), feedBackDto.getText());
+        FeedBack feedBack = new FeedBack(LocalDateTime.of(LocalDate.now(), LocalTime.now()), feedBackDto.getText());
         feedbackService.create(feedBack);
         return new ModelAndView("redirect:" + "/feedback");
     }
