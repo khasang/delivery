@@ -4,6 +4,7 @@ import io.delivery.dao.DocumentDao;
 import io.delivery.dao.OrderDao;
 import io.delivery.dao.impl.DocumentDaoImpl;
 import io.delivery.dao.impl.OrderDaoImpl;
+import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Document;
 import io.delivery.entity.Order;
 import io.delivery.model.Company;
@@ -95,6 +96,11 @@ public class AppConfig {
     @Bean
     OrderDao orderDao() {
         return new OrderDaoImpl(Order.class);
+    }
+
+    @Bean
+    BasketUnit basketUnit() {
+        return new BasketUnit();
     }
 }
 

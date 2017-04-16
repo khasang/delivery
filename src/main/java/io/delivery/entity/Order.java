@@ -3,8 +3,9 @@ package io.delivery.entity;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
-@Entity
+@Entity(name = "Order")
 @Table(name = "orders")
 public class Order {
 
@@ -24,13 +25,15 @@ public class Order {
     @Column(name = "time")
     private Time deliveryTime;
     @Column(name = "user_id")
-    private Long user;
-    @Column(name = "adress")
-    private String deliveryAdress;
+    private Long userId;
+    @Column(name = "address")
+    private String deliveryAddress;
     @Column(name = "exec_id")
-    private Long executor;
+    private Long executorId;
     @Column(name = "comment")
     private String comment;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BasketUnit> basketUnitList;
 
     public Order() {
     }
@@ -59,28 +62,28 @@ public class Order {
         this.deliveryTime = deliveryTime;
     }
 
-    public Long getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(Long user) {
-        this.user = user;
+    public void setUserId(Long user) {
+        this.userId = user;
     }
 
-    public String getDeliveryAdress() {
-        return deliveryAdress;
+    public String getDeliveryAddress() {
+        return deliveryAddress;
     }
 
-    public void setDeliveryAdress(String deliveryAdress) {
-        this.deliveryAdress = deliveryAdress;
+    public void setDeliveryAddress(String deliveryAdress) {
+        this.deliveryAddress = deliveryAdress;
     }
 
-    public Long getExecutor() {
-        return executor;
+    public Long getExecutorId() {
+        return executorId;
     }
 
-    public void setExecutor(Long executor) {
-        this.executor = executor;
+    public void setExecutorId(Long executor) {
+        this.executorId = executor;
     }
 
     public String getComment() {
@@ -90,4 +93,23 @@ public class Order {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public List<BasketUnit> getBasketUnitList() {
+        return basketUnitList;
+    }
+
+    public void setBasketUnitList(List<BasketUnit> basketUnitList) {
+        this.basketUnitList = basketUnitList;
+    }
+
+    public void addBasketUnit(BasketUnit basketUnit) {
+        basketUnit.setOrder(this);
+        basketUnitList.add(basketUnit);
+    }
+
+    public void removeBasketUnit(BasketUnit basketUnit) {
+        basketUnit.setOrder(null);
+        basketUnitList.remove(basketUnit);
+    }
+
 }
