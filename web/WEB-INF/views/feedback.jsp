@@ -15,37 +15,43 @@
     <form:form action="/feedback/add" method="POST" modelAttribute="feedbackDto">
         <form:input path="text" placeholder="Оставьте отзыв..."/>
         <form:button type="submit">Добавить</form:button>
-        <br/>
-        <h1>Отзывы</h1>
-        <c:if test="${!empty feedbacks}">
-            <table border="1px">
-                <tr>
-                    <th>Покупатель</th>
-                    <th width="400">Отзыв</th>
-                </tr>
-                <c:forEach items="${feedbacks}" var="feedback">
-                    <tr>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td>Здесь могло быть имя юзера</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <c:set var="cleanedDateTime" value="${fn:replace(feedback.date, 'T', ' ')}"/>
-                                        <fmt:parseDate value="${ cleanedDateTime }" pattern="yyyy-MM-dd HH:mm"
-                                                       var="parsedDateTime" type="both"/>
-                                        <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td>${feedback.feedBackText}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </c:if>
     </form:form>
+    <br/>
+    <h1>Отзывы</h1>
+    <c:if test="${!empty feedbacks}">
+        <table border="1px">
+            <tr>
+                <th>Покупатель</th>
+                <th width="400">Отзыв</th>
+            </tr>
+            <c:forEach items="${feedbacks}" var="feedback">
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Здесь могло быть имя юзера</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <c:set var="cleanedDateTime" value="${fn:replace(feedback.date, 'T', ' ')}"/>
+                                    <fmt:parseDate value="${ cleanedDateTime }" pattern="yyyy-MM-dd HH:mm"
+                                                   var="parsedDateTime" type="both"/>
+                                    <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>${feedback.feedBackText}</td>
+                    <td>
+                        <form:form action="/feedback/delete" method="POST">
+                            <input type="hidden" name="feedbackId" value="${feedback.id}"/>
+                            <input type="submit" value="Удалить">
+                        </form:form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
 </div>
 </body>
 </html>
