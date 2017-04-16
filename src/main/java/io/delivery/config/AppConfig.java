@@ -4,7 +4,6 @@ import io.delivery.dao.DocumentDao;
 import io.delivery.dao.impl.DocumentDaoImpl;
 import io.delivery.entity.Document;
 import io.delivery.model.Answer;
-import io.delivery.model.Insert;
 import io.delivery.model.TableCreator;
 import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.CreateTable;
@@ -65,11 +64,6 @@ public class AppConfig {
     @Bean
     public Answer answer() {
         return new Answer();
-    }
-
-    @Bean
-    public Insert insert() {
-        return new Insert(jdbcTemplate());
     }
 
     @Bean
