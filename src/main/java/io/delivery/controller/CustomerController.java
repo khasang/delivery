@@ -44,12 +44,6 @@ public class CustomerController {
         return customerService.getCustomerByAddress(address);
     }
 
-    @RequestMapping(value = "/get_by/order-id/{idOrder}", method = RequestMethod.GET)
-    @ResponseBody
-    public Customer getCustomerByIdorder(@PathVariable(value = "idOrder") String idOrder){
-        return customerService.getCustomerByIdOrder(Long.parseLong(idOrder));
-    }
-
     @RequestMapping(value = "/get_by/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Customer getCustomerById(@PathVariable(value = "id") String id){

@@ -33,11 +33,4 @@ public interface CustomerDao extends BasicDao<Customer>{
      */
     Customer findCustomerByEmail(String eMail);
 
-    /**
-     * Find customer by id order
-     * @param idOrder - customer's id order
-     * @return - idOrder
-     */
-    Customer findCustomerByIdOrder(long idOrder);
-
 }

@@ -34,11 +34,6 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public Customer getCustomerByIdOrder(long idOrder) {
-        return customerDao.findCustomerByIdOrder(idOrder);
-    }
-
-    @Override
     public Customer getCustomerById(long id) {
         return customerDao.findById(id);
     }

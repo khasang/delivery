@@ -35,13 +35,6 @@ public interface CustomerService {
     Customer getCustomerByEmail(String eMail);
 
     /**
-     * Get customer by id order from database
-     * @param idOrder - customer's id order
-     * @return - current customer
-     */
-    Customer getCustomerByIdOrder(long idOrder);
-
-    /**
      * Get customer by id from database
      * @param id - customer's id
      * @return - current customer
