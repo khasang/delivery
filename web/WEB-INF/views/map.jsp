@@ -16,7 +16,6 @@
 
 <body>
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-${status}
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <!—Название сайта и кнопка раскрытия меню для мобильных-->
@@ -74,69 +73,174 @@ ${status}
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<nav>
-    <div id="map" style="width: 600px; height: 400px">
-        <script type="text/javascript">
-            ymaps.ready(init);
 
-            function init() {
-                var myPlacemark,
-                    myMap = new ymaps.Map('map', {
-                        center: [55.753994, 37.622093],
-                        zoom: 9
-                    }, {
-                        searchControlProvider: 'yandex#search'
-                    });
+<div class="navbar-inner">
+    <div class="container">
+        <nav class="nav navbar-nav navbar-left">
+            <div id="map" style="width: 600px; height: 400px" class="navbar-left">
+                <script type="text/javascript">
+                    var myMap;
+                    var myPlacemark;
+                    var placemarkCollection;
+                    ymaps.ready(readDataFromDB);
 
-                // Слушаем клик на карте.
-                myMap.events.add('click', function (e) {
-                    var coords = e.get('coords');
+                    function init() {
 
-                    // Если метка уже создана – просто передвигаем ее.
-                    if (myPlacemark) {
-                        myPlacemark.geometry.setCoordinates(coords);
+                        // Слушаем клик на карте.
+                        window.myMap.events.add('click', function (e) {
+                            var coords = e.get('coords');
+                            // Если метка уже создана – просто передвигаем ее.
+                            if (window.myPlacemark) {
+                                window.myPlacemark.geometry.setCoordinates(coords);
+                            }
+                            // Если нет – создаем.
+                            else {
+                                window.myPlacemark = createPlacemark(coords);
+                                window.myMap.geoObjects.add(window.myPlacemark);
+                                // Слушаем событие окончания перетаскивания на метке.
+                                window.myPlacemark.events.add('dragend', function () {
+                                    getAddress(window.myPlacemark.geometry.getCoordinates());
+                                });
+                            }
+
+                            getAddress(coords);
+                            showPlacemarkInfo(coords);
+                        });
+
+                        // Определяем адрес по координатам (обратное геокодирование).
+                        function getAddress(coords) {
+                            window.myPlacemark.properties.set('iconCaption', 'поиск...');
+                            ymaps.geocode(coords).then(function (res) {
+                                var firstGeoObject = res.geoObjects.get(0);
+
+                                window.myPlacemark.properties
+                                    .set({
+                                        iconCaption: firstGeoObject.properties.get('name'),
+                                        balloonContent: firstGeoObject.properties.get('text')
+                                    });
+                            });
+                        }
+
+                        function showPlacemarkInfo(coords)
+                        {
+                            ymaps.geocode(coords).then(function (res)
+                            {
+                                var firstGeoObject = res.geoObjects.get(0);
+                                var address = document.getElementById('address');
+                                address.value = firstGeoObject.properties.get('text');
+
+                                var coord = document.getElementById('coords');
+                                coord.value = coords;
+                            });
+                        }
+                    } //end of init()
+
+                    function readDataFromDB() {
+                        if (window.myPlacemark) {
+                            window.myMap.geoObjects.remove(window.myPlacemark);
+                            window.myPlacemark = undefined;
+                        }
+
+                        if (window.placemarkCollection)
+                            window.placemarkCollection.removeAll();
+                        else
+                            window.placemarkCollection = new ymaps.GeoObjectCollection();
+
+                        if (!window.myMap)
+                        {
+                            window.myMap = new ymaps.Map('map', {
+                                center: [55.753994, 37.622093],
+                                zoom: 9
+                            }, {
+                                searchControlProvider: 'yandex#search'
+                            });
+
+                        }
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', '/office/all', false);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.send();
+                        if(xhr.status == 200) {
+                            //Парсим JSON
+                            var placemarks = JSON.parse(xhr.responseText);
+                            for (var i=0; i<placemarks.length; i++) {
+                                addOfficeOnMap(placemarks[i]);
+                            }
+                        }
+                        else {
+                            alert(xhr.status);
+                        }
+                        myMap.geoObjects.add(window.placemarkCollection);
+                        init();
                     }
-                    // Если нет – создаем.
-                    else {
-                        myPlacemark = createPlacemark(coords);
-                        myMap.geoObjects.add(myPlacemark);
-                        // Слушаем событие окончания перетаскивания на метке.
-                        myPlacemark.events.add('dragend', function () {
-                            getAddress(myPlacemark.geometry.getCoordinates());
+
+                    // Создание метки.
+                    function createPlacemark(coords) {
+                        return new ymaps.Placemark(coords, {
+                            iconCaption: 'поиск...'
+                        }, {
+                            preset: 'islands#violetDotIconWithCaption',
+                            draggable: true
                         });
                     }
-                    getAddress(coords);
-                });
 
-                // Создание метки.
-                function createPlacemark(coords) {
-                    return new ymaps.Placemark(coords, {
-                        iconCaption: 'поиск...'
-                    }, {
-                        preset: 'islands#violetDotIconWithCaption',
-                        draggable: true
-                    });
-                }
-
-                // Определяем адрес по координатам (обратное геокодирование).
-                function getAddress(coords) {
-                    myPlacemark.properties.set('iconCaption', 'поиск...');
-                    ymaps.geocode(coords).then(function (res) {
-                        var firstGeoObject = res.geoObjects.get(0);
-
-                        myPlacemark.properties
-                            .set({
-                                iconCaption: firstGeoObject.properties.get('name'),
-                                balloonContent: firstGeoObject.properties.get('text')
+                    function addOfficeOnMap(placemark) {
+                        var _mark = createPlacemark(pointFromString(placemark.coords));
+                        _mark.properties.set({
+                                iconCaption: placemark.description,
+                                balloonContent: placemark.address
                             });
-                    });
-                }
-            }
+                        window.placemarkCollection.add(_mark);
+                    }
 
-        </script>
-
+                    function pointFromString (val) {
+                        var parts = val.split(',');
+                        return [parseFloat(parts[0]), parseFloat(parts[1])];
+                    }
+                </script>
+            </div>
+        </nav>
     </div>
-</nav>
+</div>
+
+<form>
+    <script type="text/javascript">
+        function saveOffice() {
+            //Запись координат в базу
+            var address = document.getElementById('address');
+            var coord = document.getElementById('coords');
+            var descript = document.getElementById('description');
+
+            var xhr = new XMLHttpRequest();
+            var body = '{"address":"'+address.value+'", "coords":"'+coord.value+'", "description":"'+descript.value+'"}';
+            xhr.open("POST", '/office/add', false);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(body);
+            readDataFromDB();
+        }
+    </script>
+
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"></span>
+                <input id="address" type="text" class="form-control" placeholder="Адрес..." aria-describedby="basic-addon1" readonly>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2"></span>
+                <input id="coords" type="text" class="form-control" placeholder="Координаты..." aria-describedby="basic-addon2" readonly>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon"></span>
+                <input id="description" type="text" class="form-control" placeholder="Описание офиса..." aria-describedby="basic-addon2">
+            </div>
+            <button type="button" class="btn btn-default navbar-btn" onclick="saveOffice()">Сохранить</button>
+        </div>
+    </div>
+</form>
 
 <div class="navbar-fixed-bottom row-fluid">
     <div class="navbar-inner">
