@@ -13,6 +13,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -41,6 +42,33 @@ public class OrderIntegrationTest {
         basketUnits.clear();
     }
 
+    @Test
+    public void deleteOrder(){
+        Order order = createOrder();
+        assertNotNull(order);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                ROOT + DELETE + "{id}",
+                HttpMethod.DELETE,
+                null,
+                String.class,
+                order.getId()
+        );
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+
+        ResponseEntity<Order> checkDocumentById = restTemplate.exchange(
+                ROOT + GET_ID + "{id}",
+                HttpMethod.GET,
+                null,
+                Order.class,
+                order.getId()
+        );
+
+        assertEquals(HttpStatus.OK, checkDocumentById.getStatusCode());
+        assertNull(checkDocumentById.getBody());
+    }
 
     @Test
     public void addOrderAndGetById() {
