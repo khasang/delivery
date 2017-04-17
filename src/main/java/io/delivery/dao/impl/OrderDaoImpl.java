@@ -7,4 +7,5 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
     public OrderDaoImpl(Class<Order> entityClass) {
         super(entityClass);
     }
-}
+    }
+

@@ -19,4 +19,12 @@ public interface OrderService {
      * @return order
      */
     Order findById(long id);
+
+    /**
+     * Delete order in database by ID
+     *
+     * @param id of order
+     * @return order
+     */
+    Order delete(long id);
 }

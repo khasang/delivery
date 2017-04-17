@@ -1,16 +1,14 @@
 package io.delivery.config;
 
+
 import io.delivery.dao.DocumentDao;
 import io.delivery.dao.OrderDao;
+
 import io.delivery.dao.impl.DocumentDaoImpl;
 import io.delivery.dao.impl.OrderDaoImpl;
 import io.delivery.entity.Document;
 import io.delivery.entity.Order;
 import io.delivery.model.Answer;
-import io.delivery.model.TableCreator;
-import io.delivery.model.impl.TableCreatorImpl;
-import io.delivery.service.CreateTable;
-import io.delivery.service.impl.CreateTableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,16 +50,6 @@ public class AppConfig {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource());
         return jdbcTemplate;
-    }
-
-    @Bean
-    public TableCreator tableCreator() {
-        return new TableCreatorImpl(jdbcTemplate());
-    }
-
-    @Bean
-    public CreateTable createTable() {
-        return new CreateTableImpl("asd");
     }
 
     @Bean

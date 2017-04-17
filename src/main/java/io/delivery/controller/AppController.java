@@ -18,8 +18,7 @@ public class AppController {
     private Answer answer;
     @Autowired
     private Message message;
-    @Autowired
-    private TableCreator tableCreator;
+
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -35,12 +34,6 @@ public class AppController {
         model.addAttribute("info", message.getInfoMessage());
         model.addAttribute("answ", answer.getInfoAnswer());
         return "hello";
-    }
-
-    @RequestMapping(value = "/create")
-    public String create(Model model) {
-        model.addAttribute("status", tableCreator.createCompany());
-        return "create";
     }
 
     @RequestMapping(value = "/secure")

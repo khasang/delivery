@@ -29,4 +29,10 @@ public class OrderController {
     public Order getOrderById(@PathVariable(value = "id") String id) {
         return orderService.findById(Long.parseLong(id));
     }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Order deleteOrder(@PathVariable(value = "id") String id) {
+        return orderService.delete(Long.parseLong(id));
+    }
 }

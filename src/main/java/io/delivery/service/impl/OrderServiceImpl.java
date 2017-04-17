@@ -25,4 +25,7 @@ public class OrderServiceImpl implements OrderService {
     public Order findById(long id) {
         return orderDao.findById(id);
     }
+
+    @Override
+    public Order delete(long id) { return orderDao.delete(findById(id));  }
 }
