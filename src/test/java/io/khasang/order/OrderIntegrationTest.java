@@ -19,10 +19,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class OrderIntegrationTest {
+
     private final String ROOT = "http://localhost:8080/order";
-    private final String ADD = "/add";
     private final String GET_ID = "/get/id/";
+    private final String ADD = "/add";
+    private final String UPDATE = "/update";
     private final String DELETE = "/delete/";
+    private final String ALL = "/all";
+    private final String GET_NAME = "/get/name/";
 
     private static ArrayList<BasketUnit> basketUnits = new ArrayList<>();
 
@@ -88,7 +92,8 @@ public class OrderIntegrationTest {
         order.setDeliveryTime(Time.valueOf("04:05:06"));
         order.setDeliveryAddress("Moscow");
         order.setExecutorId((long) 350);
-        order.setBasketUnitList(basketUnits);
+//        order.addBasketUnit(new BasketUnit());
+//        order.setBasketUnitList(basketUnits);
         return order;
     }
 }

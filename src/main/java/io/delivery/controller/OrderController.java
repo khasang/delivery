@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value = "/order")
+@RequestMapping("/order")
 public class OrderController {
 
     private final OrderService orderService;
