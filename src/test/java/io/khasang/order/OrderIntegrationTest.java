@@ -198,7 +198,6 @@ public class OrderIntegrationTest {
 
     }
 
-    @Test
     public Order createOrder() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -218,9 +217,6 @@ public class OrderIntegrationTest {
 
     }
 
-
-
-
     private Order prefillOrder() {
         Order order = new Order();
         order.setUserId((long) 135);
@@ -233,5 +229,4 @@ public class OrderIntegrationTest {
         return order;
 
     }
-
 }
