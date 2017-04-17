@@ -2,9 +2,12 @@ package io.delivery.config;
 
 import io.delivery.dao.CompanyDAO;
 import io.delivery.dao.DocumentDao;
+import io.delivery.dao.OrderDao;
 import io.delivery.dao.impl.CompanyDAOImpl;
 import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.dao.impl.OrderDaoImpl;
 import io.delivery.entity.Document;
+import io.delivery.entity.Order;
 import io.delivery.model.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -62,6 +65,11 @@ public class AppConfig {
     @Bean
     CompanyDAO companyDao(){
         return new CompanyDAOImpl(jdbcTemplate());
+    }
+
+    @Bean
+    OrderDao orderDao() {
+        return new OrderDaoImpl(Order.class);
     }
 
 }
