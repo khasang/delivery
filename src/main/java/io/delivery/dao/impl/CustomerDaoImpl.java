@@ -14,28 +14,28 @@ public class CustomerDaoImpl extends BasicDaoImpl<Customer> implements CustomerD
     public List<Customer> findCustomerByName(String name) {
         return (List<Customer>) sessionFactory.getCurrentSession().
                 createQuery("FROM Customer where name = ?").
-                setParameter(0, name);
+                setParameter(0, name).list();
     }
 
     @Override
     public List<Customer> findCustomerByAddress(String address) {
         return (List<Customer>) sessionFactory.getCurrentSession().
                 createQuery("FROM Customer where address = ?").
-                setParameter(0, address);
+                setParameter(0, address).list();
     }
 
     @Override
     public Customer findCustomerByPhoneNumber(String phoneNumber) {
         return (Customer) sessionFactory.getCurrentSession().
                 createQuery("FROM Customer where phoneNumber = ?").
-                setParameter(0, phoneNumber);
+                setParameter(0, phoneNumber).uniqueResult();
     }
 
     @Override
     public Customer findCustomerByEmail(String eMail) {
         return (Customer) sessionFactory.getCurrentSession().
                 createQuery("FROM Customer where eMail = ?").
-                setParameter(0, eMail);
+                setParameter(0, eMail).uniqueResult();
     }
 
 }
