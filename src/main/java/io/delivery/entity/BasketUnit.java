@@ -1,8 +1,10 @@
 package io.delivery.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
-@Entity(name = "BasketUnit")
+@Entity
 @Table(name = "basket")
 public class BasketUnit {
     @Id
@@ -13,10 +15,15 @@ public class BasketUnit {
     @Column(name = "quantity")
     private int quantity;
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "order_id")
     private Order order;
 
     public BasketUnit() {
+    }
+
+    public BasketUnit(Long itemId) {
+        this.itemId = itemId;
     }
 
     public Order getOrder() {

@@ -4,10 +4,7 @@ import io.delivery.entity.Order;
 import io.delivery.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(value = "/order")
@@ -20,10 +17,16 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Order addOrder(@RequestBody Order order) {
         orderService.create(order);
         return order;
+    }
+
+    @RequestMapping(value = "/get/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Order getOrderById(@PathVariable(value = "id") String id) {
+        return orderService.findById(Long.parseLong(id));
     }
 }

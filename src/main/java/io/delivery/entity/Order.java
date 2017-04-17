@@ -1,11 +1,13 @@
 package io.delivery.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
-@Entity(name = "Order")
+@Entity
 @Table(name = "orders")
 public class Order {
 
@@ -33,17 +35,14 @@ public class Order {
     @Column(name = "comment")
     private String comment;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BasketUnit> basketUnitList;
+    @JsonManagedReference
+    private List<BasketUnit> basketUnitList = null;
 
     public Order() {
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Date getDeliveryDate() {
@@ -66,8 +65,8 @@ public class Order {
         return userId;
     }
 
-    public void setUserId(Long user) {
-        this.userId = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getDeliveryAddress() {
@@ -82,8 +81,8 @@ public class Order {
         return executorId;
     }
 
-    public void setExecutorId(Long executor) {
-        this.executorId = executor;
+    public void setExecutorId(Long executorId) {
+        this.executorId = executorId;
     }
 
     public String getComment() {
@@ -99,6 +98,9 @@ public class Order {
     }
 
     public void setBasketUnitList(List<BasketUnit> basketUnitList) {
+        for (BasketUnit basketUnit : basketUnitList) {
+            basketUnit.setOrder(this);
+        }
         this.basketUnitList = basketUnitList;
     }
 

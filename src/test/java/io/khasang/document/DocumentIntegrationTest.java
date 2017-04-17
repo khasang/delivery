@@ -50,7 +50,7 @@ public class DocumentIntegrationTest {
                 HttpMethod.POST,
                 httpEntity,
                 Document.class
-                ).getBody();
+        ).getBody();
         assertNotNull(createdDocument);
         assertEquals(document.getName(), createdDocument.getName());
         return createdDocument;

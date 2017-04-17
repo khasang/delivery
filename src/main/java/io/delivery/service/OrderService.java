@@ -11,4 +11,12 @@ public interface OrderService {
      * @return created order
      */
     Order create(Order order);
+
+    /**
+     * Find order in database by ID
+     *
+     * @param id of order
+     * @return order
+     */
+    Order findById(long id);
 }

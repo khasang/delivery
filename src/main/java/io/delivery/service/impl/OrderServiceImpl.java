@@ -20,4 +20,9 @@ public class OrderServiceImpl implements OrderService {
     public Order create(Order order) {
         return orderDao.create(order);
     }
+
+    @Override
+    public Order findById(long id) {
+        return orderDao.findById(id);
+    }
 }
