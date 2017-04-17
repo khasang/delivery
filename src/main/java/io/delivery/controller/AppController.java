@@ -1,6 +1,7 @@
 package io.delivery.controller;
 
 import io.delivery.model.Answer;
+import io.delivery.model.BackupCreator;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class AppController {
     private Message message;
     @Autowired
     private TableCreator tableCreator;
+    @Autowired
+    private BackupCreator backupCreator;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -40,6 +43,12 @@ public class AppController {
     @RequestMapping(value = "/create")
     public String create(Model model) {
         model.addAttribute("status", tableCreator.createCompany());
+        return "create";
+    }
+
+    @RequestMapping(value = "/backup")
+    public String backup(Model model) {
+        model.addAttribute("status", backupCreator.createBackup());
         return "create";
     }
 

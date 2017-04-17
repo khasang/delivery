@@ -4,7 +4,9 @@ import io.delivery.dao.DocumentDao;
 import io.delivery.dao.impl.DocumentDaoImpl;
 import io.delivery.entity.Document;
 import io.delivery.model.Answer;
+import io.delivery.model.BackupCreator;
 import io.delivery.model.TableCreator;
+import io.delivery.model.impl.BackupCreatorIml;
 import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.CreateTable;
 import io.delivery.service.impl.CreateTableImpl;
@@ -21,6 +23,7 @@ import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 @Configuration
 @PropertySource(value = {"classpath:util.properties"})
 @PropertySource(value = {"classpath:auth.properties"})
+@PropertySource(value = {"classpath:backup.properties"})
 public class AppConfig {
     @Autowired
     private Environment environment;
@@ -54,6 +57,11 @@ public class AppConfig {
     @Bean
     public TableCreator tableCreator() {
         return new TableCreatorImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public BackupCreator backupCreator() {
+        return new BackupCreatorIml();
     }
 
     @Bean
