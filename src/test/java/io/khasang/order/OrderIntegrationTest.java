@@ -5,15 +5,13 @@ import io.delivery.entity.Order;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -28,7 +26,7 @@ public class OrderIntegrationTest {
     private final String ALL = "/all";
     private final String GET_NAME = "/get/name/";
 
-    private static ArrayList<BasketUnit> basketUnits = new ArrayList<>();
+    private static List<BasketUnit> basketUnits = new ArrayList<>();
 
     @Before
     public void setUp() {
@@ -44,27 +42,27 @@ public class OrderIntegrationTest {
     }
 
 
-//    @Test
-//    public void addOrderAndGetById() {
-//        Order order = createOrder();
-//
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        ResponseEntity<Order> responseEntity = restTemplate.exchange(
-//                ROOT + GET_ID + "{id}",
-//                HttpMethod.GET,
-//                null,
-//                Order.class,
-//                order.getId()
-//        );
-//
-//        Order resultOrder = responseEntity.getBody();
-//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-//        assertNotNull(resultOrder);
-//    }
-
     @Test
-    public void createOrder() {
+    public void addOrderAndGetById() {
+        Order order = createOrder();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<Order> responseEntity = restTemplate.exchange(
+                ROOT + GET_ID + "{id}",
+                HttpMethod.GET,
+                null,
+                Order.class,
+                order.getId()
+        );
+
+        Order resultOrder = responseEntity.getBody();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(order.getId(), resultOrder.getId());
+        assertNotNull(resultOrder);
+    }
+
+    private Order createOrder() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
@@ -79,8 +77,7 @@ public class OrderIntegrationTest {
         ).getBody();
 
         assertNotNull(createdOrder);
-        assertEquals(order.getBasketUnitList(), createdOrder.getBasketUnitList());
-//        return createdOrder;
+        return createdOrder;
     }
 
 
@@ -92,8 +89,17 @@ public class OrderIntegrationTest {
         order.setDeliveryTime(Time.valueOf("04:05:06"));
         order.setDeliveryAddress("Moscow");
         order.setExecutorId(350L);
+
+//        BasketUnit basketUnit1 = new BasketUnit();
+//        basketUnit1.setQuantity(5);
+//        BasketUnit basketUnit2 = new BasketUnit();
+//        basketUnit2.setQuantity(10);
+//
+//        order.addBasketUnit(basketUnit1);
+//        order.addBasketUnit(basketUnit2);
+
 //        order.addBasketUnit(new BasketUnit());
-//        order.setBasketUnitList(basketUnits);
+        order.setBasketUnitList(basketUnits);
         return order;
     }
 }

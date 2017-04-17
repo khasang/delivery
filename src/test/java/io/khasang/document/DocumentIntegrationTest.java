@@ -64,7 +64,7 @@ public class DocumentIntegrationTest {
     }
 
     @Test
-    public void getAllDocuments(){
+    public void getAllDocuments() {
         RestTemplate restTemplate = new RestTemplate();
         createDocument();
         createDocument();
@@ -83,7 +83,7 @@ public class DocumentIntegrationTest {
     }
 
     @Test
-    public void deleteDocument(){
+    public void deleteDocument() {
         Document document = createDocument();
         assertNotNull(document);
 
@@ -111,7 +111,7 @@ public class DocumentIntegrationTest {
     }
 
     @Test
-    public void updateDocument(){
+    public void updateDocument() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 

@@ -15,13 +15,13 @@ public class Order {
     @Id
     @Column(name = "order_id")
     @TableGenerator(
-            name = "TABLE_GEN",
+            name = "ORD_GEN",
             table = "SEQUENCE_TABLE",
             pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_COUNT",
             pkColumnValue = "ORD_SEQ",
             allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "ORD_GEN")
     private Long id;
     @Column(name = "date")
     private Date deliveryDate;
@@ -35,7 +35,7 @@ public class Order {
     private Long executorId;
     @Column(name = "comment")
     private String comment;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<BasketUnit> basketUnitList = new ArrayList<>();
 
