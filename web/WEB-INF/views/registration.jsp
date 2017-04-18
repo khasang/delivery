@@ -8,36 +8,32 @@
 </head>
 <body>
 <table>
-    <center>
-        <form name="FormReg"
-              method="post"
-              action="http://localhost:8080/registr">
-            <table>
-                <tr>
-                    <td>
-                        <B>Регистрация</B>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Имя</td>
-                    <td><input type=textbox name="p" size="25" value=""></td>
+    <table>
+        <tr>
+            <td>
+                <B>Регистрация</B>
+            </td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td><input type=textbox name="p" size="25" value=""></td>
 
-                </tr>
-                <tr>
-                    <td>Электронная почта</td>
-                    <td><input type=textbox name="p" size="25" value=""></td>
+        </tr>
+        <tr>
+            <td>Электронная почта</td>
+            <td><input type=textbox name="p" size="25" value=""></td>
 
-                </tr>
-            </table>
-            <table>
-                <input type=submit value="Вход">
-            </table>
-            <table>
-                <tr>
-                    <td><B> ВХОД ЧЕРЕЗ СОЦСЕТИ</B></td>
-                </tr>
-            </table>
-    </center>
+        </tr>
+    </table>
+    <table>
+        <input type=submit value="Вход">
+    </table>
+    <table>
+        <tr>
+            <td><B> ВХОД ЧЕРЕЗ СОЦСЕТИ</B></td>
+        </tr>
+    </table>
+
 </table>
 </body>
 </html>
