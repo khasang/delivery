@@ -37,6 +37,7 @@ public class AppController {
         return "hello";
     }
 
+
     @RequestMapping(value = "/create")
     public String create(Model model) {
         model.addAttribute("status", tableCreator.createCompany());
@@ -47,4 +48,11 @@ public class AppController {
     public String secure() {
         return "/secure";
     }
+
+    @RequestMapping(value = "/registration")
+    public String registration() {
+        return "/registration";
+    }
 }
+
+
