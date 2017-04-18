@@ -2,9 +2,7 @@ package io.khasang.order;
 
 import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,9 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+
 
 public class OrderIntegrationTest {
 
@@ -26,7 +23,7 @@ public class OrderIntegrationTest {
     private final String ADD = "/add";
     private final String UPDATE = "/update";
     private final String DELETE = "/delete/";
-    private final String DELETE_BUSKET_ITEM = "/delete/busket/id";
+    private final String DELETE_BUSKET_UNIT = "/delete/busket/id";
     private final String GET_BASKET_UNIT = "/get/busket/id";
     private final String ALL = "/all";
     private final String GET_NAME = "/get/name/";
@@ -112,7 +109,7 @@ public class OrderIntegrationTest {
         long id = basket.get(0).getItemId();
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
-                ROOT + DELETE_BUSKET_ITEM + "{id}",
+                ROOT + DELETE_BUSKET_UNIT + "{id}",
                 HttpMethod.DELETE,
                 null,
                 String.class,
