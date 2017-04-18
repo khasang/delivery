@@ -25,18 +25,17 @@ public class CustomerDaoImpl extends BasicDaoImpl<Customer> implements CustomerD
     }
 
     @Override
-    public List<Customer> findCustomerByPhoneNumber(String phoneNumber) {
-        return (List<Customer>) sessionFactory.getCurrentSession().
+    public Customer findCustomerByPhoneNumber(String phoneNumber) {
+        return (Customer) sessionFactory.getCurrentSession().
                 createQuery("FROM Customer where phoneNumber = ?").
-//                setParameter(0, phoneNumber).uniqueResult();
-                setParameter(0, phoneNumber).list();
+                setParameter(0, phoneNumber).uniqueResult();
     }
 
     @Override
-    public List<Customer> findCustomerByEmail(String eMail) {
-        return (List<Customer>) sessionFactory.getCurrentSession().
+    public Customer findCustomerByEmail(String eMail) {
+        return (Customer) sessionFactory.getCurrentSession().
                 createQuery("FROM Customer where eMail = ?").
-                setParameter(0, eMail).list();
+                setParameter(0, eMail).uniqueResult();
     }
 
 }

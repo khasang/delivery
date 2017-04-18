@@ -24,13 +24,13 @@ public interface CustomerDao extends BasicDao<Customer>{
      * @param phoneNumber - customer's phone number
      * @return - current customer
      */
-    List<Customer> findCustomerByPhoneNumber(String phoneNumber);
+    Customer findCustomerByPhoneNumber(String phoneNumber);
 
     /**
      * Find customer by e-mail
      * @param eMail - customer's e-mail
      * @return - current customer
      */
-    List<Customer> findCustomerByEmail(String eMail);
+    Customer findCustomerByEmail(String eMail);
 
 }

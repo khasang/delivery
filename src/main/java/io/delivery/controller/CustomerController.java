@@ -28,13 +28,13 @@ public class CustomerController {
 
     @RequestMapping(value = "/get_by/e-mail/{eMail}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Customer> getCustomerByEmail(@PathVariable(value = "eMail") String eMail){
+    public Customer getCustomerByEmail(@PathVariable(value = "eMail") String eMail){
         return customerService.getCustomerByEmail(eMail);
     }
 
     @RequestMapping(value = "/get_by/phone-number/{phoneNumber}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Customer> getCustomerByPhoneNumber(@PathVariable(value = "phoneNumber") String phoneNumber){
+    public Customer getCustomerByPhoneNumber(@PathVariable(value = "phoneNumber") String phoneNumber){
         return customerService.getCustomerByPhoneNumber(phoneNumber);
     }
 
@@ -70,7 +70,7 @@ public class CustomerController {
         return customer;
     }
 
-    @RequestMapping(value = "/delete_by/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete_by/id/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public Customer deleteCustomerById(@PathVariable(value = "id") String id){
         return customerService.deleteCustomer(Long.parseLong(id));

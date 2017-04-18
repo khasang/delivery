@@ -25,14 +25,14 @@ public interface CustomerService {
      * @param phoneNumber - customer's phone number
      * @return - current customer
      */
-    List<Customer> getCustomerByPhoneNumber(String phoneNumber);
+    Customer getCustomerByPhoneNumber(String phoneNumber);
 
     /**
      * Get customer by e-mail from database
      * @param eMail - customer's e-mail
      * @return - current customer
      */
-    List<Customer> getCustomerByEmail(String eMail);
+    Customer getCustomerByEmail(String eMail);
 
     /**
      * Get customer by id from database

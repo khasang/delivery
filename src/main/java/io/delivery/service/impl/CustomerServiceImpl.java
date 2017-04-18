@@ -24,12 +24,12 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<Customer> getCustomerByPhoneNumber(String phoneNumber) {
+    public Customer getCustomerByPhoneNumber(String phoneNumber) {
         return customerDao.findCustomerByPhoneNumber(phoneNumber);
     }
 
     @Override
-    public List<Customer> getCustomerByEmail(String eMail) {
+    public Customer getCustomerByEmail(String eMail) {
         return customerDao.findCustomerByEmail(eMail);
     }
 
