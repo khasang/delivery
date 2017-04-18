@@ -1,11 +1,11 @@
 package io.delivery.config;
 
-import io.delivery.dao.AdminAreaDao;
 import io.delivery.dao.DocumentDao;
-import io.delivery.dao.impl.AdminAreaDaoImpl;
+import io.delivery.dao.UserDao;
 import io.delivery.dao.impl.DocumentDaoImpl;
-import io.delivery.entity.AdminArea;
+import io.delivery.dao.impl.UserDaoIml;
 import io.delivery.entity.Document;
+import io.delivery.entity.User;
 import io.delivery.model.Answer;
 import io.delivery.model.TableCreator;
 import io.delivery.model.impl.TableCreatorImpl;
@@ -75,7 +75,7 @@ public class AppConfig {
     }
 
     @Bean
-    AdminAreaDao adminAreaDao(){
-        return new AdminAreaDaoImpl(AdminArea.class);
+    UserDao userDao(){
+        return new UserDaoIml(User.class);
     }
 }

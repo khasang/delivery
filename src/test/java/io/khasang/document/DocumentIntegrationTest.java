@@ -38,7 +38,6 @@ public class DocumentIntegrationTest {
         assertNotNull(resultDocument);
     }
 
-
     private Document createDocument() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -82,8 +81,6 @@ public class DocumentIntegrationTest {
         List<Document> list = result.getBody();
         assertNotNull(list.get(0));
     }
-
-
 
     @Test
     public void deleteDocument(){
@@ -135,24 +132,5 @@ public class DocumentIntegrationTest {
         assertNotNull(resultUpdate);
         assertNotNull(resultUpdate.getId());
         assertEquals("Sword", resultUpdate.getName());
-    }
-
-    @Test
-    public void GET_NAME(){
-        Document document = createDocument();
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        ResponseEntity<Document> responseEntity = restTemplate.exchange(
-                ROOT + GET_NAME + "{NAME}",
-                HttpMethod.GET,
-                null,
-                Document.class,
-                document.getId()
-        );
-
-        Document resultDocument = responseEntity.getBody();
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(resultDocument);
     }
 }
