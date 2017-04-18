@@ -73,6 +73,31 @@ public class OrderIntegrationTest {
     }
 
     @Test
+    public void updateBasketUnit(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        RestTemplate restTemplate = new RestTemplate();
+        Order order = createOrder();
+        assertNotNull(order);
+        assertNotNull(order.getBasketUnitList().get(0));
+
+        order.getBasketUnitList().get(0).setQuantity(42);
+
+        HttpEntity<Order> httpEntity = new HttpEntity<>(order, headers);
+        Order resultUpdate = restTemplate.exchange(
+                ROOT + UPDATE,
+                HttpMethod.PUT,
+                httpEntity,
+                Order.class
+        ).getBody();
+
+        assertNotNull(resultUpdate);
+        assertNotNull(resultUpdate.getId());
+        assertEquals(42, resultUpdate.getBasketUnitList().get(0).getQuantity());
+    }
+
+    @Test
     public void deleteBasketItem(){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
