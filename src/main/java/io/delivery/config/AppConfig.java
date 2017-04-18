@@ -75,5 +75,7 @@ public class AppConfig {
     }
 
     @Bean
-    ProductDao productDao() {return  new ProductDaoImpl(Product.class);}
+    ProductDao productDao() {
+        return  new ProductDaoImpl(Product.class);
+    }
 }
