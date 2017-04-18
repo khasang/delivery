@@ -35,4 +35,9 @@ public class OrderController {
     public Order deleteOrder(@PathVariable(value = "id") String id) {
         return orderService.delete(Long.parseLong(id));
     }
+
+    @RequestMapping(value = "/web")
+    public String getOrderInfo() {
+        return "order";
+    }
 }
