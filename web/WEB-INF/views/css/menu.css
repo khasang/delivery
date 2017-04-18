@@ -75,8 +75,9 @@ h1,
     border:none;
 }
 
+/*Длинна меню*/
 .navbar-default .navbar-nav>li>a {
-    width: 130px;
+    width: 140px;
     font-weight: bold;
 }
 
@@ -105,45 +106,45 @@ h1,
 
 .menu-indicator-1:before {
     content: "";
-    border-bottom: 15px solid #353535;
+    border-bottom: 21px solid #353535;
     border-right: 17px solid transparent;
     border-left: 17px solid transparent;
     position: absolute;
-    top: -14px;
-    left: 145px;
+    top: -20px;
+    left: 200px;
     z-index: 10;
 }
 
 .menu-indicator-2:before {
     content: "";
-    border-bottom: 15px solid #353535;
+    border-bottom: 21px solid #353535;
     border-right: 17px solid transparent;
     border-left: 17px solid transparent;
     position: absolute;
-    top: -14px;
-    left: 270px;
+    top: -20px;
+    left: 340px;
     z-index: 10;
 }
 
 .menu-indicator-3:before {
     content: "";
-    border-bottom: 15px solid #353535;
+    border-bottom: 21px solid #353535;
     border-right: 17px solid transparent;
     border-left: 17px solid transparent;
     position: absolute;
-    top: -14px;
-    left: 400px;
+    top: -20px;
+    left: 480px;
     z-index: 10;
 }
 
 .menu-indicator-4:before {
     content: "";
-    border-bottom: 15px solid #353535;
+    border-bottom: 21px solid #353535;
     border-right: 17px solid transparent;
     border-left: 17px solid transparent;
     position: absolute;
-    top: -14px;
-    left: 530px;
+    top: -20px;
+    left: 620px;
     z-index: 10;
 }
 
@@ -187,7 +188,6 @@ h1,
     margin-bottom: 3px;
 }
 
-
 .nb-copyright{
     background: #171717;
 }
@@ -216,4 +216,16 @@ h1,
 }
 .nb-copyright .footer-social .fa-facebook{
     padding: 5px 14px;
+}
+
+.navbar-brand-company-name {
+    float: left;
+    height: 50px;
+    padding: 8px 15px;
+    font-size: 35px;
+    line-height: 25px;
+}
+
+.menu-fonts {
+    font-size: 17px;
 }
