@@ -27,6 +27,12 @@ public class OfficeController {
         return officeService.create(office);
     }
 
+    @RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public Office deleteOffice(@RequestBody Office office) {
+        return officeService.delete(office);
+    }
+
     @RequestMapping(value="/all", method = RequestMethod.GET)
     @ResponseBody
     public List<Office> getOfficeList(){

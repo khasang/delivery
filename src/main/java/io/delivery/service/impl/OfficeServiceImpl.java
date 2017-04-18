@@ -22,4 +22,9 @@ public class OfficeServiceImpl implements OfficeService{
     public List<Office> getOfficeList() {
         return officeDao.getList();
     }
+
+    @Override
+    public Office delete(Office office) {
+        return officeDao.delete(office);
+    }
 }

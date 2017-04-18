@@ -16,4 +16,6 @@ public interface OfficeService {
     Office create(Office office);
 
     List<Office> getOfficeList();
+
+    Office delete(Office office);
 }

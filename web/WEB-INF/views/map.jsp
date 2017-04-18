@@ -95,7 +95,7 @@
                             }
                             // Если нет – создаем.
                             else {
-                                window.myPlacemark = createPlacemark(coords);
+                                window.myPlacemark = getNewPlacemark(coords);
                                 window.myMap.geoObjects.add(window.myPlacemark);
                                 // Слушаем событие окончания перетаскивания на метке.
                                 window.myPlacemark.events.add('dragend', function () {
@@ -165,7 +165,7 @@
                             //Парсим JSON
                             var placemarks = JSON.parse(xhr.responseText);
                             for (var i=0; i<placemarks.length; i++) {
-                                addOfficeOnMap(placemarks[i]);
+                                buildPlacemark(placemarks[i]);
                             }
                         }
                         else {
@@ -176,7 +176,7 @@
                     }
 
                     // Создание метки.
-                    function createPlacemark(coords) {
+                    function getNewPlacemark(coords) {
                         return new ymaps.Placemark(coords, {
                             iconCaption: 'поиск...'
                         }, {
@@ -185,17 +185,47 @@
                         });
                     }
 
-                    function addOfficeOnMap(placemark) {
-                        var _mark = createPlacemark(pointFromString(placemark.coords));
-                        _mark.properties.set({
-                                iconCaption: placemark.description,
-                                balloonContent: placemark.address
+                    function buildPlacemark(point) {
+                        var layout = ymaps.templateLayoutFactory.createClass(
+                            '<div class="item">' +
+                            '<p>{{properties.balloonContent}}</p>' +
+                            '<button id="remove-placemark">{{properties.buttonText}}</button>' +
+                            '</div>', {
+                                build: function () {
+                                    layout.superclass.build.call(this);
+                                    document.getElementById('remove-placemark').addEventListener('click', this.onRemove);
+                                },
+                                clear: function () {
+                                    document.getElementById('remove-placemark').removeEventListener('click', this.onRemove);
+                                    layout.superclass.clear.call(this);
+                                },
+                                onRemove: function () {
+                                    // post на сервер
+                                    var xhr = new XMLHttpRequest();
+                                    var body = '{"id":"'+point.id+'"}';
+                                    xhr.open("POST", '/office/delete', false);
+                                    xhr.setRequestHeader('Content-Type', 'application/json');
+                                    xhr.send(body);
+                                    //удаление метки с карты
+                                    window.placemarkCollection.remove(placemark);
+                                    //readDataFromDB();
+                                }
                             });
-                        window.placemarkCollection.add(_mark);
+
+                        var placemark = new ymaps.Placemark(pointFromString(point.coords), {
+                            iconCaption: point.description,
+                            balloonContent: point.address,
+                            buttonText: "Удалить офис"
+                        }, {
+                            balloonContentLayout: layout,
+                            preset: 'islands#violetDotIconWithCaption'// иконка растягивается под контент
+                        });
+
+                        window.placemarkCollection.add(placemark);
                     }
 
-                    function pointFromString (val) {
-                        var parts = val.split(',');
+                    function pointFromString (point) {
+                        var parts = point.split(',');
                         return [parseFloat(parts[0]), parseFloat(parts[1])];
                     }
                 </script>
