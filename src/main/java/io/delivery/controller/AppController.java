@@ -88,6 +88,16 @@ public class AppController {
         return "map";
     }
 
+    @RequestMapping(value = "/header")
+    public String header() {
+        return "/header";
+    }
+
+    @RequestMapping(value = "/footer")
+    public String footer() {
+        return "/footer";
+    }
+
     @RequestMapping("/secure")
     public String secure() {
         return "secure";
