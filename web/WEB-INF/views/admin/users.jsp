@@ -107,7 +107,7 @@
         <td>Get users by login</td>
         <td><code><strong>GET</strong>/admin/users/get/login/{login}"</code></td>
         <td>
-            login: <input login="getDocumentLOG" value=""/>
+            login: <input id="getDocumentLOG" value=""/>
             <button type="button" onclick="RestGet3($('#getDocumentLOG').val())">Try</button>
         </td>
     </tr>
