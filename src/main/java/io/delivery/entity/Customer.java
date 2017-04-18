@@ -13,9 +13,9 @@ public class Customer {
     private String name;
     @Column
     private String address;
-    @Column(name = "phone_number")
+    @Column(unique = true, name = "phone_number")
     private String phoneNumber;
-    @Column(name = "e_mail")
+    @Column(unique = true, name = "e_mail")
     private String eMail;
 
     public long getId() {

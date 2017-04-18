@@ -56,42 +56,44 @@ public class CustomerServiceImplTest {
     public void testGetCustomerByName(){
         List<Customer> returnedCustomers = customerService.getCustomerByName(customer_2.getName());
         assertNotNull("List of customers is null",returnedCustomers);
-        Customer firstCusromerInList = returnedCustomers.get(0);
-        assertEquals("id's not equal", firstCusromerInList.getId(), customer_2.getId());
-        assertEquals("names not equal", firstCusromerInList.getName(), customer_2.getName());
-        assertEquals("e-mails not equal", firstCusromerInList.geteMail(), customer_2.geteMail());
-        assertEquals("addresses not equal", firstCusromerInList.getAddress(), customer_2.getAddress());
+        Customer firstCustomerInList = returnedCustomers.get(0);
+        assertEquals("id's not equal", firstCustomerInList.getId(), customer_2.getId());
+        assertEquals("names not equal", firstCustomerInList.getName(), customer_2.getName());
+        assertEquals("e-mails not equal", firstCustomerInList.geteMail(), customer_2.geteMail());
+        assertEquals("addresses not equal", firstCustomerInList.getAddress(), customer_2.getAddress());
     }
 
     @Test
     public void testGetCustomerByAddress(){
         List<Customer> returnedCustomers = customerService.getCustomerByAddress(customer_3.getAddress());
         assertNotNull("List of customers is null",returnedCustomers);
-        Customer firstCusromerInList = returnedCustomers.get(0);
-        assertEquals("id's not equal", firstCusromerInList.getId(), customer_3.getId());
-        assertEquals("names not equal", firstCusromerInList.getName(), customer_3.getName());
-        assertEquals("e-mails not equal", firstCusromerInList.geteMail(), customer_3.geteMail());
-        assertEquals("addresses not equal", firstCusromerInList.getAddress(), customer_3.getAddress());
+        Customer firstCustomerInList = returnedCustomers.get(0);
+        assertEquals("id's not equal", firstCustomerInList.getId(), customer_3.getId());
+        assertEquals("names not equal", firstCustomerInList.getName(), customer_3.getName());
+        assertEquals("e-mails not equal", firstCustomerInList.geteMail(), customer_3.geteMail());
+        assertEquals("addresses not equal", firstCustomerInList.getAddress(), customer_3.getAddress());
     }
 
     @Test
     public void testGetCustomerByPhoneNumber(){
-        Customer returnedCustomer = customerService.getCustomerByPhoneNumber(customer_1.getPhoneNumber());
+        List<Customer> returnedCustomer = customerService.getCustomerByPhoneNumber(customer_1.getPhoneNumber());
         assertNotNull("returnedCustomer is null", returnedCustomer);
-        assertEquals("IDs not equal", returnedCustomer.getId(), customer_1.getId());
-        assertEquals("names not equal", returnedCustomer.getName(), customer_1.getName());
-        assertEquals("e-mails not equal", returnedCustomer.geteMail(), customer_1.geteMail());
-        assertEquals("addresses not equal", returnedCustomer.getAddress(), customer_1.getAddress());
+        Customer firstCustomerInList = returnedCustomer.get(0);
+        assertEquals("IDs not equal", firstCustomerInList.getId(), customer_1.getId());
+        assertEquals("names not equal", firstCustomerInList.getName(), customer_1.getName());
+        assertEquals("e-mails not equal", firstCustomerInList.geteMail(), customer_1.geteMail());
+        assertEquals("addresses not equal", firstCustomerInList.getAddress(), customer_1.getAddress());
     }
 
     @Test
     public void testGetCustomerByEmail(){
-        Customer returnedCustomer = customerService.getCustomerByEmail(customer_2.geteMail());
+        List<Customer> returnedCustomer = customerService.getCustomerByEmail(customer_2.geteMail());
         assertNotNull("returnedCustomer is null", returnedCustomer);
-        assertEquals("IDs not equal", returnedCustomer.getId(), customer_2.getId());
-        assertEquals("names not equal", returnedCustomer.getName(), customer_2.getName());
-        assertEquals("e-mails not equal", returnedCustomer.geteMail(), customer_2.geteMail());
-        assertEquals("addresses not equal", returnedCustomer.getAddress(), customer_2.getAddress());
+        Customer firstCustomerInList = returnedCustomer.get(0);
+        assertEquals("IDs not equal", firstCustomerInList.getId(), customer_2.getId());
+        assertEquals("names not equal", firstCustomerInList.getName(), customer_2.getName());
+        assertEquals("e-mails not equal", firstCustomerInList.geteMail(), customer_2.geteMail());
+        assertEquals("addresses not equal", firstCustomerInList.getAddress(), customer_2.getAddress());
     }
 
     @Test
@@ -108,12 +110,12 @@ public class CustomerServiceImplTest {
     public void testGetAllCustomers(){
         List<Customer> returnedCustomers = customerService.getAllCustomers();
         assertNotNull("List of customers is null",returnedCustomers);
-        Customer lastCusromerInList = returnedCustomers.get(returnedCustomers.size()-1);
-        assertNotNull(lastCusromerInList);
-        assertEquals("IDs not equal", lastCusromerInList.getId(), customer_3.getId());
-        assertEquals("names not equal", lastCusromerInList.getName(), customer_3.getName());
-        assertEquals("e-mails not equal", lastCusromerInList.geteMail(), customer_3.geteMail());
-        assertEquals("addresses not equal", lastCusromerInList.getAddress(), customer_3.getAddress());
+        Customer lastCustomerInList = returnedCustomers.get(returnedCustomers.size()-1);
+        assertNotNull(lastCustomerInList);
+        assertEquals("IDs not equal", lastCustomerInList.getId(), customer_3.getId());
+        assertEquals("names not equal", lastCustomerInList.getName(), customer_3.getName());
+        assertEquals("e-mails not equal", lastCustomerInList.geteMail(), customer_3.geteMail());
+        assertEquals("addresses not equal", lastCustomerInList.getAddress(), customer_3.getAddress());
     }
 
     @Test

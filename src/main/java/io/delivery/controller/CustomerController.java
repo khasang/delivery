@@ -28,13 +28,13 @@ public class CustomerController {
 
     @RequestMapping(value = "/get_by/e-mail/{eMail}", method = RequestMethod.GET)
     @ResponseBody
-    public Customer getCustomerByEmail(@PathVariable(value = "eMail") String eMail){
+    public List<Customer> getCustomerByEmail(@PathVariable(value = "eMail") String eMail){
         return customerService.getCustomerByEmail(eMail);
     }
 
     @RequestMapping(value = "/get_by/phone-number/{phoneNumber}", method = RequestMethod.GET)
     @ResponseBody
-    public Customer getCustomerByPhoneNumber(@PathVariable(value = "phoneNumber") String phoneNumber){
+    public List<Customer> getCustomerByPhoneNumber(@PathVariable(value = "phoneNumber") String phoneNumber){
         return customerService.getCustomerByPhoneNumber(phoneNumber);
     }
 
