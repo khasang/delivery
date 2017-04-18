@@ -15,6 +15,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class OrderIntegrationTest {
@@ -25,6 +26,8 @@ public class OrderIntegrationTest {
     private final String ADD = "/add";
     private final String UPDATE = "/update";
     private final String DELETE = "/delete/";
+    private final String DELETE_BUSKET_ITEM = "/delete/busket/id";
+    private final String GET_BASKET_UNIT = "/get/busket/id";
     private final String ALL = "/all";
     private final String GET_NAME = "/get/name/";
 
@@ -81,23 +84,28 @@ public class OrderIntegrationTest {
         List<BasketUnit> basket = order.getBasketUnitList();
         assertNotNull(basket);
         assertNotNull(basket.get(0));
-        int preBasketSize = basket.size();
+        long id = basket.get(0).getItemId();
 
-        order.removeBasketUnit(basket.get(0));
-        assertEquals(preBasketSize-1,basket.size());
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                ROOT + DELETE_BUSKET_ITEM + "{id}",
+                HttpMethod.DELETE,
+                null,
+                String.class,
+                basket.get(0)
+        );
 
-        HttpEntity<Order> httpEntity = new HttpEntity<>(order, headers);
-        Order resultUpdate = restTemplate.exchange(
-                ROOT + UPDATE,
-                HttpMethod.PUT,
-                httpEntity,
-                Order.class
-        ).getBody();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
-        assertNotNull(resultUpdate);
-        assertNotNull(resultUpdate.getId());
+        ResponseEntity<BasketUnit> checkBasketUnitById = restTemplate.exchange(
+                ROOT + GET_BASKET_UNIT + "{id}",
+                HttpMethod.GET,
+                null,
+                BasketUnit.class,
+                id
+        );
 
-        assertEquals(preBasketSize-1, resultUpdate.getBasketUnitList().size());
+        assertEquals(HttpStatus.OK, checkBasketUnitById.getStatusCode());
+        assertNull(checkBasketUnitById.getBody());
 
     }
 
@@ -112,10 +120,8 @@ public class OrderIntegrationTest {
 
         List<BasketUnit> basket = order.getBasketUnitList();
         assertNotNull(basket);
-        int preBasketSize = basket.size();
-        basket.add(new BasketUnit(19L));
-
-        assertEquals(preBasketSize+1,basket.size());
+        BasketUnit basketUnitToAdd =  new BasketUnit(19L);
+        basket.add(basketUnitToAdd);
 
         HttpEntity<Order> httpEntity = new HttpEntity<>(order, headers);
         Order resultUpdate = restTemplate.exchange(
@@ -126,10 +132,7 @@ public class OrderIntegrationTest {
         ).getBody();
 
         assertNotNull(resultUpdate);
-        assertNotNull(resultUpdate.getId());
-
-        assertEquals(preBasketSize+1, resultUpdate.getBasketUnitList().size());
-
+        assertNotEquals(-1L,resultUpdate.getBasketUnitList().indexOf(basketUnitToAdd));
     }
 
     @Test
