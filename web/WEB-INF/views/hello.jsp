@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
-<p>Hello</p>
 <p>${info}</p>
 <p>${answ}</p>
 <jsp:include page="news.jsp"/>
