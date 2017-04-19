@@ -37,7 +37,6 @@ public class AppController {
         return "hello";
     }
 
-
     @RequestMapping(value = "/create")
     public String create(Model model) {
         model.addAttribute("status", tableCreator.createCompany());
@@ -49,10 +48,8 @@ public class AppController {
         return "/secure";
     }
 
-    @RequestMapping(value = "/registration")
-    public String registration() {
-        return "/registration";
+    @RequestMapping(value = "/documentApi")
+    public String getDocumentInfo(){
+        return "document";
     }
 }
-
-
