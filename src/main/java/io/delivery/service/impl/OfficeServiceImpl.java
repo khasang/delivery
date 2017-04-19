@@ -24,7 +24,11 @@ public class OfficeServiceImpl implements OfficeService{
     }
 
     @Override
-    public Office delete(Office office) {
-        return officeDao.delete(office);
+    public Office delete(Long id) {
+        return officeDao.delete(findById(id));
+    }
+
+    private Office findById(Long id) {
+        return officeDao.findById(id);
     }
 }

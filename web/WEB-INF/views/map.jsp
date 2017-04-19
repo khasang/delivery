@@ -202,10 +202,10 @@
                                 onRemove: function () {
                                     // post на сервер
                                     var xhr = new XMLHttpRequest();
-                                    var body = '{"id":"'+point.id+'"}';
-                                    xhr.open("POST", '/office/delete', false);
-                                    xhr.setRequestHeader('Content-Type', 'application/json');
-                                    xhr.send(body);
+                                    //var body = '{"id":"'+point.id+'"}';
+                                    xhr.open("DELETE", '/office/delete/'+point.id, false);
+                                    //xhr.setRequestHeader('Content-Type', 'application/json');
+                                    xhr.send(null);
                                     //удаление метки с карты
                                     window.placemarkCollection.remove(placemark);
                                     //readDataFromDB();

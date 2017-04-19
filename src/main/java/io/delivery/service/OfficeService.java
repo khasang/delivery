@@ -17,5 +17,5 @@ public interface OfficeService {
 
     List<Office> getOfficeList();
 
-    Office delete(Office office);
+    Office delete(Long id);
 }
