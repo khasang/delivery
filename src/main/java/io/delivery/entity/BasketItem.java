@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "basket")
-public class BasketUnit {
+public class BasketItem {
     @Id
     @TableGenerator(
             name = "BASKET_GEN",
@@ -16,7 +16,7 @@ public class BasketUnit {
             pkColumnValue = "BASKET_SEQ",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "BASKET_GEN")
-    @Column(name = "unit_id")
+    @Column(name = "id")
     private Long id;
     @Column(name = "item_id")
     private Long itemId;
@@ -27,14 +27,14 @@ public class BasketUnit {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    public BasketUnit() {
+    public BasketItem() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public BasketUnit(Long itemId) {
+    public BasketItem(Long itemId) {
         this.itemId = itemId;
     }
 
@@ -63,7 +63,7 @@ public class BasketUnit {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BasketUnit that = (BasketUnit) o;
+        BasketItem that = (BasketItem) o;
 
         return itemId.equals(that.itemId);
     }

@@ -13,7 +13,7 @@ import java.util.List;
 public class Order {
 
     @Id
-    @Column(name = "order_id")
+    @Column(name = "id")
     @TableGenerator(
             name = "ORD_GEN",
             table = "SEQUENCE_TABLE",
@@ -37,7 +37,7 @@ public class Order {
     private String comment;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<BasketUnit> basketUnitList = new ArrayList<>();
+    private List<BasketItem> basketItemList = new ArrayList<>();
 
     public Order() {
     }
@@ -94,25 +94,25 @@ public class Order {
         this.comment = comment;
     }
 
-    public List<BasketUnit> getBasketUnitList() {
-        return basketUnitList;
+    public List<BasketItem> getBasketItemList() {
+        return basketItemList;
     }
 
-    public void setBasketUnitList(List<BasketUnit> basketUnitList) {
-        for (BasketUnit basketUnit : basketUnitList) {
-            basketUnit.setOrder(this);
+    public void setBasketItemList(List<BasketItem> basketItemList) {
+        for (BasketItem basketItem : basketItemList) {
+            basketItem.setOrder(this);
         }
-        this.basketUnitList = basketUnitList;
+        this.basketItemList = basketItemList;
     }
 
-    public void addBasketUnit(BasketUnit basketUnit) {
-        basketUnit.setOrder(this);
-        basketUnitList.add(basketUnit);
+    public void addBasketItem(BasketItem basketItem) {
+        basketItem.setOrder(this);
+        basketItemList.add(basketItem);
     }
 
-    public void removeBasketUnit(BasketUnit basketUnit) {
-        basketUnit.setOrder(null);
-        basketUnitList.remove(basketUnit);
+    public void removeBasketItem(BasketItem basketItem) {
+        basketItem.setOrder(null);
+        basketItemList.remove(basketItem);
     }
 
 }

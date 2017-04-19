@@ -1,26 +1,21 @@
 package io.khasang.order;
 
-import io.delivery.entity.BasketUnit;
+import io.delivery.entity.BasketItem;
 import io.delivery.entity.Order;
-import io.delivery.service.OrderService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.junit.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 
 public class OrderUnitTest {
 
     Order order = new Order();
-    List<BasketUnit> basketUnits = new ArrayList<>();
+    List<BasketItem> basketItems = new ArrayList<>();
 
     @Test
     public void testDeliveryDate() {
@@ -67,22 +62,22 @@ public class OrderUnitTest {
     @Test
     public void testBusket() {
 
-        basketUnits.add(new BasketUnit(40L));
-        basketUnits.add(new BasketUnit(41L));
-        basketUnits.add(new BasketUnit(42L));
+        basketItems.add(new BasketItem(40L));
+        basketItems.add(new BasketItem(41L));
+        basketItems.add(new BasketItem(42L));
 
-        BasketUnit testBasketUnit = new BasketUnit(43L);
+        BasketItem testBasketItem = new BasketItem(43L);
 
         //add test
-        order.addBasketUnit(testBasketUnit);
-        assertTrue(order.getBasketUnitList().contains(testBasketUnit));
+        order.addBasketItem(testBasketItem);
+        assertTrue(order.getBasketItemList().contains(testBasketItem));
 
         //delete test
-        order.removeBasketUnit(testBasketUnit);
-        assertFalse(order.getBasketUnitList().contains(testBasketUnit));
+        order.removeBasketItem(testBasketItem);
+        assertFalse(order.getBasketItemList().contains(testBasketItem));
 
-        order.setBasketUnitList(basketUnits);
-        assertEquals(basketUnits,order.getBasketUnitList());
+        order.setBasketItemList(basketItems);
+        assertEquals(basketItems,order.getBasketItemList());
 
     }
 }
