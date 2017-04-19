@@ -37,7 +37,7 @@ public class Order {
     private String comment;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<BasketItem> basketItemList = new ArrayList<>();
+    private List<BasketUnit> basketUnitList = new ArrayList<>();
 
     public Order() {
     }
@@ -94,25 +94,25 @@ public class Order {
         this.comment = comment;
     }
 
-    public List<BasketItem> getBasketItemList() {
-        return basketItemList;
+    public List<BasketUnit> getBasketUnitList() {
+        return basketUnitList;
     }
 
-    public void setBasketItemList(List<BasketItem> basketItemList) {
-        for (BasketItem basketItem : basketItemList) {
-            basketItem.setOrder(this);
+    public void setBasketUnitList(List<BasketUnit> basketUnitList) {
+        for (BasketUnit basketUnit : basketUnitList) {
+            basketUnit.setOrder(this);
         }
-        this.basketItemList = basketItemList;
+        this.basketUnitList = basketUnitList;
     }
 
-    public void addBasketItem(BasketItem basketItem) {
-        basketItem.setOrder(this);
-        basketItemList.add(basketItem);
+    public void addBasketUnit(BasketUnit basketUnit) {
+        basketUnit.setOrder(this);
+        basketUnitList.add(basketUnit);
     }
 
-    public void removeBasketItem(BasketItem basketItem) {
-        basketItem.setOrder(null);
-        basketItemList.remove(basketItem);
+    public void removeBasketUnit(BasketUnit basketUnit) {
+        basketUnit.setOrder(null);
+        basketUnitList.remove(basketUnit);
     }
 
 }

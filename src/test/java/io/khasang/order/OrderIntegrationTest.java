@@ -1,12 +1,18 @@
 package io.khasang.order;
 
-import io.delivery.entity.BasketItem;
+import io.delivery.config.AppConfig;
+import io.delivery.config.HibernateConfig;
+import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
+import io.delivery.service.impl.OrderServiceImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.sql.Date;
@@ -17,6 +23,8 @@ import java.util.List;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {AppConfig.class, OrderServiceImpl.class, HibernateConfig.class})
 public class OrderIntegrationTest {
 
     private final String ROOT = "http://localhost:8080/order";
@@ -25,24 +33,24 @@ public class OrderIntegrationTest {
     private final String ADD = "/add";
     private final String UPDATE = "/update";
     private final String DELETE = "/delete/";
-    private final String DELETE_BASKET_ITEM = "/delete/basket/id";
-    private final String GET_BASKET_ITEM = "/get/basket/id";
+    private final String DELETE_BASKET_UNIT = "/basket/delete/id/";
+    private final String GET_BASKET_UNIT = "/basket/get/id/";
     private final String ALL = "/all";
     private final String GET_NAME = "/get/name/";
 
-    private static List<BasketItem> basketItems = new ArrayList<>();
+    private static List<BasketUnit> basketUnits = new ArrayList<>();
 
     @Before
     public void setUp() {
-        basketItems.add(new BasketItem(20L));
-        basketItems.add(new BasketItem(21L));
-        basketItems.add(new BasketItem(22L));
-        basketItems.add(new BasketItem(23L));
+        basketUnits.add(new BasketUnit(20L));
+        basketUnits.add(new BasketUnit(21L));
+        basketUnits.add(new BasketUnit(22L));
+        basketUnits.add(new BasketUnit(23L));
     }
 
     @After
     public void clear() {
-        basketItems.clear();
+        basketUnits.clear();
     }
 
     @Test
@@ -72,16 +80,16 @@ public class OrderIntegrationTest {
     }
 
     @Test
-    public void updateBasketItem() {
+    public void updateBasketUnit() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         RestTemplate restTemplate = new RestTemplate();
         Order order = createOrder();
         assertNotNull(order);
-        assertNotNull(order.getBasketItemList().get(0));
+        assertNotNull(order.getBasketUnitList().get(0));
 
-        order.getBasketItemList().get(0).setQuantity(42);
+        order.getBasketUnitList().get(0).setQuantity(42);
 
         HttpEntity<Order> httpEntity = new HttpEntity<>(order, headers);
         Order resultUpdate = restTemplate.exchange(
@@ -93,11 +101,11 @@ public class OrderIntegrationTest {
 
         assertNotNull(resultUpdate);
         assertNotNull(resultUpdate.getId());
-        assertEquals(42, resultUpdate.getBasketItemList().get(0).getQuantity());
+        assertEquals(42, resultUpdate.getBasketUnitList().get(0).getQuantity());
     }
 
     @Test
-    public void deleteBasketItem() {
+    public void deleteBasketUnit() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
@@ -105,36 +113,36 @@ public class OrderIntegrationTest {
         Order order = createOrder();
         assertNotNull(order);
 
-        List<BasketItem> basket = order.getBasketItemList();
+        List<BasketUnit> basket = order.getBasketUnitList();
         assertNotNull(basket);
         assertNotNull(basket.get(0));
-        long id = basket.get(0).getItemId();
+        long id = basket.get(0).getId();
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(
-                ROOT + DELETE_BASKET_ITEM + "{id}",
+                ROOT + DELETE_BASKET_UNIT + "{id}",
                 HttpMethod.DELETE,
                 null,
                 String.class,
-                basket.get(0).getItemId()
+                basket.get(0).getId()
         );
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
-        ResponseEntity<BasketItem> checkBasketItemById = restTemplate.exchange(
-                ROOT + GET_BASKET_ITEM + "{id}",
+        ResponseEntity<BasketUnit> checkBasketUnitById = restTemplate.exchange(
+                ROOT + GET_BASKET_UNIT + "{id}",
                 HttpMethod.GET,
                 null,
-                BasketItem.class,
+                BasketUnit.class,
                 id
         );
 
-        assertEquals(HttpStatus.OK, checkBasketItemById.getStatusCode());
-        assertNull(checkBasketItemById.getBody());
+        assertEquals(HttpStatus.OK, checkBasketUnitById.getStatusCode());
+        assertNull(checkBasketUnitById.getBody());
 
     }
 
     @Test
-    public void addBasketItem() {
+    public void addBasketUnit() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
@@ -142,10 +150,10 @@ public class OrderIntegrationTest {
         Order order = createOrder();
         assertNotNull(order);
 
-        List<BasketItem> basket = order.getBasketItemList();
+        List<BasketUnit> basket = order.getBasketUnitList();
         assertNotNull(basket);
-        BasketItem basketItemToAdd = new BasketItem(19L);
-        basket.add(basketItemToAdd);
+        BasketUnit basketUnitToAdd = new BasketUnit(19L);
+        basket.add(basketUnitToAdd);
 
         HttpEntity<Order> httpEntity = new HttpEntity<>(order, headers);
         Order resultUpdate = restTemplate.exchange(
@@ -156,8 +164,8 @@ public class OrderIntegrationTest {
         ).getBody();
 
         assertNotNull(resultUpdate);
-        assertNotEquals(-1, resultUpdate.getBasketItemList().indexOf(basketItemToAdd));
-        assertTrue(resultUpdate.getBasketItemList().contains(basketItemToAdd));
+        assertNotEquals(-1, resultUpdate.getBasketUnitList().indexOf(basketUnitToAdd));
+        assertTrue(resultUpdate.getBasketUnitList().contains(basketUnitToAdd));
     }
 
     @Test
@@ -256,7 +264,7 @@ public class OrderIntegrationTest {
         order.setDeliveryTime(Time.valueOf("04:05:06"));
         order.setDeliveryAddress("Moscow");
         order.setExecutorId(350L);
-        order.setBasketItemList(basketItems);
+        order.setBasketUnitList(basketUnits);
         return order;
     }
 }

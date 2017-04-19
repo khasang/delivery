@@ -1,6 +1,6 @@
 package io.khasang.order;
 
-import io.delivery.entity.BasketItem;
+import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class OrderUnitTest {
 
     Order order = new Order();
-    List<BasketItem> basketItems = new ArrayList<>();
+    List<BasketUnit> basketUnits = new ArrayList<>();
 
     @Test
     public void testDeliveryDate() {
@@ -62,22 +62,22 @@ public class OrderUnitTest {
     @Test
     public void testBusket() {
 
-        basketItems.add(new BasketItem(40L));
-        basketItems.add(new BasketItem(41L));
-        basketItems.add(new BasketItem(42L));
+        basketUnits.add(new BasketUnit(40L));
+        basketUnits.add(new BasketUnit(41L));
+        basketUnits.add(new BasketUnit(42L));
 
-        BasketItem testBasketItem = new BasketItem(43L);
+        BasketUnit testBasketUnit = new BasketUnit(43L);
 
         //add test
-        order.addBasketItem(testBasketItem);
-        assertTrue(order.getBasketItemList().contains(testBasketItem));
+        order.addBasketUnit(testBasketUnit);
+        assertTrue(order.getBasketUnitList().contains(testBasketUnit));
 
         //delete test
-        order.removeBasketItem(testBasketItem);
-        assertFalse(order.getBasketItemList().contains(testBasketItem));
+        order.removeBasketUnit(testBasketUnit);
+        assertFalse(order.getBasketUnitList().contains(testBasketUnit));
 
-        order.setBasketItemList(basketItems);
-        assertEquals(basketItems,order.getBasketItemList());
+        order.setBasketUnitList(basketUnits);
+        assertEquals(basketUnits,order.getBasketUnitList());
 
     }
 }

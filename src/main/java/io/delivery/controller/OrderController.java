@@ -1,5 +1,6 @@
 package io.delivery.controller;
 
+import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
 import io.delivery.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,18 @@ public class OrderController {
     @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
+    }
+
+    @RequestMapping(value = "/basket/get/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public BasketUnit getBasketUnitListById(@PathVariable(value = "id") String id) {
+        return orderService.getBasketUnitListById(Long.parseLong(id));
+    }
+
+    @RequestMapping(value = "/basket/delete/id/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public int deleteBasketUnitById(@PathVariable(value = "id") String id) {
+        return orderService.deleteBasketUnitById(Long.parseLong(id));
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

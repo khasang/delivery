@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "basket")
-public class BasketItem {
+public class BasketUnit {
     @Id
     @TableGenerator(
             name = "BASKET_GEN",
@@ -27,14 +27,14 @@ public class BasketItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    public BasketItem() {
+    public BasketUnit() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public BasketItem(Long itemId) {
+    public BasketUnit(Long itemId) {
         this.itemId = itemId;
     }
 
@@ -63,7 +63,7 @@ public class BasketItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BasketItem that = (BasketItem) o;
+        BasketUnit that = (BasketUnit) o;
 
         return itemId.equals(that.itemId);
     }

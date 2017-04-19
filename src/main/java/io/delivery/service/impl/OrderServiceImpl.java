@@ -1,6 +1,7 @@
 package io.delivery.service.impl;
 
 import io.delivery.dao.OrderDao;
+import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
 import io.delivery.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findByUserId(long uid) {
         return orderDao.findByUserId(uid);
+    }
+
+    @Override
+    public BasketUnit getBasketUnitListById(long id) {
+        return orderDao.getBasketUnitListById(id);
+    }
+
+    @Override
+    public int deleteBasketUnitById(long id) {
+        return orderDao.deleteBasketUnitById(id);
     }
 }
