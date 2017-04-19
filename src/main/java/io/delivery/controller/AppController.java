@@ -48,12 +48,12 @@ public class AppController {
         return "/secure";
     }
 
-    @RequestMapping(value = "/registration")
-    public String registration() {
-        return "/registration";
-    }
-    @RequestMapping(value = "noregistration")
-    public String noreg(){
-        return "/noregistration";
-    }
+//    @RequestMapping(value = "/registration")
+//    public String registration() {
+//        return "/registration";
+//    }
+//    @RequestMapping(value = "noregistration")
+//    public String noreg(){
+//        return "/noregistration";
+//    }
 }
