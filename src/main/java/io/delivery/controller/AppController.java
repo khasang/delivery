@@ -47,4 +47,9 @@ public class AppController {
     public String secure() {
         return "/secure";
     }
+
+    @RequestMapping(value = "/documentApi")
+    public String getDocumentInfo(){
+        return "document";
+    }
 }

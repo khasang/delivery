@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class CreateTableImpl implements CreateTable {
+public final class CreateTableImpl implements CreateTable {
     private static final Logger LOG = Logger.getLogger(CreateTableImpl.class);
 
     @Autowired
@@ -26,8 +26,11 @@ public class CreateTableImpl implements CreateTable {
     }
 
     public String getQuery() {
-
         return query;
+    }
+
+    public final String delete(){
+        return "done";
     }
 
     public void setQuery(String query) {
