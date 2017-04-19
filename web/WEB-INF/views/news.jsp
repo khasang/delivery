@@ -7,12 +7,30 @@
 </head>
 
 <body>
+<%--<script type="text/javascript">--%>
+    <%--var service = '/news';--%>
+    <%--var RestGet = function (id) {--%>
+        <%--$.ajax({--%>
+            <%--type: 'GET',--%>
+            <%--url: service + "/get/id/" +id,--%>
+            <%--dataType: 'json',--%>
+            <%--async: false,--%>
+            <%--success: function (result) {--%>
+                <%--$('#response').html(JSON.stringify(result));--%>
+            <%--},--%>
+            <%--error: function (jqXHR, textStatus, errorThrown) {--%>
+                <%--$('#response').html(JSON.stringify(jqXHR));--%>
+            <%--}--%>
+        <%--})--%>
+    <%--}--%>
+<%--</script>--%>
+
 <script type="text/javascript">
     var service = '/news';
-    var RestGet = function (id) {
+    var RestGet = function () {
         $.ajax({
             type: 'GET',
-            url: service + "/get/id/" +id,
+            url: service + "/all",
             dataType: 'json',
             async: false,
             success: function (result) {
@@ -25,19 +43,26 @@
     }
 </script>
 
+<%--<table class="table">--%>
+    <%--<thead/>--%>
+    <%--<tr>--%>
+        <%--<th>ID</th>--%>
+        <%--<th>NAME</th>--%>
+    <%--</tr>--%>
+    <%--<tbody/>--%>
+    <%--<tr>--%>
+        <%--<td>Get News by id</td>--%>
+        <%--<td><code><strong>GET</strong>/news/get/id/{id}</code></td>--%>
+        <%--<td>--%>
+            <%--Id: <input id = "getNewsID" value="3"/>--%>
+            <%--<button type="button" onclick="RestGet($('#getNewsID').val())">Try</button>--%>
+        <%--</td>--%>
+    <%--</tr>--%>
+<%--</table>--%>
+
 <table class="table">
-    <thead/>
-    <tr>
-        <th>ID</th>
-        <th>NAME</th>
-    </tr>
-    <tbody/>
-    <tr>
-        <td>Get News by id</td>
-        <td><code><strong>GET</strong>/news/get/id/{id}</code></td>
         <td>
-            Id: <input id = "getNewsID" value="3"/>
-            <button type="button" onclick="RestGet($('#getNewsID').val())">Try</button>
+            <button type="button" onclick="RestGet()">Show all news</button>
         </td>
     </tr>
 </table>
