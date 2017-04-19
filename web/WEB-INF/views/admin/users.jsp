@@ -9,7 +9,7 @@
         var service = '/admin/users';
         var parseResult = function (result) {
             var table = document.getElementById('response');
-            
+          
             while(table.firstChild){
                 table.removeChild(table.firstChild);
             }
