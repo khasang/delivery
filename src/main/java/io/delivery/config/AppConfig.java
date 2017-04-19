@@ -1,10 +1,15 @@
 package io.delivery.config;
 
 import io.delivery.dao.DocumentDao;
+import io.delivery.dao.NewsDao;
 import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.dao.impl.NewsDaoImpl;
 import io.delivery.entity.Document;
+import io.delivery.entity.News;
 import io.delivery.model.Answer;
+import io.delivery.model.NewsCreator;
 import io.delivery.model.TableCreator;
+import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.CreateTable;
 import io.delivery.service.impl.CreateTableImpl;
@@ -69,5 +74,15 @@ public class AppConfig {
     @Bean
     DocumentDao documentDao(){
         return new DocumentDaoImpl(Document.class);
+    }
+
+    @Bean
+    public NewsCreator newsCreator() {
+        return new NewsCreatorImpl(jdbcTemplate());
+    }
+
+    @Bean
+    NewsDao newsDao() {
+        return new NewsDaoImpl(News.class);
     }
 }
