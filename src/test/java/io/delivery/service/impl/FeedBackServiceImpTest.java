@@ -1,72 +1,98 @@
 package io.delivery.service.impl;
 
-import io.delivery.config.HibernateConfig;
-import io.delivery.config.application.WebConfig;
+import io.delivery.dao.FeedBackDao;
 import io.delivery.entity.FeedBack;
-import io.delivery.service.FeedbackService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.mockito.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebConfig.class, HibernateConfig.class})
-@WebAppConfiguration
-public class FeedBackServiceImpTest {
-    @Autowired
-    private FeedbackService feedbackService;
+import static org.mockito.Mockito.*;
 
-    private FeedBack feedBack;
+public class FeedBackServiceImpTest {
+    @Mock
+    private FeedBackDao dao;
+
+    @InjectMocks
+    private FeedBackServiceImp feedbackService;
+
+    @Spy
+    private List<FeedBack> feedBacks = new ArrayList<>();
+
+    @Captor
+    private ArgumentCaptor<FeedBack> captor;
 
     @Before
     public void setUp() throws Exception {
-        feedBack = new FeedBack(LocalDateTime.now(), "feedback");
-        feedbackService.create(feedBack);
+        MockitoAnnotations.initMocks(this);
+        feedBacks = getFeedbacks();
+    }
+
+    private List<FeedBack> getFeedbacks() {
+        FeedBack feedBack1 = new FeedBack(LocalDateTime.now(), "first");
+        feedBack1.setId(1L);
+        FeedBack feedBack2 = new FeedBack(LocalDateTime.now(), "second");
+        feedBack2.setId(2L);
+        FeedBack feedBack3 = new FeedBack(LocalDateTime.now(), "third");
+        feedBack3.setId(3L);
+        feedBacks.add(feedBack1);
+        feedBacks.add(feedBack2);
+        feedBacks.add(feedBack3);
+        return feedBacks;
     }
 
     @After
     public void tearDown() throws Exception {
-        Long id = feedBack.getId();
-        FeedBack feedBackById = feedbackService.findById(id);
-        if (feedBackById != null) {
-            feedbackService.deleteFeedBack(id);
-        }
+        feedBacks.clear();
     }
 
     @Test
     public void getFeedbackList() throws Exception {
-        List<FeedBack> feedbackList = feedbackService.getFeedbackList();
-        Assert.assertNotNull(feedbackList);
-        Assert.assertEquals(2, feedbackList.size());
-    }
+        when(dao.getList()).thenReturn(feedBacks);
+        Assert.assertEquals( feedBacks,feedbackService.getFeedbackList());
+        verify(dao, times(1)).getList();
 
-    @Test
-    public void findById() throws Exception {
-        Long feedBackId = feedBack.getId();
-        Assert.assertNotNull(feedBackId);
-        FeedBack reloadFeedBack = feedbackService.findById(feedBackId);
-        Assert.assertEquals(feedBack.getFeedBackText(), reloadFeedBack.getFeedBackText());
     }
 
     @Test
     public void create() throws Exception {
-    }
+        FeedBack feedBack = feedBacks.get(0);
+        when(dao.create(any(FeedBack.class))).thenReturn(feedBack);
 
+        Assert.assertEquals(feedBack.getFeedBackText(), feedbackService.create(feedBack).getFeedBackText());
+
+        verify(dao, times(1)).create(feedBack);
+        Assert.assertEquals(3, feedBacks.size());
+        verify(feedBacks, times(3)).add(any(FeedBack.class));
+    }
 
     @Test
     public void updateFeedBack() throws Exception {
+        FeedBack feedBack = feedBacks.get(0);
+        when(dao.update(any(FeedBack.class))).thenReturn(feedBack);
+        Assert.assertEquals(feedBack.getFeedBackText(), feedbackService.updateFeedBack(feedBack).getFeedBackText());
+        verify(dao, times(1)).update(any(FeedBack.class));
     }
 
     @Test
     public void deleteFeedBack() throws Exception {
+        FeedBack feedBack = feedBacks.get(0);
+        when(dao.delete(any(FeedBack.class))).thenReturn(feedBack);
+        Assert.assertEquals(feedBack.getFeedBackText(), feedbackService.deleteFeedBack(feedBack).getFeedBackText());
+        verify(dao, times(1)).delete(any(FeedBack.class));
+    }
+
+    @Test
+    public void findById() throws Exception {
+        FeedBack feedBack = feedBacks.get(0);
+        when(dao.findById(anyLong())).thenReturn(feedBack);
+        Assert.assertEquals(feedBack.getId(),feedbackService.findById(feedBack.getId()).getId());
+        verify(dao, times(1)).findById(anyLong());
     }
 
 }

@@ -26,10 +26,10 @@ public interface FeedbackService {
     FeedBack updateFeedBack(FeedBack feedBack);
 
     /**
-     * @param id = feedBack id
+     * @param feedBack = feedBack for delete
      * @return deleted feedBack
      */
-    FeedBack deleteFeedBack(long id);
+    FeedBack deleteFeedBack(FeedBack feedBack);
 
     FeedBack findById(long id);
 }

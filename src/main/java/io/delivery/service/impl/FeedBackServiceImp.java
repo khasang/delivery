@@ -27,8 +27,8 @@ public class FeedBackServiceImp implements FeedbackService {
     }
 
     @Override
-    public FeedBack deleteFeedBack(long id) {
-        return feedbackDao.delete(findById(id));
+    public FeedBack deleteFeedBack(FeedBack feedBack) {
+        return feedbackDao.delete(feedBack);
     }
 
     @Override
