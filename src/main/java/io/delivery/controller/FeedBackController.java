@@ -1,14 +1,12 @@
 package io.delivery.controller;
 
-import io.delivery.dto.FeedBackDto;
 import io.delivery.entity.FeedBack;
 import io.delivery.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/feedback")
@@ -16,25 +14,34 @@ public class FeedBackController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
-    public ModelAndView getAllFeedbacks() {
-        ModelAndView modelAndView = new ModelAndView("feedback", "feedbackDto", new FeedBackDto());
-        modelAndView.addObject("feedbacks", feedbackService.getFeedbackList());
-        return modelAndView;
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<FeedBack> getAllFeedbacks() {
+        return feedbackService.getFeedbackList();
     }
 
-//    @RequestMapping(value = "/add", method = RequestMethod.POST)
-//    public ModelAndView addFeedBack(@ModelAttribute("feedbackDto") FeedBackDto feedBackDto) {
-//        FeedBack feedBack = new FeedBack(LocalDateTime.now(), feedBackDto.getText());
-//        feedbackService.create(feedBack);
-//        return new ModelAndView("redirect:" + "/feedback");
-//    }
+    @RequestMapping(value = "/add", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public FeedBack addFeedBack(@RequestBody FeedBack feedBack) {
+        feedbackService.create(feedBack);
+        return feedBack;
+    }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public ModelAndView deleteFeedBack(WebRequest request) {
-        Long feedbackId = Long.parseLong(request.getParameter("feedbackId"));
+    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public FeedBack updateFeedBack(@RequestBody FeedBack feedBack) {
+        feedbackService.updateFeedBack(feedBack);
+        return feedBack;
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
+    public FeedBack deleteFeedBack(@PathVariable(value = "id") String inputId) {
+        Long feedbackId = Long.parseLong(inputId);
         FeedBack byId = feedbackService.findById(feedbackId);
-        feedbackService.deleteFeedBack(byId);
-        return new ModelAndView("redirect:" + "/feedback");
+        FeedBack deletedFeedback = null;
+        if (byId != null) {
+            deletedFeedback = feedbackService.deleteFeedBack(byId);
+        }
+        return deletedFeedback;
     }
 }
