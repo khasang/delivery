@@ -47,4 +47,14 @@ public class AppController {
     public String secure() {
         return "/secure";
     }
+
+    @RequestMapping(value = "/registration")
+    public String registration() {
+        return "/registration";
+    }
+
+    @RequestMapping(value = "/noregistration")
+    public String noregisration() {
+        return "/noregistration";
+    }
 }
