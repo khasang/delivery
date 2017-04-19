@@ -6,6 +6,8 @@ import io.delivery.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
@@ -28,4 +30,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order delete(long id) { return orderDao.delete(findById(id));  }
+
+    @Override
+    public Order update(Order order) {
+        return orderDao.update(order);
+    }
+
+    @Override
+    public List<Order> findByUserId(long uid) {
+        return orderDao.findByUserId(uid);
+    }
 }

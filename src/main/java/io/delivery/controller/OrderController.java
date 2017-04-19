@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -22,6 +24,19 @@ public class OrderController {
     public Order addOrder(@RequestBody Order order) {
         orderService.create(order);
         return order;
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public Order updateOrder(@RequestBody Order order) {
+        orderService.update(order);
+        return order;
+    }
+
+    @RequestMapping(value = "/get/uid/{uid}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Order> findByUserId(@PathVariable(value = "uid") String uid) {
+        return orderService.findByUserId(Long.parseLong(uid));
     }
 
     @RequestMapping(value = "/get/id/{id}", method = RequestMethod.GET)
