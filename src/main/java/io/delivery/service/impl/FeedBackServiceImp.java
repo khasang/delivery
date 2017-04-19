@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service("feedBackService")
 public class FeedBackServiceImp implements FeedbackService {
     @Autowired
     private FeedBackDao feedbackDao;
+
     @Override
     public List<FeedBack> getFeedbackList() {
         return feedbackDao.getList();

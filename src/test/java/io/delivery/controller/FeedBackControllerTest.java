@@ -7,7 +7,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -20,35 +20,8 @@ public class FeedBackControllerTest {
     private final String ALL = "/all";
 
     @Test
-    public void getAllFeedbacks() throws Exception {
-        RestTemplate restTemplate = new RestTemplate();
-        createFeedback();
-        createFeedback();
-
-        ResponseEntity<List<FeedBack>> result = restTemplate.exchange(
-                ROOT + ALL,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<FeedBack>>() {
-                }
-        );
-        Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertNotNull(result.getBody());
-        List<FeedBack> list = result.getBody();
-        assertNotNull(list.get(0));
-    }
-
-    @Test
     public void addFeedBack() throws Exception {
         createFeedback();
-    }
-
-    @Test
-    public void updateFeedBack() throws Exception {
-    }
-
-    @Test
-    public void deleteFeedBack() throws Exception {
     }
 
     private FeedBack createFeedback() {
@@ -71,9 +44,36 @@ public class FeedBackControllerTest {
 
     private FeedBack prefillFeedback() {
         FeedBack feedBack = new FeedBack();
-        feedBack.setDate(LocalDateTime.now());
+        feedBack.setDate(new Date());
         feedBack.setFeedBackText("feedback for test");
         return feedBack;
+    }
+
+    @Test
+    public void getAllFeedbacks() throws Exception {
+        RestTemplate restTemplate = new RestTemplate();
+        createFeedback();
+        createFeedback();
+
+        ResponseEntity<List<FeedBack>> result = restTemplate.exchange(
+                ROOT + ALL,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<FeedBack>>() {
+                }
+        );
+        Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertNotNull(result.getBody());
+        List<FeedBack> list = result.getBody();
+        assertNotNull(list.get(0));
+    }
+
+    @Test
+    public void updateFeedBack() throws Exception {
+    }
+
+    @Test
+    public void deleteFeedBack() throws Exception {
     }
 
 }

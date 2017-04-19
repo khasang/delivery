@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,11 +33,11 @@ public class FeedBackServiceImpTest {
     }
 
     private List<FeedBack> getFeedbacks() {
-        FeedBack feedBack1 = new FeedBack(LocalDateTime.now(), "first");
+        FeedBack feedBack1 = new FeedBack("first");
         feedBack1.setId(1L);
-        FeedBack feedBack2 = new FeedBack(LocalDateTime.now(), "second");
+        FeedBack feedBack2 = new FeedBack("second");
         feedBack2.setId(2L);
-        FeedBack feedBack3 = new FeedBack(LocalDateTime.now(), "third");
+        FeedBack feedBack3 = new FeedBack("third");
         feedBack3.setId(3L);
         feedBacks.add(feedBack1);
         feedBacks.add(feedBack2);

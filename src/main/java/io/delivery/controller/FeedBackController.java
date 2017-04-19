@@ -35,13 +35,9 @@ public class FeedBackController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
+    @ResponseBody
     public FeedBack deleteFeedBack(@PathVariable(value = "id") String inputId) {
-        Long feedbackId = Long.parseLong(inputId);
-        FeedBack byId = feedbackService.findById(feedbackId);
-        FeedBack deletedFeedback = null;
-        if (byId != null) {
-            deletedFeedback = feedbackService.deleteFeedBack(byId);
-        }
-        return deletedFeedback;
+        FeedBack foundFeedback = feedbackService.findById(Long.parseLong(inputId));
+        return feedbackService.deleteFeedBack(foundFeedback);
     }
 }

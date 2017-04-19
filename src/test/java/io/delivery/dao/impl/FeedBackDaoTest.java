@@ -14,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.time.LocalDateTime;
 import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {WebConfig.class, HibernateConfig.class})
@@ -27,7 +26,7 @@ public class FeedBackDaoTest {
 
     @Before
     public void setUp() throws Exception {
-        feedBack = new FeedBack(LocalDateTime.now(), "feedback");
+        feedBack = new FeedBack("feedback");
         feedBackDao.create(feedBack);
     }
 
@@ -63,12 +62,13 @@ public class FeedBackDaoTest {
 
     @Test
     public void updateFeedBack() throws Exception {
-        FeedBack updateThis = new FeedBack();
-        updateThis.setFeedBackText("TEST");
-        updateThis = feedBackDao.update(feedBack);
-        Assert.assertNotNull(updateThis);
+        FeedBack oldFeedback = feedBackDao.findById(feedBack.getId());
+        feedBack.setFeedBackText("new text");
+        feedBackDao.update(feedBack);
+        FeedBack reloadFeedback = feedBackDao.findById(feedBack.getId());
+        Assert.assertNotNull(reloadFeedback);
         Assert.assertNotNull(feedBack);
-        Assert.assertEquals(updateThis, feedBack);
+        Assert.assertNotEquals(oldFeedback.getFeedBackText(), feedBack.getFeedBackText());
     }
 
     @Test
