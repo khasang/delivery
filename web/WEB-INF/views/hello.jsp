@@ -29,6 +29,7 @@
         </p>
         <p><a href="http://localhost:8080/registration">Регистрация</a></p>
         <p><a href="http://localhost:8080/noregistration">Без регистрации</a></p>
+    </form>
 </center>
 </body>
 </html>
