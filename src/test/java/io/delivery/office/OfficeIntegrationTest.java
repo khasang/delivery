@@ -69,7 +69,7 @@ public class OfficeIntegrationTest {
     }
 
     @Test
-    public void deleteOffice(){
+    public void deleteOffice(){ 
         Office office = createOffice();
         RestTemplate restTemplate = new RestTemplate();
 
