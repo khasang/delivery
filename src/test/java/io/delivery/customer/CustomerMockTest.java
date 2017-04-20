@@ -17,4 +17,26 @@ public class CustomerMockTest {
         given(customer.getName()).willReturn("Иван");
         Assert.assertEquals(customer.getName(), "Иван");
     }
+
+    @Test
+    public void testFindCustomerByAddress() {
+        Customer customer = mock(Customer.class);
+        given(customer.getAddress()).willReturn("улица Никифорова 87");
+        Assert.assertEquals(customer.getAddress(), "улица Никифорова 87");
+    }
+
+    @Test
+    public void testFindCustomerByEmail() {
+        Customer customer = mock(Customer.class);
+        given(customer.geteMail()).willReturn("1@gmail.com");
+        Assert.assertEquals(customer.geteMail(), "1@gmail.com");
+    }
+
+    @Test
+    public void testFindCustomerByPhone() {
+        Customer customer = mock(Customer.class);
+        given(customer.getPhoneNumber()).willReturn("123456789");
+        Assert.assertEquals(customer.getPhoneNumber(), "123456789");
+    }
+
 }
