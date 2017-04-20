@@ -6,32 +6,56 @@ import javax.persistence.*;
 @Table(name = "products")
 public class Product {
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
     private int price;
 
-    @Column(name = "description")
     private String description;
 
-    public long getId() { return id;}
+    @OneToOne
+    @JoinColumn(name = "product_catalog_section_id")
+    private ProductCatalogSection productCatalogSection;
 
-    public void setId(long id) { this.id = id; }
+    public long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public int getPrice() { return price; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public void setPrice(int price) { this.price = price; }
+    public int getPrice() {
+        return price;
+    }
 
-    public String getDescription() { return description; }
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
-    public void setDescription(String description) { this.description = description; }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ProductCatalogSection getProductCatalogSection() {
+        return productCatalogSection;
+    }
+
+    public void setProductCatalogSection(ProductCatalogSection productCatalogSection) {
+        this.productCatalogSection = productCatalogSection;
+    }
 }
