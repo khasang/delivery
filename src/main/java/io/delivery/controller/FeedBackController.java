@@ -14,7 +14,7 @@ public class FeedBackController {
     @Autowired
     private FeedbackService feedbackService;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
     public List<FeedBack> getAllFeedbacks() {
         return feedbackService.getFeedbackList();

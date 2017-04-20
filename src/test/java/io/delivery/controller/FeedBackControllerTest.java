@@ -1,7 +1,6 @@
 package io.delivery.controller;
 
 import io.delivery.entity.FeedBack;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -10,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class FeedBackControllerTest {
@@ -38,7 +38,7 @@ public class FeedBackControllerTest {
                 FeedBack.class
         ).getBody();
         assertNotNull(createdFeedBack);
-        Assert.assertEquals(feedBack.getFeedBackText(), createdFeedBack.getFeedBackText());
+        assertEquals(feedBack.getFeedBackText(), createdFeedBack.getFeedBackText());
         return createdFeedBack;
     }
 
@@ -62,7 +62,7 @@ public class FeedBackControllerTest {
                 new ParameterizedTypeReference<List<FeedBack>>() {
                 }
         );
-        Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals(HttpStatus.OK, result.getStatusCode());
         assertNotNull(result.getBody());
         List<FeedBack> list = result.getBody();
         assertNotNull(list.get(0));
@@ -70,10 +70,44 @@ public class FeedBackControllerTest {
 
     @Test
     public void updateFeedBack() throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        RestTemplate restTemplate = new RestTemplate();
+        FeedBack feedBack = createFeedback();
+        assertNotNull(feedBack);
+
+        feedBack.setFeedBackText("TEST");
+
+        HttpEntity<FeedBack> httpEntity = new HttpEntity<>(feedBack, headers);
+        FeedBack resultUpdate = restTemplate.exchange(
+                ROOT + UPDATE,
+                HttpMethod.POST,
+                httpEntity,
+                FeedBack.class
+        ).getBody();
+
+        assertNotNull(resultUpdate);
+        assertNotNull(resultUpdate.getId());
+        assertEquals("TEST", resultUpdate.getFeedBackText());
     }
 
     @Test
     public void deleteFeedBack() throws Exception {
+        FeedBack feedBack = createFeedback();
+        assertNotNull(feedBack);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                ROOT + DELETE + "{id}",
+                HttpMethod.DELETE,
+                null,
+                String.class,
+                feedBack.getId()
+        );
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+
     }
 
 }
