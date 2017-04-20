@@ -3,7 +3,7 @@ package io.delivery.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "document")
+@Table(name = "documents")
 public class Document {
     @Id
     @Column(name = "document_id")
