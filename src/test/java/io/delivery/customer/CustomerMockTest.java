@@ -14,7 +14,7 @@ public class CustomerMockTest {
     @Test
     public void testFindCustomerByName() {
         Customer customer = mock(Customer.class);
-        given(customer.getName()).willReturn("Ivan");
-        Assert.assertEquals(customer.getName(), "Ivan");
+        given(customer.getName()).willReturn("Иван");
+        Assert.assertEquals(customer.getName(), "Иван");
     }
 }
