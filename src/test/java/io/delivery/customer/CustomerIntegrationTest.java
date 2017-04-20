@@ -45,10 +45,10 @@ public class CustomerIntegrationTest {
 
     private Customer prefillCustomer() {
         Customer customer = new Customer();
-        customer.setAddress("minsk");
-        customer.seteMail("1@gmail.com");
-        customer.setPhoneNumber("2345639");
-        customer.setName("Ivan");
+        customer.setAddress("адрес_заказчика");
+        customer.seteMail("111@gmail.com");
+        customer.setPhoneNumber("234563961");
+        customer.setName("имя_заказчика");
         return customer;
     }
 
@@ -89,9 +89,9 @@ public class CustomerIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
         List<Customer> list = responseEntity.getBody();
-        assertNotNull(list);
-        assertNotNull(list.get(0));
-    }
+    assertNotNull(list);
+    assertNotNull(list.get(0));
+}
 
 
     @Test
@@ -209,8 +209,8 @@ public class CustomerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
-        customer.setName("newCustomerName");
-        customer.setAddress("newCustomerAddress");
+        customer.setName("новое_имя_заказчика");
+        customer.setAddress("новый_адрес_заказчика");
         customer.seteMail("new_customer@mail.mail");
         customer.setPhoneNumber("+375(29)123-45-67");
 
