@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Persistence</ID>
+  <OriginalElement>JavaeeElement:/fdb25d76/sessionFactory/delivery/hibernate/Hibernate/PersistenceModel</OriginalElement>
+  <nodes>
+    <node x="107.0" y="398.0">ProductImage#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductImage.java</node>
+    <node x="28.5625" y="0.0">ProductCatalogSection#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductCatalogSection.java</node>
+    <node x="295.3125" y="0.0">Document#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Document.java</node>
+    <node x="84.3125" y="171.0">Product#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Product.java</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ProductImage#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductImage.java" target="Product#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Product.java">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="Product#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Product.java" target="ProductCatalogSection#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductCatalogSection.java">
+      <point x="0.0" y="-68.5" />
+      <point x="46.25" y="42.5" />
+    </edge>
+    <edge source="ProductCatalogSection#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductCatalogSection.java" target="ProductCatalogSection#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductCatalogSection.java">
+      <point x="-46.25" y="42.5" />
+      <point x="74.8125" y="105.0" />
+      <point x="8.5625" y="105.0" />
+      <point x="8.5625" y="42.5" />
+      <point x="-92.5" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="178.0" y="149.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Embeddables</Category>
+    <Category>Properties</Category>
+    <Category>Superclasses</Category>
+  </Categories>
+</Diagram>
+
