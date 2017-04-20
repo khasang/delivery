@@ -70,11 +70,12 @@ public class AppConfig {
     }
 
     @Bean
-    DocumentDao documentDao(){
+    DocumentDao documentDao() {
         return new DocumentDaoImpl(Document.class);
     }
 
-
     @Bean
-    CustomerDao customerDao(){ return new CustomerDaoImpl(Customer.class); }
+    CustomerDao customerDao() {
+        return new CustomerDaoImpl(Customer.class);
+    }
 }

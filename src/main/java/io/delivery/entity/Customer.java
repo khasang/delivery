@@ -6,12 +6,12 @@ import javax.persistence.*;
 @Table(name = "customers")
 public class Customer {
     @Id
-    @Column
+//    @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column
+//    @Column
     private String name;
-    @Column
+//    @Column
     private String address;
     @Column(unique = true, name = "phone_number")
     private String phoneNumber;
