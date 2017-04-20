@@ -30,21 +30,21 @@ public class CustomerServiceImplTest {
     @Before
     public void CreateAndInitializeCustomers(){
         customer_1 = new Customer();
-        customer_1.setName("customer_1");
+        customer_1.setName("заказчик_1");
         customer_1.setPhoneNumber("+375(11)123-45-67");
-        customer_1.setAddress("address of customer_1");
+        customer_1.setAddress("адрес_заказчика_1");
         customer_1.seteMail("customer_1@mail.mail");
 
         customer_2 = new Customer();
-        customer_2.setName("customer_2");
+        customer_2.setName("заказчик_2");
         customer_2.setPhoneNumber("+375(22)123-45-67");
-        customer_2.setAddress("address of customer_2");
+        customer_2.setAddress("адрес_заказчика_2");
         customer_2.seteMail("customer_2@mail.mail");
 
         customer_3 = new Customer();
-        customer_3.setName("customer_3");
+        customer_3.setName("заказчик_3");
         customer_3.setPhoneNumber("+375(33)123-45-67");
-        customer_3.setAddress("address of customer_3");
+        customer_3.setAddress("адрес_заказчика_3");
         customer_3.seteMail("customer_3@mail.mail");
 
         customerService.createCustomer(customer_1);
@@ -121,8 +121,8 @@ public class CustomerServiceImplTest {
     @Test
     public void testUpdateCustomer(){
         Customer beforeUpdateCustomer = customer_1;
-        beforeUpdateCustomer.setName("updated_customer");
-        beforeUpdateCustomer.setAddress("new address of updated_customer");
+        beforeUpdateCustomer.setName("обновлённый_заказчик");
+        beforeUpdateCustomer.setAddress("новый_адрес_обновлённого_заказчика");
         beforeUpdateCustomer.seteMail("updated_customer@mail.mail");
         Customer afterUpdateCustomer = customerService.updateCustomer(beforeUpdateCustomer);
         assertNotNull(afterUpdateCustomer);
