@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
 
 public class OrderUnitTest {
 
-    Order order = new Order();
-    List<BasketUnit> basketUnits = new ArrayList<>();
+    private Order order = new Order();
+    private List<BasketUnit> basketUnits = new ArrayList<>();
 
     @Test
     public void testDeliveryDate() {
@@ -54,7 +54,14 @@ public class OrderUnitTest {
 
     @Test
     public void testComment() {
-        String comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam congue, nisi nec ornare maximus, nulla erat mattis lectus, ac elementum sapien est nec arcu. Nullam turpis nisi, gravida ac bibendum in, blandit eget odio. Nunc eu arcu eu felis faucibus porta. Donec tincidunt leo at erat convallis gravida. Fusce a enim et ante cursus sagittis. Sed a condimentum lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum mattis sagittis tortor, et scelerisque sapien semper vitae. Phasellus massa orci, aliquet in venenatis sed, sagittis ut odio.";
+        String comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit." +
+                " Nullam congue, nisi nec ornare maximus, nulla erat mattis lectus, ac elementum sapien est nec arcu." +
+                " Nullam turpis nisi, gravida ac bibendum in, blandit eget odio." +
+                " Nunc eu arcu eu felis faucibus porta. Donec tincidunt leo at erat convallis gravida." +
+                " Fusce a enim et ante cursus sagittis. Sed a condimentum lacus." +
+                " Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas." +
+                " Vestibulum mattis sagittis tortor, et scelerisque sapien semper vitae." +
+                " Phasellus massa orci, aliquet in venenatis sed, sagittis ut odio.";
         order.setComment(comment);
         assertEquals(comment,order.getComment());
     }

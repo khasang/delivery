@@ -1,18 +1,10 @@
 package io.khasang.order;
 
-import io.delivery.config.AppConfig;
-import io.delivery.config.HibernateConfig;
 import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
-import io.delivery.service.impl.OrderServiceImpl;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.sql.Date;
@@ -23,8 +15,6 @@ import java.util.List;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class, OrderServiceImpl.class, HibernateConfig.class})
 public class OrderIntegrationTest {
 
     private final String ROOT = "http://localhost:8080/order";
@@ -40,16 +30,16 @@ public class OrderIntegrationTest {
 
     private static List<BasketUnit> basketUnits = new ArrayList<>();
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         basketUnits.add(new BasketUnit(20L));
         basketUnits.add(new BasketUnit(21L));
         basketUnits.add(new BasketUnit(22L));
         basketUnits.add(new BasketUnit(23L));
     }
 
-    @After
-    public void clear() {
+    @AfterClass
+    public static void clear() {
         basketUnits.clear();
     }
 

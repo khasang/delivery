@@ -16,11 +16,9 @@ public class BasketUnit {
             pkColumnValue = "BASKET_SEQ",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "BASKET_GEN")
-    @Column(name = "id")
     private Long id;
     @Column(name = "item_id")
     private Long itemId;
-    @Column(name = "quantity")
     private int quantity;
     @ManyToOne
     @JsonBackReference

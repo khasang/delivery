@@ -33,7 +33,6 @@ public class Order {
     private String deliveryAddress;
     @Column(name = "exec_id")
     private Long executorId;
-    @Column(name = "comment")
     private String comment;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
