@@ -15,15 +15,15 @@ import static org.junit.Assert.assertNull;
 public class CustomerIntegrationTest {
 
     private final String ROOT = "http://localhost:8080/customer";
-    private final String GET_PHONE = "/get_by/phone-number/";
-    private final String GET_ADDRESS = "/get_by/address/";
-    private final String GET_ID = "/get_by/id/";
+    private final String GET_PHONE = "/get/phone/";
+    private final String GET_ADDRESS = "/get/address/";
+    private final String GET_ID = "/get/id/";
     private final String ADD = "/add";
     private final String UPDATE = "/update";
-    private final String DELETE = "/delete_by/id/";
+    private final String DELETE = "/delete/id/";
     private final String ALL = "/get/all";
-    private final String GET_NAME = "/get_by/name/";
-    private final String GET_EMAIL = "/get_by/e-mail/";
+    private final String GET_NAME = "/get/name/";
+    private final String GET_EMAIL = "/get/email/";
 
     private Customer createCustomer() {
         HttpHeaders headers = new HttpHeaders();

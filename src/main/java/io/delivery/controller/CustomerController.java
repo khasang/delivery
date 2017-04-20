@@ -20,31 +20,31 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @RequestMapping(value = "/get_by/name/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/name/{name}", method = RequestMethod.GET)
     @ResponseBody
     public List<Customer> getCustomerByName(@PathVariable(value = "name") String name){
         return customerService.getCustomerByName(name);
     }
 
-    @RequestMapping(value = "/get_by/e-mail/{eMail}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/email/{eMail}", method = RequestMethod.GET)
     @ResponseBody
     public Customer getCustomerByEmail(@PathVariable(value = "eMail") String eMail){
         return customerService.getCustomerByEmail(eMail);
     }
 
-    @RequestMapping(value = "/get_by/phone-number/{phoneNumber}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/phone/{phoneNumber}", method = RequestMethod.GET)
     @ResponseBody
     public Customer getCustomerByPhoneNumber(@PathVariable(value = "phoneNumber") String phoneNumber){
         return customerService.getCustomerByPhoneNumber(phoneNumber);
     }
 
-    @RequestMapping(value = "/get_by/address/{address}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/address/{address}", method = RequestMethod.GET)
     @ResponseBody
     public List<Customer> getCustomerByAddress(@PathVariable(value = "address") String address){
         return customerService.getCustomerByAddress(address);
     }
 
-    @RequestMapping(value = "/get_by/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Customer getCustomerById(@PathVariable(value = "id") String id){
         return customerService.getCustomerById(Long.parseLong(id));
@@ -70,7 +70,7 @@ public class CustomerController {
         return customer;
     }
 
-    @RequestMapping(value = "/delete_by/id/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/id/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public Customer deleteCustomerById(@PathVariable(value = "id") String id){
         return customerService.deleteCustomer(Long.parseLong(id));
