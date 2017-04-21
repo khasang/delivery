@@ -3,7 +3,7 @@ package io.delivery.service.impl;
 import io.delivery.service.CreateTable;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class CreateTableImpl implements CreateTable {
+public final class CreateTableImpl implements CreateTable {
     private JdbcTemplate jdbcTemplate;
     private String query;
 
@@ -18,7 +18,7 @@ public class CreateTableImpl implements CreateTable {
         this.query = query;
     }
 
-    public String delete() {
+    public final String delete() {
         return "done";
     }
 
