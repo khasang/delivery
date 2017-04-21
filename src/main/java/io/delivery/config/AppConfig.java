@@ -2,10 +2,13 @@ package io.delivery.config;
 
 import io.delivery.dao.DocumentDao;
 import io.delivery.dao.NewsDao;
+import io.delivery.dao.NoRegistrationCustomerDao;
 import io.delivery.dao.impl.DocumentDaoImpl;
 import io.delivery.dao.impl.NewsDaoImpl;
+import io.delivery.dao.impl.NoRegistrationCustomerDaoImpl;
 import io.delivery.entity.Document;
 import io.delivery.entity.News;
+import io.delivery.entity.NoRegistrationCustomer;
 import io.delivery.model.Answer;
 import io.delivery.model.NewsCreator;
 import io.delivery.model.TableCreator;
@@ -84,5 +87,10 @@ public class AppConfig {
     @Bean
     NewsDao newsDao() {
         return new NewsDaoImpl(News.class);
+    }
+
+    @Bean
+    NoRegistrationCustomerDao noRegistrationCustomerDao() {
+        return new NoRegistrationCustomerDaoImpl(NoRegistrationCustomer.class);
     }
 }

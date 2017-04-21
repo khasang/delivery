@@ -4,19 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "no_regitration_customer")
-public class NoRegistration {
+public class NoRegistrationCustomer {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column (name = "name")
     private String name;
-    @Column (name = "phoneNumber")
     private String phoneNumber;
-    @Column (name = "adress")
     private String adress;
 
-    public NoRegistration() {
+    public NoRegistrationCustomer() {
     }
 
     public String getAdress() {
