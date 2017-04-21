@@ -1,6 +1,8 @@
 package io.delivery.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -15,9 +17,13 @@ public class Product {
 
     private String description;
 
-    @OneToOne
+    @ManyToOne(optional=false)
     @JoinColumn(name = "product_catalog_section_id")
     private ProductCatalogSection productCatalogSection;
+
+    @OneToMany (mappedBy="product", cascade = CascadeType.ALL)
+//    @JoinColumn(name = "product_id")
+    private List<ProductImage> images = new ArrayList<ProductImage>();
 
     public long getId() {
         return id;
@@ -57,5 +63,13 @@ public class Product {
 
     public void setProductCatalogSection(ProductCatalogSection productCatalogSection) {
         this.productCatalogSection = productCatalogSection;
+    }
+
+    public List<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
     }
 }

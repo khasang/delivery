@@ -1,6 +1,8 @@
 package io.delivery.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product_catalog_sections")
@@ -11,9 +13,9 @@ public class ProductCatalogSection {
 
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "parent_id")
-    private ProductCatalogSection parentProductCatalogSection;
+    @OneToMany (mappedBy="productCatalogSection", cascade = CascadeType.ALL)
+//    @JoinColumn(name = "product_catalog_section_id")
+    private List<Product> products = new ArrayList<Product>();
 
     public long getId() {
         return id;
@@ -31,11 +33,11 @@ public class ProductCatalogSection {
         this.name = name;
     }
 
-    public ProductCatalogSection getParentProductCatalogSection() {
-        return parentProductCatalogSection;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setParentProductCatalogSection(ProductCatalogSection parentProductCatalogSection) {
-        this.parentProductCatalogSection = parentProductCatalogSection;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }
