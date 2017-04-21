@@ -13,7 +13,6 @@ import java.util.List;
 public class Order {
 
     @Id
-    @Column(name = "id")
     @TableGenerator(
             name = "ORD_GEN",
             table = "SEQUENCE_TABLE",
@@ -22,16 +21,17 @@ public class Order {
             pkColumnValue = "ORD_SEQ",
             allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "ORD_GEN")
+    @Column(name = "order_id")
     private Long id;
-    @Column(name = "date")
+    @Column(name = "delivery_date")
     private Date deliveryDate;
-    @Column(name = "time")
+    @Column(name = "delivery_time")
     private Time deliveryTime;
     @Column(name = "user_id")
     private Long userId;
-    @Column(name = "address")
+    @Column(name = "delivery_address")
     private String deliveryAddress;
-    @Column(name = "exec_id")
+    @Column(name = "executor_id")
     private Long executorId;
     private String comment;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)

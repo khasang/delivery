@@ -21,35 +21,35 @@ public class OrderUnitTest {
     public void testDeliveryDate() {
         Date date = new Date(42L);
         order.setDeliveryDate(date);
-        assertEquals(date,order.getDeliveryDate());
+        assertEquals(date, order.getDeliveryDate());
     }
 
     @Test
     public void testDeliveryTime() {
         Time time = new Time(42L);
         order.setDeliveryTime(time);
-        assertEquals(time,order.getDeliveryTime());
+        assertEquals(time, order.getDeliveryTime());
     }
 
     @Test
     public void testUserId() {
         long id = 42L;
         order.setUserId(id);
-        assertEquals((long) id,(long) order.getUserId());
+        assertEquals(id, (long) order.getUserId());
     }
 
     @Test
     public void testAddress() {
         String address = "Middle of Nowhere";
         order.setDeliveryAddress(address);
-        assertEquals(address,order.getDeliveryAddress());
+        assertEquals(address, order.getDeliveryAddress());
     }
 
     @Test
     public void testExecutor() {
         long id = 42L;
         order.setExecutorId(id);
-        assertEquals((long) id,(long) order.getExecutorId());
+        assertEquals(id, (long) order.getExecutorId());
     }
 
     @Test
@@ -63,12 +63,11 @@ public class OrderUnitTest {
                 " Vestibulum mattis sagittis tortor, et scelerisque sapien semper vitae." +
                 " Phasellus massa orci, aliquet in venenatis sed, sagittis ut odio.";
         order.setComment(comment);
-        assertEquals(comment,order.getComment());
+        assertEquals(comment, order.getComment());
     }
 
     @Test
-    public void testBusket() {
-
+    public void testBasket() {
         basketUnits.add(new BasketUnit(40L));
         basketUnits.add(new BasketUnit(41L));
         basketUnits.add(new BasketUnit(42L));
@@ -84,7 +83,6 @@ public class OrderUnitTest {
         assertFalse(order.getBasketUnitList().contains(testBasketUnit));
 
         order.setBasketUnitList(basketUnits);
-        assertEquals(basketUnits,order.getBasketUnitList());
-
+        assertEquals(basketUnits, order.getBasketUnitList());
     }
 }

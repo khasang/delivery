@@ -24,12 +24,12 @@ public interface OrderService {
     Order findById(long id);
 
     /**
-     * Delete order in database by ID
+     * Delete order from database
      *
      * @param id of order
      * @return order
      */
-    Order delete(long id);
+    Order deleteOrder(long id);
 
     /**
      * Update order
@@ -37,7 +37,7 @@ public interface OrderService {
      * @param order - order for updating
      * @return updated order
      */
-    Order update(Order order);
+    Order updateOrder(Order order);
 
     /**
      * Find orders in database by userID
@@ -48,11 +48,11 @@ public interface OrderService {
     List<Order> findByUserId(long uid);
 
     /**
-     * Return basketUnitList from db
+     * Find basketUnitList in db
      *
      * @return basketUnitList
      */
-    BasketUnit getBasketUnitListById(long id);
+    BasketUnit findBasketUnitById(long id);
 
     /**
      * Delete basketUnit from db by ID
@@ -60,5 +60,5 @@ public interface OrderService {
      * @param id - basketUnit ID
      * @return deleted basketUnit
      */
-    int deleteBasketUnitById(long id);
+    BasketUnit deleteBasketUnitById(long id);
 }

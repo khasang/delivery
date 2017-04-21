@@ -22,13 +22,13 @@ public class OrderController {
 
     @RequestMapping(value = "/basket/get/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public BasketUnit getBasketUnitListById(@PathVariable(value = "id") String id) {
-        return orderService.getBasketUnitListById(Long.parseLong(id));
+    public BasketUnit getBasketUnitById(@PathVariable(value = "id") String id) {
+        return orderService.findBasketUnitById(Long.parseLong(id));
     }
 
     @RequestMapping(value = "/basket/delete/id/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public int deleteBasketUnitById(@PathVariable(value = "id") String id) {
+    public BasketUnit deleteBasketUnitById(@PathVariable(value = "id") String id) {
         return orderService.deleteBasketUnitById(Long.parseLong(id));
     }
 
@@ -42,7 +42,7 @@ public class OrderController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Order updateOrder(@RequestBody Order order) {
-        orderService.update(order);
+        orderService.updateOrder(order);
         return order;
     }
 
@@ -61,7 +61,7 @@ public class OrderController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public Order deleteOrder(@PathVariable(value = "id") String id) {
-        return orderService.delete(Long.parseLong(id));
+        return orderService.deleteOrder(Long.parseLong(id));
     }
 
     @RequestMapping(value = "/web")

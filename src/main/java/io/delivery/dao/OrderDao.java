@@ -20,13 +20,13 @@ public interface OrderDao extends BasicDao<Order> {
      *
      * @return basketUnitList
      */
-    BasketUnit getBasketUnitListById(long id);
+    BasketUnit findBasketUnitById(long id);
 
     /**
-     * Delete basketUnit from db by ID
+     * Delete basketUnit from db
      *
-     * @param id - basketUnit ID
+     * @param basketUnit - basketUnit
      * @return - deleted basketUnit
      */
-    int deleteBasketUnitById(long id);
+    BasketUnit deleteBasketUnitById(BasketUnit basketUnit);
 }

@@ -30,10 +30,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order delete(long id) { return orderDao.delete(findById(id));  }
+    public Order deleteOrder(long id) {
+        return orderDao.delete(findById(id));
+    }
 
     @Override
-    public Order update(Order order) {
+    public Order updateOrder(Order order) {
         return orderDao.update(order);
     }
 
@@ -43,12 +45,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public BasketUnit getBasketUnitListById(long id) {
-        return orderDao.getBasketUnitListById(id);
+    public BasketUnit findBasketUnitById(long id) {
+        return orderDao.findBasketUnitById(id);
     }
 
     @Override
-    public int deleteBasketUnitById(long id) {
-        return orderDao.deleteBasketUnitById(id);
+    public BasketUnit deleteBasketUnitById(long id) {
+        return orderDao.deleteBasketUnitById(findBasketUnitById(id));
     }
 }
