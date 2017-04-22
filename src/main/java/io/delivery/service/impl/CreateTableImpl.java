@@ -12,10 +12,6 @@ public class CreateTableImpl implements CreateTable {
     @Autowired
     private Answer answer;
 
-    // Ошибка или антипаттерн
-//    Answer answer = new Answer();
-
-
     private String query;
 
     public CreateTableImpl(String query) {

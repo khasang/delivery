@@ -10,11 +10,6 @@ public class CreateNewsImpl implements CreateNews{
 
     @Autowired
     private Answer answer;
-
-    // Ошибка или антипаттерн
-//    Answer answer = new Answer();
-
-
     private String query;
 
     public CreateNewsImpl(String query) {
