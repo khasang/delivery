@@ -4,14 +4,12 @@ import io.delivery.entity.NoRegistrationCustomer;
 import io.delivery.service.NoRegistrationCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping ("/noRegistrationCustomer")
+@RequestMapping ("/noregcustomer")
 public class NoRegistrationCustomerController {
     final private NoRegistrationCustomerService noRegistrationCustomerService;
 
@@ -19,9 +17,27 @@ public class NoRegistrationCustomerController {
     public NoRegistrationCustomerController (NoRegistrationCustomerService noRegistrationCustomerService){
         this.noRegistrationCustomerService = noRegistrationCustomerService;
     }
-    @RequestMapping(value = "/allnoregistrationcustomer",method = RequestMethod.GET)
+    @RequestMapping(value = "/all",method = RequestMethod.GET)
     @ResponseBody
     public List<NoRegistrationCustomer> getNoRegistrationCustomerList(){
         return noRegistrationCustomerService.getNoRegistrationCustomerList();
     }
+
+    @RequestMapping(value = "/get/name/{name}",method = RequestMethod.GET)
+    @ResponseBody
+    public List<NoRegistrationCustomer> getNoRegistrationCustomerByName(@PathVariable(value = "name") String name){
+        return noRegistrationCustomerService.findByName(name);
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public NoRegistrationCustomer addNoRegistrationCustomer(@RequestBody NoRegistrationCustomer noRegistrationCustomer){
+        noRegistrationCustomerService.create(noRegistrationCustomer);
+        return noRegistrationCustomer;
+    }
 }
+
+
+
+
+

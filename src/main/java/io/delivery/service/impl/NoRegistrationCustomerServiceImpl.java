@@ -17,4 +17,14 @@ public class NoRegistrationCustomerServiceImpl implements NoRegistrationCustomer
     public List<NoRegistrationCustomer> getNoRegistrationCustomerList() {
         return noRegistrationCustomerDao.getList();
     }
+
+    @Override
+    public List<NoRegistrationCustomer> findByName(String name) {
+        return noRegistrationCustomerDao.findByName((name));
+    }
+
+    @Override
+    public NoRegistrationCustomer create(NoRegistrationCustomer noRegistrationCustomer) {
+        return noRegistrationCustomerDao.create(noRegistrationCustomer);
+    }
 }

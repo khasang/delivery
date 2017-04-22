@@ -10,17 +10,17 @@ public class NoRegistrationCustomer {
     private long id;
     private String name;
     private String phoneNumber;
-    private String adress;
+    private String address;
 
     public NoRegistrationCustomer() {
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String adress) {
+        this.address = adress;
     }
 
     public String getName() {
