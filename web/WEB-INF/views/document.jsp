@@ -25,7 +25,7 @@
        }
        var RestPost = function (client_name) {
            var JSONObject = {
-               'name': 'client_name'
+               'name': client_name
            }
            $.ajax({
                type: 'POST',
