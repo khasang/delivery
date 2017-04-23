@@ -2,15 +2,16 @@ package io.delivery.config;
 
 import io.delivery.dao.CustomerDao;
 import io.delivery.dao.DocumentDao;
+import io.delivery.dao.OfficeDao;
 import io.delivery.dao.impl.CustomerDaoImpl;
 import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.dao.impl.OfficeDaoImpl;
 import io.delivery.entity.Customer;
 import io.delivery.entity.Document;
+import io.delivery.entity.Office;
 import io.delivery.model.Answer;
-import io.delivery.model.TableCreator;
-import io.delivery.model.impl.TableCreatorImpl;
-import io.delivery.service.CreateTable;
-import io.delivery.service.impl.CreateTableImpl;
+import io.delivery.service.*;
+import io.delivery.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +56,7 @@ public class AppConfig {
     }
 
     @Bean
-    public CreateTable createTable(){
+    public CreateTable createTable() {
         return new CreateTableImpl(jdbcTemplate());
     }
 
@@ -65,7 +66,7 @@ public class AppConfig {
     }
 
     @Bean
-    public UpdateTable updateTable(){
+    public UpdateTable updateTable() {
         return new UpdateTableImpl(jdbcTemplate());
     }
 
@@ -91,12 +92,17 @@ public class AppConfig {
 
     @Bean
     public Answer answer() {
-    public DocumentDao documentDao() {
+        return new Answer();
     }
 
     @Bean
-    DocumentDao documentDao() {
+    public DocumentDao documentDao() {
         return new DocumentDaoImpl(Document.class);
+    }
+
+    @Bean
+    public OfficeDao officeDao(){
+        return new OfficeDaoImpl(Office.class);
     }
 
     @Bean
@@ -104,3 +110,4 @@ public class AppConfig {
         return new CustomerDaoImpl(Customer.class);
     }
 }
+
