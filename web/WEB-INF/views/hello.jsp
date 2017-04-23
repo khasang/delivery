@@ -11,9 +11,9 @@
 <p>${answ}</p>
 <jsp:include page="news.jsp"/>
 <center>
-    <form name="FormEnter"
-          method="post"
-          action="/registration">
+    <%--<form name="FormEnter"--%>
+          <%--method="post"--%>
+          <%--action="/registration">--%>
         <p></p>
         <h2>Регистрация</h2>
         <hr>
@@ -30,7 +30,7 @@
         </p>
         <p><a href="/registration">Регистрация</a></p>
         <p><a href="/noregistration">Без регистрации</a></p>
-    </form>
+    <%--</form>--%>
 </center>
 </body>
 </html>

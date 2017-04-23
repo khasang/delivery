@@ -2,7 +2,6 @@ package io.delivery.dao.impl;
 
 import io.delivery.dao.NoRegistrationCustomerDao;
 import io.delivery.entity.NoRegistrationCustomer;
-
 import java.util.List;
 
 public class NoRegistrationCustomerDaoImpl extends BasicDaoImpl<NoRegistrationCustomer> implements NoRegistrationCustomerDao {

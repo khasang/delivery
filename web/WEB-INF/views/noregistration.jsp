@@ -28,7 +28,7 @@
         </tr>
     </table>
     <table>
-        <input type=submit value="Заказать">
+        <input type=submit value="Сохранить">
     </table>
 </table>
 </body>
