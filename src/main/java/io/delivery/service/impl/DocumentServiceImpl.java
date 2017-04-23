@@ -25,7 +25,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public Document deleteDocument(long id) {
-       return documentDao.delete(findById(id));
+        return documentDao.delete(findById(id));
     }
 
     @Override

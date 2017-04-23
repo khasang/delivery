@@ -3,6 +3,7 @@ package io.delivery.controller;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
+import io.delivery.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,20 @@ public class AppController {
     private Answer answer;
     @Autowired
     private Message message;
-
+    @Autowired
+    private CreateTable createTable;
+    @Autowired
+    private InsertUser insertUser;
+    @Autowired
+    private UpdateTable updateTable;
+    @Autowired
+    private SelectTable selectTable;
+    @Autowired
+    private PreparedSQL preparedSQL;
+    @Autowired
+    private TableCreator tableCreator;
+    @Autowired
+    private Test test;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -36,12 +50,28 @@ public class AppController {
         return "hello";
     }
 
+    @RequestMapping(value = "/create")
+    public String create(Model model) {
+        model.addAttribute("status", tableCreator.createCompany());
+        return "create";
+    }
+
     @RequestMapping(value = "/secure")
     public String secure() {
         return "/secure";
     }
 
-    @RequestMapping(value = "/documentApi")
+    @RequestMapping(value = "/registration")
+    public String registration() {
+        return "/registration";
+    }
+
+    @RequestMapping(value = "/noregistration")
+    public String noregisration() {
+        return "/noregistration";
+    }
+
+ @RequestMapping(value = "/documentApi")
     public String getDocumentInfo(){
         return "document";
     }

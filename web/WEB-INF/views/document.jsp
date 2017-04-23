@@ -23,7 +23,27 @@
                }
            })
        }
+       var RestPost = function (client_name) {
+           var JSONObject = {
+               'name': client_name
+           }
+           $.ajax({
+               type: 'POST',
+               url: service + "/add",
+               contentType: 'application/json; charset=utf-8',
+               data: JSON.stringify(JSONObject),
+               dataType: 'json',
+               async: false,
+               success: function (result) {
+                   $('#response').html(JSON.stringify(result));
+               },
+               error: function (jqXHR, textStatus, errorThrpwn) {
+                   $('#response').html(JSON.stringify(jqXHR));
+               }
+           });
+       };
     </script>
+
 
     <table class="table">
         <thead/>
@@ -39,6 +59,17 @@
                 Id: <input id = "getDocumentID" value="3"/>
                 <button type="button" onclick="RestGet($('#getDocumentID').val())">Try</button>
             </td>
+        </tr>
+        <tr>
+            <td>Add document</td>
+            <td><code><strong>POST</strong>/document/add</code></td>
+            <td>
+                <form class="form-inline">
+                    name: <input type="text" id="postName" value="documentName"/>
+                    <button type="button" onclick="RestPost($('#postName').val())">Try</button>
+                </form>
+            </td>
+
         </tr>
     </table>
     <div class="panel panel-default">
