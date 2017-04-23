@@ -17,43 +17,53 @@
 <body>
 <script type="text/javascript">
     var service = '/document';
-    var RestGet = function (id) {
-        $.ajax({
-            type: 'GET',
-            url: service + "/get/id/" +id,
-            dataType: 'json',
-            async: false,
-            success: function (result) {
-                $('#response').html(JSON.stringify(result));
+    $(document).ready(function() {
+        var table = $('#result').dataTable( {
+            "ajax": {
+                url: service + "/all/",
+                type: "GET",
+                "dataSrc": ""
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $('#response').html(JSON.stringify(jqXHR));
+            "columns": [
+                { "data" : "id", "visible" : false, "searchable" : false },
+                { "data" : "name", "title": "Документ"},
+                { "data" : "specificInnerInfo", "visible" : false, "searchable" : false }
+            ]
+        } );
+
+
+        $('#result tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
             }
-        });
-    }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        } );
+
+        $('#button').click( function () {
+            table.row('.selected').remove().draw( true );
+        } );
+    } );
 </script>
 
-<table class="table">
-    <thead/>
-    <tr>
-        <th>ID</th>
-        <th>NAME</th>
-    </tr>
-    <tbody/>
-    <tr>
-        <td>Get Document by id</td>
-        <td><code><strong>GET</strong>/document/get/id/{id}</code></td>
-        <td>
-            Id: <input id = "getDocumentID" value="3"/>
-            <button type="button" onclick="RestGet($('#getDocumentID').val())">Try</button>
-        </td>
-    </tr>
-</table>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <strong>RESPONSE</strong>
+        <strong>Documents</strong>
+        <button id="button">Del</button>
     </div>
-    <div class="panel-body" id="response"></div>
+    <div class="panel-body">
+        <table class="table" id="result">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>specificInnerInfo</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 </div>
 </body>
 </html>
