@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 /**
  * Created by NortT on 19.04.2017.
@@ -41,7 +40,7 @@ public class OfficeIntegrationTest {
         ).getBody();
         assertNotNull(createdOffice);
         assertEquals(office.getCoords(), createdOffice.getCoords());
-        return office;
+        return createdOffice;
     }
 
     private Office prefillOffice() {
@@ -69,7 +68,7 @@ public class OfficeIntegrationTest {
     }
 
     @Test
-    public void deleteOffice(){ 
+    public void deleteOffice(){
         Office office = createOffice();
         RestTemplate restTemplate = new RestTemplate();
 
@@ -82,6 +81,6 @@ public class OfficeIntegrationTest {
         );
 
         assertNotNull(deleteDocument.getBody());
-        assertEquals(office.getId(), deleteDocument.getBody().getId());
+        assertEquals(office.getDescription(), deleteDocument.getBody().getDescription());
     }
 }
