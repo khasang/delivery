@@ -4,8 +4,10 @@ import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
 import io.delivery.model.Answer;
+import io.delivery.model.BackupCreator;
 import io.delivery.model.NewsCreator;
 import io.delivery.model.TableCreator;
+import io.delivery.model.impl.BackupCreatorIml;
 import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.*;
@@ -122,6 +124,16 @@ public class AppConfig {
     @Bean
     CustomerDao customerDao() {
         return new CustomerDaoImpl(Customer.class);
+    }
+
+    @Bean
+    UserDao userDao() {
+        return new UserDaoIml(User.class);
+    }
+
+    @Bean
+    public BackupCreator backupCreator() {
+        return new BackupCreatorIml();
     }
 }
 

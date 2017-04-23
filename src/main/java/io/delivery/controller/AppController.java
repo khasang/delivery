@@ -78,7 +78,7 @@ public class AppController {
         return "/noregistration";
     }
 
- @RequestMapping(value = "/documentApi")
+    @RequestMapping(value = "/documentApi")
     public String getDocumentInfo(){
         return "document";
     }
