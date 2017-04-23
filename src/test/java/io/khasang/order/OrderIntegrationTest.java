@@ -2,8 +2,6 @@ package io.khasang.order;
 
 import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -21,31 +19,13 @@ public class OrderIntegrationTest {
 
     private final String ROOT = "http://localhost:8080/order";
     private final String ADD = "/add";
-    private final String ALL = "/get/all";  // TODO: 21.04.2017
+    private final String ALL = "/get/all";
     private final String GET_ID = "/get/id/";
     private final String GET_UID = "/get/uid/";
     private final String UPDATE = "/update";
     private final String DELETE = "/delete/";
-    private final String DELETE_PACK = "/delete/pack";
     private final String DELETE_BASKET_UNIT = "/basket/delete/id/";
     private final String GET_BASKET_UNIT = "/basket/get/id/";
-
-    private static List<BasketUnit> basketUnits = new ArrayList<>();
-    private static List<Order> ordersDeleteAfterTest = new ArrayList<>();
-
-    @BeforeClass
-    public static void setUp() {
-        basketUnits.add(new BasketUnit(20L));
-        basketUnits.add(new BasketUnit(21L));
-        basketUnits.add(new BasketUnit(22L));
-        basketUnits.add(new BasketUnit(23L));
-    }
-
-    @AfterClass
-    public static void clear() {
-        basketUnits.clear();
-        ordersDeleteAfterTest.clear();
-    }
 
     @Test
     public void addBasketUnit() {
@@ -73,6 +53,7 @@ public class OrderIntegrationTest {
         assertNotEquals(-1, resultUpdate.getBasketUnitList().indexOf(basketUnitToAdd));
         assertTrue(resultUpdate.getBasketUnitList().contains(basketUnitToAdd));
 
+        deleteOrderFromDB(order);
     }
 
     @Test
@@ -97,6 +78,8 @@ public class OrderIntegrationTest {
         assertNotNull(responseEntity.getBody());
         BasketUnit resultBasketUnit = responseEntity.getBody();
         assertEquals(basketUnit.getId(), resultBasketUnit.getId());
+
+        deleteOrderFromDB(order);
     }
 
     @Test
@@ -121,6 +104,8 @@ public class OrderIntegrationTest {
         assertNotNull(resultUpdate);
         assertNotNull(resultUpdate.getId());
         assertEquals(42, resultUpdate.getBasketUnitList().get(0).getQuantity());
+
+        deleteOrderFromDB(order);
     }
 
     @Test
@@ -157,6 +142,8 @@ public class OrderIntegrationTest {
 
         assertEquals(HttpStatus.OK, checkBasketUnitById.getStatusCode());
         assertNull(checkBasketUnitById.getBody());
+
+        deleteOrderFromDB(order);
     }
 
     @Test
@@ -178,6 +165,8 @@ public class OrderIntegrationTest {
         assertNotNull(responseEntity.getBody());
         List<Order> resultOrder = responseEntity.getBody();
         assertNotNull(resultOrder.get(0));
+
+        deleteOrderFromDB(order);
     }
 
     @Test
@@ -198,6 +187,8 @@ public class OrderIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(order.getId(), resultOrder.getId());
         assertNotNull(resultOrder);
+
+        deleteOrderFromDB(order);
     }
 
     @Test
@@ -224,6 +215,8 @@ public class OrderIntegrationTest {
         assertNotNull(resultUpdate.getId());
         assertEquals("Nowhere", resultUpdate.getDeliveryAddress());
         assertEquals("Notext", resultUpdate.getComment());
+
+        deleteOrderFromDB(order);
     }
 
     @Test
@@ -268,9 +261,6 @@ public class OrderIntegrationTest {
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
-        List<Order> resultList = responseEntity.getBody();
-
-        ordersDeleteAfterTest.addAll(resultList);
     }
 
     private Order createOrder() {
@@ -299,29 +289,27 @@ public class OrderIntegrationTest {
         order.setDeliveryTime(Time.valueOf("04:05:06"));
         order.setDeliveryAddress("Moscow");
         order.setExecutorId(350L);
+
+        List<BasketUnit> basketUnits = new ArrayList<>();
+        basketUnits.add(new BasketUnit(20L));
+        basketUnits.add(new BasketUnit(21L));
+        basketUnits.add(new BasketUnit(22L));
+        basketUnits.add(new BasketUnit(23L));
+
         order.setBasketUnitList(basketUnits);
         return order;
     }
 
-    @Test
-    public void deleteOrders() {
-        getAllOrders();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        HttpEntity<List<Order>> httpEntity = new HttpEntity<>(ordersDeleteAfterTest, headers);
-
+    private void deleteOrderFromDB(Order order) {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List<Order>> responseEntity = restTemplate.exchange(
-                ROOT + DELETE_PACK,
-                HttpMethod.POST,
-                httpEntity,
-                new ParameterizedTypeReference<List<Order>>() {
-                }
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                ROOT + DELETE + "{id}",
+                HttpMethod.DELETE,
+                null,
+                String.class,
+                order.getId()
         );
 
-        List<Order> resultList = responseEntity.getBody();
-        assertNotNull(responseEntity);
-        assertEquals(ordersDeleteAfterTest, resultList);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 }

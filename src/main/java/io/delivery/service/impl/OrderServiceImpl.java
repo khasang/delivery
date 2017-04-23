@@ -58,9 +58,4 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getOrderList() {
         return orderDao.getList();
     }
-
-    @Override
-    public List<Order> deleteOrdersPack(List<Order> orderList) {
-        return orderDao.deleteOrders(orderList);
-    }
 }

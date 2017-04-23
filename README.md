@@ -15,7 +15,7 @@
 Адрес доставки	|String	| deliveryAddress	| delivery_address
 Ид исполнителя	|Long	| executorId	| executor_id
 Комментарий		|String	| comment		| comment
-Корзина			|List<BasketUnit>		| basketUnitList | 
+Корзина			|List<BasketUnit> | basketUnitList | 
 
 Корзина реализована классом **BasketUnit.java** и таблицей **basket** в базе **delivery**
 
@@ -25,15 +25,15 @@
 Ид заказа	|Long	| Order			| order_id
 Ид единицы корзины |Long| id		| id
 Ид товара	|Long	| itemId		| item_id
-Количество	| quantity| quantity
+Количество	| quantity | quantity
 
 Таблицы связаны двусторонней связью ОдинКоМногим по ключу order_id  
 
 ###REST сервис
-/order/add - добавить заказ
-/order/get/id/ - получить заказ по ID
-/order/get/uid/ - получить заказ по  ID пользователя
-/order/update - обновить заказ
-/order/delete/ - удалить заказ по ID
-/order/basket/delete/id/ - удалить единицу корзины по ID
-/order/basket/get/id/ - получить единицу корзины по ID
+* /order/add - добавить заказ
+* /order/get/id/ - получить заказ по ID
+* /order/get/uid/ - получить заказ по  ID пользователя
+* /order/update - обновить заказ
+* /order/delete/ - удалить заказ по ID
+* /order/basket/delete/id/ - удалить единицу корзины по ID
+* /order/basket/get/id/ - получить единицу корзины по ID

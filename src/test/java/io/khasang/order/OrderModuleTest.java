@@ -11,10 +11,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -34,13 +34,18 @@ public class OrderModuleTest {
         order.setDeliveryTime(Time.valueOf("04:05:06"));
         order.setDeliveryAddress("Moscow");
         order.setExecutorId(350L);
-        BasketUnit unit = new BasketUnit();
-        order.addBasketUnit(unit);
+
+        List<BasketUnit> basketUnits = new ArrayList<>();
+        basketUnits.add(new BasketUnit(20L));
+        basketUnits.add(new BasketUnit(21L));
+        basketUnits.add(new BasketUnit(22L));
+        basketUnits.add(new BasketUnit(23L));
+        order.setBasketUnitList(basketUnits);
+
         Order resultOrder = orderService.create(order);
-
         assertNotNull(resultOrder.getId());
-        BasketUnit resultUnit = resultOrder.getBasketUnitList().get(0);
 
+        BasketUnit resultUnit = resultOrder.getBasketUnitList().get(0);
         assertNotNull(resultUnit);
         assertEquals(resultOrder.getId(), resultUnit.getOrder().getId());
 
@@ -48,14 +53,11 @@ public class OrderModuleTest {
     }
 
     @Test
-    public void deleteOrders() {
+    public void deleteOrder() {
         Order order = createOrder();
-        List<Order> orderList = orderService.getOrderList();
-        assertNotNull(orderList);
+        orderService.deleteOrder(order.getId());
 
-        orderService.deleteOrdersPack(orderList);
-
-        List<Order> result = orderService.getOrderList();
-        assertFalse(result.contains(Order.class));
+        Order result = orderService.findById(order.getId());
+        assertNull(result);
     }
 }

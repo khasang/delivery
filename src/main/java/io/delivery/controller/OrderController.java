@@ -70,13 +70,6 @@ public class OrderController {
         return orderService.getOrderList();
     }
 
-    @RequestMapping(value = "/delete/pack", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public List<Order> deleteOrderPack(@RequestBody List<Order> orderList) {
-        List<Order> orders = orderService.deleteOrdersPack(orderList);
-        return orders;
-    }
-
     @RequestMapping(value = "/web")
     public String getOrderInfo() {
         return "order";

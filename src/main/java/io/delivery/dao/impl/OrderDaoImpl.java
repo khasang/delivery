@@ -3,8 +3,6 @@ package io.delivery.dao.impl;
 import io.delivery.dao.OrderDao;
 import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -34,20 +32,7 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
         Query query = sessionFactory.getCurrentSession()
                 .createQuery("delete BasketUnit where id = ?")
                 .setParameter(0, id);
-        int result = query.executeUpdate();
+        query.executeUpdate();
         return basketUnit;
-    }
-
-    @Override
-    public List<Order> deleteOrders(List<Order> orderList) {
-        Session session = sessionFactory.getCurrentSession();
-        try {
-            for (Order order : orderList) {
-                session.delete(order);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
-        return orderList;
     }
 }

@@ -63,12 +63,6 @@ public interface OrderService {
     BasketUnit deleteBasketUnitById(long id);
 
     /**
-     * Delete orders pack from db
-     * @return list of deleted orders
-     */
-    List<Order> deleteOrdersPack(List<Order> orderList);
-
-    /**
      * Receive orders from db
      *
      * @return list of orders
