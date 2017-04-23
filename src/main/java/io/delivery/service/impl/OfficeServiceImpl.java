@@ -22,4 +22,13 @@ public class OfficeServiceImpl implements OfficeService{
     public List<Office> getOfficeList() {
         return officeDao.getList();
     }
+
+    @Override
+    public Office delete(Long id) {
+        return officeDao.delete(findById(id));
+    }
+
+    private Office findById(Long id) {
+        return officeDao.findById(id);
+    }
 }

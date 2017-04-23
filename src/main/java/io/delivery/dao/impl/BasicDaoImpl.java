@@ -12,12 +12,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-/**
- * Created by NortT on 15.04.2017.
- */
 @Transactional
 public abstract class BasicDaoImpl<T> implements BasicDao<T> {
-
     private Class<T> entityClass;
 
     @Autowired
@@ -26,8 +22,6 @@ public abstract class BasicDaoImpl<T> implements BasicDao<T> {
     public BasicDaoImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-
-
 
     public Class<T> getEntityClass() {
         return entityClass;
