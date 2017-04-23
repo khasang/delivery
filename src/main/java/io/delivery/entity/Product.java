@@ -1,5 +1,7 @@
 package io.delivery.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class Product {
     @JoinColumn(name = "product_catalog_section_id")
     private ProductCatalogSection productCatalogSection;
 
+    @JsonIgnore
     @OneToMany (mappedBy="product", cascade = CascadeType.ALL)
 //    @JoinColumn(name = "product_id")
     private List<ProductImage> images = new ArrayList<ProductImage>();

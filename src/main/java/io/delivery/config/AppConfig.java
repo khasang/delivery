@@ -1,11 +1,17 @@
 package io.delivery.config;
 
 import io.delivery.dao.DocumentDao;
+import io.delivery.dao.ProductCatalogSectionDao;
 import io.delivery.dao.ProductDao;
+import io.delivery.dao.ProductImageDao;
 import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.dao.impl.ProductCatalogSectionDaoImpl;
 import io.delivery.dao.impl.ProductDaoImpl;
+import io.delivery.dao.impl.ProductImageDaoImpl;
 import io.delivery.entity.Document;
 import io.delivery.entity.Product;
+import io.delivery.entity.ProductCatalogSection;
+import io.delivery.entity.ProductImage;
 import io.delivery.model.Answer;
 import io.delivery.model.TableCreator;
 import io.delivery.model.impl.TableCreatorImpl;
@@ -20,6 +26,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
 @PropertySource(value = {"classpath:util.properties"})
@@ -78,4 +85,15 @@ public class AppConfig {
     ProductDao productDao() {
         return  new ProductDaoImpl(Product.class);
     }
+
+    @Bean
+    ProductCatalogSectionDao productCatalogSectionDao() {
+        return new ProductCatalogSectionDaoImpl(ProductCatalogSection.class);
+    }
+
+    @Bean
+    ProductImageDao productImageDao() { return new ProductImageDaoImpl(ProductImage.class);}
+
+    @Bean
+    CommonsMultipartResolver multipartResolver() {return new CommonsMultipartResolver();}
 }

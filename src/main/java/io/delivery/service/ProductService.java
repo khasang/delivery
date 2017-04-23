@@ -1,6 +1,8 @@
 package io.delivery.service;
 
 import io.delivery.entity.Product;
+import io.delivery.entity.ProductCatalogSection;
+import io.delivery.entity.ProductImage;
 
 import java.util.List;
 
@@ -54,4 +56,72 @@ public interface ProductService {
      * @return list of products with the price in the specified range
      */
     List<Product> findByPriceRange(int min, int max);
+
+    /**
+     * Get all products from the specified section
+     * @param sectionId id of the section to be loaded
+     * @return list of products
+     */
+    List<Product> getBySectionId(long sectionId);
+
+    /**
+     * Receive all product sections
+     * @return product catalog section list
+     */
+    List<ProductCatalogSection> getCatalogSections();
+
+    /**
+     * Create product secton at the db
+     * @param section current section for creation
+     * @return created section
+     */
+    ProductCatalogSection createCatalogSection(ProductCatalogSection section);
+
+    /**
+     * Get product catalog section with the specified id from the db
+     * @param sectionId id of the target section
+     * @return catalog section
+     */
+    ProductCatalogSection getCatalogSectionById(long sectionId);
+
+    /**
+     * @param section catalog section for update
+     * @return updated section
+     */
+    ProductCatalogSection updateCatalogSection(ProductCatalogSection section);
+
+    /**
+     * Delete product catalog section with the specified id
+     * @param sectionId section id
+     * @return deleted section
+     */
+    ProductCatalogSection deleteCatalogSection(long sectionId);
+
+    /**
+     * Get all images related to the product
+     * @param id id of the product
+     * @return list of product images
+     */
+    List<ProductImage> getImagesByProductId(long id);
+
+    /**
+     * Add product image to the db
+     * @param image product image to be added
+     * @return image
+     */
+    ProductImage createImage(ProductImage image);
+
+    /**
+     * Delete product image from the db
+     * @param imageId product image id to be deleted
+     * @return image
+     */
+    ProductImage deleteImage(long imageId);
+
+    /**
+     * Get product image by its id
+     * @param imageId id of the image
+     * @return product image
+     */
+    ProductImage getImageById(long imageId);
 }

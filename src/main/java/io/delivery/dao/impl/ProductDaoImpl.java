@@ -2,6 +2,7 @@ package io.delivery.dao.impl;
 
 import io.delivery.dao.ProductDao;
 import io.delivery.entity.Product;
+import io.delivery.entity.ProductImage;
 
 import java.util.List;
 
@@ -23,5 +24,12 @@ public class ProductDaoImpl extends BasicDaoImpl<Product> implements ProductDao 
          return (List<Product>) sessionFactory.getCurrentSession().
                  createQuery("from Product as p where p.price between ? and ?").
                  setParameter(0, min).setParameter(1, max).list();
+    }
+
+    @Override
+    public List<Product> getBySectionId(long sectionId) {
+        return (List<Product>) sessionFactory.getCurrentSession().
+                createQuery("from Product as p where p.productCatalogSection.id = ?").
+                setParameter(0, sectionId).list();
     }
 }
