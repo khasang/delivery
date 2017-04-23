@@ -53,4 +53,14 @@ public class OrderServiceImpl implements OrderService {
     public BasketUnit deleteBasketUnitById(long id) {
         return orderDao.deleteBasketUnitById(findBasketUnitById(id));
     }
+
+    @Override
+    public List<Order> getOrderList() {
+        return orderDao.getList();
+    }
+
+    @Override
+    public List<Order> deleteOrdersPack(List<Order> orderList) {
+        return orderDao.deleteOrders(orderList);
+    }
 }

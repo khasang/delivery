@@ -29,4 +29,12 @@ public interface OrderDao extends BasicDao<Order> {
      * @return - deleted basketUnit
      */
     BasketUnit deleteBasketUnitById(BasketUnit basketUnit);
+
+    /**
+     * Delete orders in list from db
+     *
+     * @param orderList - list of orders
+     * @return list of deleted orders
+     */
+    List<Order> deleteOrders(List<Order> orderList);
 }
