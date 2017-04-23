@@ -52,18 +52,43 @@ public class AppConfig {
     }
 
     @Bean
-    public TableCreator tableCreator() {
-        return new TableCreatorImpl(jdbcTemplate());
+    public CreateTable createTable(){
+        return new CreateTableImpl(jdbcTemplate());
     }
 
     @Bean
-    public CreateTable createTable() {
-        return new CreateTableImpl("asd");
+    public InsertUser insertUser() {
+        return new InsertUserImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public UpdateTable updateTable(){
+        return new UpdateTableImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public SelectTable selectTable() {
+        return new SelectTableImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public PreparedSQL preparedSQL() {
+        return new PreparedSQLImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public DumpDB dumpDB() {
+        return new DumpDbImpl();
+    }
+
+    @Bean
+    public Test test() {
+        return new TestImpl("test");
     }
 
     @Bean
     public Answer answer() {
-        return new Answer();
+    public DocumentDao documentDao() {
     }
 
     @Bean

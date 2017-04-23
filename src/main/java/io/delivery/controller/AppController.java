@@ -19,7 +19,19 @@ public class AppController {
     @Autowired
     private Message message;
     @Autowired
+    private CreateTable createTable;
+    @Autowired
+    private InsertUser insertUser;
+    @Autowired
+    private UpdateTable updateTable;
+    @Autowired
+    private SelectTable selectTable;
+    @Autowired
+    private PreparedSQL preparedSQL;
+    @Autowired
     private TableCreator tableCreator;
+    @Autowired
+    private Test test;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
