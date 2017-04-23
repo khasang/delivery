@@ -1,4 +1,4 @@
-package io.khasang.document;
+package io.delivery.entity;
 
 import io.delivery.entity.Document;
 import io.delivery.entity.NoRegistrationCustomer;
