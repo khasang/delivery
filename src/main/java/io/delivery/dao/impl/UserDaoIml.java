@@ -12,8 +12,9 @@ public class UserDaoIml extends BasicDaoImpl<User> implements UserDao {
 
     @Override
     public List<User> findByLogin(String login) {
-        return (List<User>) sessionFactory.getCurrentSession().
-                createQuery("from User as d where d.login = ?").
-                setParameter(0, login).list();
+        List list = sessionFactory.getCurrentSession()
+                .createQuery("from User as d where d.login = ?")
+                .setParameter(0, login).list();
+        return list;
     }
 }

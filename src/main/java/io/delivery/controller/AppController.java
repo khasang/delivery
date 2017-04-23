@@ -61,9 +61,4 @@ public class AppController {
     public String getDocumentInfo(){
         return "document";
     }
-
-    @RequestMapping(value = "/admin/users")
-    public String getUsersInfo(){
-        return "/admin/users";
-    }
 }

@@ -4,7 +4,7 @@ import io.delivery.config.application.WebConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.Filter;
+import javax.servlet.*;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -26,8 +26,8 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     @Override
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter =
-                new CharacterEncodingFilter();
-        characterEncodingFilter.setEncoding("utf-8");
-        return new Filter[]{characterEncodingFilter};
+                new CharacterEncodingFilter("utf-8", true);
+        Filter[] filter = new Filter[]{characterEncodingFilter};
+        return filter;
     }
 }

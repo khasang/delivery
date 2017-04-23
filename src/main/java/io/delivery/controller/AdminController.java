@@ -4,6 +4,7 @@ import io.delivery.entity.User;
 import io.delivery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,5 +54,23 @@ public class AdminController {
     @ResponseBody
     public User deleteUser(@PathVariable(value = "id") String InputID) {
         return userService.deleteUser(Long.parseLong(InputID));
+    }
+
+    @RequestMapping(value = "/users")
+    public String getUsersInfo(){
+        return "/admin/users";
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String getUserForm(Model model){
+        User user = new User();
+        model.addAttribute("user", user);
+        return "/admin/user";
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public String getUserFormSubmit(@ModelAttribute User user, Model model){
+        user.hashCode();
+        return "/admin/users";
     }
 }

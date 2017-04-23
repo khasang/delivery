@@ -6,16 +6,11 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "login")
     private String login;
-    @Column(name = "password")
     private String password;
-    @Column(name = "role")
     private String role;
-    @Column(name = "active")
     private Boolean active;
 
     public User() {
