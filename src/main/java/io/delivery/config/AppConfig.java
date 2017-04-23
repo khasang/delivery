@@ -1,22 +1,15 @@
 package io.delivery.config;
 
-import io.delivery.dao.CustomerDao;
-import io.delivery.dao.DocumentDao;
-import io.delivery.dao.NewsDao;
-import io.delivery.dao.NoRegistrationCustomerDao;
-import io.delivery.dao.impl.DocumentDaoImpl;
-import io.delivery.dao.impl.NewsDaoImpl;
-import io.delivery.dao.impl.NoRegistrationCustomerDaoImpl;
-import io.delivery.entity.Document;
-import io.delivery.entity.News;
-import io.delivery.entity.NoRegistrationCustomer;
+import io.delivery.dao.*;
+import io.delivery.dao.impl.*;
+import io.delivery.entity.*;
 import io.delivery.model.Answer;
 import io.delivery.model.NewsCreator;
 import io.delivery.model.TableCreator;
 import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.model.impl.TableCreatorImpl;
-import io.delivery.service.CreateTable;
-import io.delivery.service.impl.CreateTableImpl;
+import io.delivery.service.*;
+import io.delivery.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -117,6 +110,7 @@ public class AppConfig {
 
     @Bean
     NoRegistrationCustomerDao noRegistrationCustomerDao() {
+        return new NoRegistrationCustomerDaoImpl(NoRegistrationCustomer.class);
     }
 
    @Bean
