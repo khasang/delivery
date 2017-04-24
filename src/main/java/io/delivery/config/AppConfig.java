@@ -126,7 +126,6 @@ public class AppConfig {
 
     @Bean
     CommonsMultipartResolver multipartResolver() {return new CommonsMultipartResolver();}
-}
 
     @Bean
     public NewsCreator newsCreator() {
@@ -143,7 +142,7 @@ public class AppConfig {
         return new NoRegistrationCustomerDaoImpl(NoRegistrationCustomer.class);
     }
 
-   @Bean
+    @Bean
     public OfficeDao officeDao(){
         return new OfficeDaoImpl(Office.class);
     }

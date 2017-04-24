@@ -19,8 +19,8 @@ public class CustomerIntegrationTest {
     private final String GET_ADDRESS = "/get/address/";
     private final String GET_ID = "/get/id/";
     private final String ADD = "/add";
-    private final String UPDATE = "/update";
-    private final String DELETE = "/delete/id/";
+    private final String UPDATE = "/updateProduct";
+    private final String DELETE = "/deleteProduct/id/";
     private final String ALL = "/get/all";
     private final String GET_NAME = "/get/name/";
     private final String GET_EMAIL = "/get/email/";

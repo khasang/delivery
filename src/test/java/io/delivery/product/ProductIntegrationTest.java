@@ -2,7 +2,6 @@ package io.delivery.product;
 
 import io.delivery.config.AppConfig;
 import io.delivery.config.HibernateConfig;
-import io.delivery.entity.Document;
 import io.delivery.entity.Product;
 import io.delivery.service.ProductService;
 import io.delivery.service.impl.ProductServiceImpl;
@@ -25,8 +24,8 @@ public class ProductIntegrationTest {
     private final String ROOT = "http://localhost:8080/products";
     private final String GET_ID = "/get/id/";
     private final String ADD = "/add";
-    private final String UPDATE = "/update";
-    private final String DELETE = "/delete/";
+    private final String UPDATE = "/updateProduct";
+    private final String DELETE = "/deleteProduct/";
     private final String ALL = "/all";
     private final String GET_NAME = "/get/name/";
     private final String GET_PRICE = "/get/price/";
@@ -39,7 +38,7 @@ public class ProductIntegrationTest {
         product.setName("Magic");
         product.setDescription("fire");
         product.setPrice(100);
-        productService.create(product);
+        productService.createProduct(product);
         return product;
     }
 
@@ -63,7 +62,7 @@ public class ProductIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(createdProduct);
         assertEquals(createdProduct.getName(), product.getName());
-        productService.delete(createdProduct.getId());
+        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test
@@ -84,7 +83,7 @@ public class ProductIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(resultProduct);
         assertEquals(createdProduct.getName(), resultProduct.getName());
-        productService.delete(createdProduct.getId());
+        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test
@@ -106,7 +105,7 @@ public class ProductIntegrationTest {
         assertNotNull(result.getBody());
         List<Product> list = result.getBody();
         assertNotNull(list.get(0));
-        productService.delete(createdProduct.getId());
+        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test
@@ -129,7 +128,7 @@ public class ProductIntegrationTest {
         assertNotNull(result.getBody());
         List<Product> list = result.getBody();
         assertNotNull(list.get(0));
-        productService.delete(createdProduct.getId());
+        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test
@@ -149,7 +148,7 @@ public class ProductIntegrationTest {
         assertNotNull(result.getBody());
         List<Product> list = result.getBody();
         assertNotNull(list.get(0));
-        productService.delete(createdProduct.getId());
+        productService.deleteProduct(createdProduct.getId());
     }
 
    @Test
@@ -172,7 +171,7 @@ public class ProductIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(updatedProduct);
         assertEquals(updatedProduct.getName(), createdProduct.getName());
-        productService.delete(createdProduct.getId());
+        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test

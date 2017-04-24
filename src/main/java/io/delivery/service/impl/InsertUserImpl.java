@@ -3,9 +3,6 @@ package io.delivery.service.impl;
 import io.delivery.service.InsertUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-/**
- * Created by NortT on 01.04.2017.
- */
 public class InsertUserImpl implements InsertUser {
     private JdbcTemplate jdbcTemplate;
 

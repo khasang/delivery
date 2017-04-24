@@ -12,34 +12,34 @@ public interface ProductService {
      * Receive all goods from the db
      * @return product list
      */
-    List<Product> getAll();
+    List<Product> getAllProducts();
 
     /**
      * Find product by name at the db
      * @param name name of product
      * @return list of products with the specified name
      */
-    List<Product> findByName(String name);
+    List<Product> getProductsByName(String name);
 
     /**
      * Create product at the db
      * @param product current product for creation
      * @return created product
      */
-    Product create(Product product);
+    Product createProduct(Product product);
 
     /**
-     * @param product product for update
+     * @param product product for updateProduct
      * @return updated product
      */
-    Product update(Product product);
+    Product updateProduct(Product product);
 
     /**
      * Delete product with the specified id
      * @param id product id
      * @return deleted product
      */
-    Product delete(long id);
+    Product deleteProduct(long id);
 
 
     /**
@@ -47,7 +47,7 @@ public interface ProductService {
      * @param id id of product to be found
      * @return product
      */
-    Product findById(long id);
+    Product getProductById(long id);
 
     /**
      * Find products with price in the specified range
@@ -55,20 +55,20 @@ public interface ProductService {
      * @param max maximum price
      * @return list of products with the price in the specified range
      */
-    List<Product> findByPriceRange(int min, int max);
+    List<Product> getProductsByPriceRange(int min, int max);
 
     /**
      * Get all products from the specified section
      * @param sectionId id of the section to be loaded
      * @return list of products
      */
-    List<Product> getBySectionId(long sectionId);
+    List<Product> getProductBySectionId(long sectionId);
 
     /**
      * Receive all product sections
      * @return product catalog section list
      */
-    List<ProductCatalogSection> getCatalogSections();
+    List<ProductCatalogSection> getAllCatalogSections();
 
     /**
      * Create product secton at the db
@@ -85,7 +85,7 @@ public interface ProductService {
     ProductCatalogSection getCatalogSectionById(long sectionId);
 
     /**
-     * @param section catalog section for update
+     * @param section catalog section for updateProduct
      * @return updated section
      */
     ProductCatalogSection updateCatalogSection(ProductCatalogSection section);
@@ -102,7 +102,7 @@ public interface ProductService {
      * @param id id of the product
      * @return list of product images
      */
-    List<ProductImage> getImagesByProductId(long id);
+    List<ProductImage> getImageIdsByProductId(long id);
 
     /**
      * Add product image to the db

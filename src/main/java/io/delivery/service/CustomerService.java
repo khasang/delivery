@@ -56,7 +56,7 @@ public interface CustomerService {
 
     /**
      * Update customer in database
-     * @param customer - current customer to update
+     * @param customer - current customer to updateProduct
      * @return - updated customer
      */
     Customer updateCustomer(Customer customer);

@@ -4,8 +4,12 @@
   <OriginalElement>JavaeeElement:/fdb25d76/sessionFactory/delivery/hibernate/Hibernate/PersistenceModel</OriginalElement>
   <nodes>
     <node x="302.0" y="613.0">ProductImage#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductImage.java</node>
+    <node x="211.0" y="452.0">News#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/News.java</node>
+    <node x="419.0" y="444.0">Office#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Office.java</node>
+    <node x="461.0" y="0.0">NoRegistrationCustomer#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/NoRegistrationCustomer.java</node>
     <node x="295.3125" y="0.0">Document#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Document.java</node>
     <node x="28.5625" y="169.0">ProductCatalogSection#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductCatalogSection.java</node>
+    <node x="230.0" y="0.0">Customer#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Customer.java</node>
     <node x="-26.6875" y="385.0">Product#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Product.java</node>
   </nodes>
   <notes />
@@ -14,26 +18,14 @@
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="Product#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Product.java" target="ProductImage#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductImage.java">
-      <point x="20.75" y="-68.5" />
-      <point x="365.375" y="343.0" />
-      <point x="429.5" y="576.0" />
-      <point x="-31.5" y="42.5" />
-    </edge>
     <edge source="Product#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Product.java" target="ProductCatalogSection#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductCatalogSection.java">
       <point x="0.0" y="-68.5" />
       <point x="46.25" y="42.5" />
     </edge>
-    <edge source="ProductCatalogSection#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductCatalogSection.java" target="Product#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Product.java">
-      <point x="46.25" y="42.5" />
-      <point x="138.75" y="110.0" />
-      <point x="-83.125" y="111.0" />
-      <point x="-20.75" y="-68.5" />
-    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="269.5" y="403.0" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="270.0" y="403.0" />
   <SelectedNodes>
-    <node>ProductCatalogSection#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/ProductCatalogSection.java</node>
+    <node>Office#file:///home/alexey/IdeaProjects/delivery/src/main/java/io/delivery/entity/Office.java</node>
   </SelectedNodes>
   <Categories>
     <Category>Embeddables</Category>

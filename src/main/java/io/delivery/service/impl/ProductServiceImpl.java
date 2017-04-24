@@ -24,47 +24,47 @@ public class ProductServiceImpl implements ProductService{
     private ProductImageDao productImageDao;
 
     @Override
-    public List<Product> getAll() {
+    public List<Product> getAllProducts() {
         return productDao.getList();
     }
 
     @Override
-    public List<Product> findByName(String name) {
+    public List<Product> getProductsByName(String name) {
         return productDao.findByName(name);
     }
 
     @Override
-    public Product create(Product product) {
+    public Product createProduct(Product product) {
         return productDao.create(product);
     }
 
     @Override
-    public Product update(Product product) {
+    public Product updateProduct(Product product) {
         return productDao.update(product);
     }
 
     @Override
-    public Product delete(long id) {
-        return productDao.delete(findById(id));
+    public Product deleteProduct(long id) {
+        return productDao.delete(getProductById(id));
     }
 
     @Override
-    public Product findById(long id) {
+    public Product getProductById(long id) {
         return productDao.findById(id);
     }
 
     @Override
-    public List<Product> findByPriceRange(int min, int max) {
+    public List<Product> getProductsByPriceRange(int min, int max) {
         return productDao.findByPriceRange(min, max);
     }
 
     @Override
-    public List<Product> getBySectionId(long sectionId) {
+    public List<Product> getProductBySectionId(long sectionId) {
         return productDao.getBySectionId(sectionId);
     }
 
     @Override
-    public List<ProductCatalogSection> getCatalogSections() {
+    public List<ProductCatalogSection> getAllCatalogSections() {
         return productCatalogSectionDao.getList();
     }
 
@@ -89,7 +89,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductImage> getImagesByProductId(long id) {
+    public List<ProductImage> getImageIdsByProductId(long id) {
         return productImageDao.getByProductId(id);
     }
 
