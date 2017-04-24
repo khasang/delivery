@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
     <script type="text/javascript">
-        var service = '/order/';
+        var service = '/order';
         var parseResult = function (result) {
             var table = document.getElementById('response');
 
@@ -17,7 +17,7 @@
             if (result.length) {
                 for (var i=0; i < result.length; i++) {
                     var tr = document.createElement('tr');
-                    //tr.setAttribute(onclick.getBasket);
+//					tr.setAttribute(onclick.getBasket);
 
                     var td = document.createElement('td');
                     td.innerHTML = result[i].id;
@@ -222,3 +222,4 @@
     </table>
 </div>
 </body>
+</html>

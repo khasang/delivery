@@ -71,8 +71,13 @@ public class AppController {
         return "/noregistration";
     }
 
- @RequestMapping(value = "/documentApi")
-    public String getDocumentInfo(){
+    @RequestMapping(value = "/documentApi")
+    public String getDocumentInfo() {
         return "document";
+    }
+
+    @RequestMapping(value = "/order")
+    public String getOrderInfo() {
+        return "order";
     }
 }

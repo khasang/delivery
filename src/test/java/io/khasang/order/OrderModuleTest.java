@@ -17,7 +17,8 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class, OrderServiceImpl.class, HibernateConfig.class})
@@ -26,7 +27,8 @@ public class OrderModuleTest {
     @Autowired
     private OrderService orderService;
 
-    public Order createOrder() {
+    @Test
+    public void createOrder() {
         Order order = new Order();
         order.setUserId(135L);
         order.setComment("true comment");
@@ -49,15 +51,15 @@ public class OrderModuleTest {
         assertNotNull(resultUnit);
         assertEquals(resultOrder.getId(), resultUnit.getOrder().getId());
 
-        return resultOrder;
+//        return resultOrder;
     }
 
-    @Test
-    public void deleteOrder() {
-        Order order = createOrder();
-        orderService.deleteOrder(order.getId());
-
-        Order result = orderService.findById(order.getId());
-        assertNull(result);
-    }
+//    @Test
+//    public void deleteOrder() {
+//        Order order = createOrder();
+//        orderService.deleteOrder(order.getId());
+//
+//        Order result = orderService.findById(order.getId());
+//        assertNull(result);
+//    }
 }

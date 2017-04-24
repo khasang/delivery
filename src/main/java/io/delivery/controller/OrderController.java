@@ -69,9 +69,4 @@ public class OrderController {
     public List<Order> getOrderList() {
         return orderService.getOrderList();
     }
-
-    @RequestMapping(value = "/web")
-    public String getOrderInfo() {
-        return "order";
-    }
 }
