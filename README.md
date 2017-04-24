@@ -37,8 +37,8 @@ _______
 *Реализован на уровнях:*
 - [**Entity**](#entity)
 - [**Dao**](#dao)
-- **Service**
-- **Controller**
+- [**Service**](#service)
+- [**Controller**](#controller)
 ________
 ### <a name="entity">Entity</a>
 >Реализацией Entity является **Customer.java**. Данный класс описывает сущность заказчика, помечен аннотацией @Entity, имеет приватные поля, являющиеся колонками таблицы customers, доступ к которым организован с помощью гетторв и сеттеров.
@@ -98,7 +98,23 @@ _______
 ##### <a name="customerDaoImpl">*CusomerDaoImpl.java*</a>
 > Класс, реализующий интерфейсы [***BasicDao***](#basicDao) и [***CustomerDao***](#customerDao). Работает с Entity [Customer.java](#entity).
 
+_______
 
+### <a name="service">Service</a>
+> Service слой обеспечивает взаимосвязь между controller и dao слоем.
+###### *Включает в себя интерфейсы:*
+- [***CustomerService***](#customerService)
+###### *Включает в себя классы:*
+- [***CustomerServiceImpl***](#customerServiceImpl) который имплементирует интерфейс *CustomerService*
+_____
 
-
-
+##### <a name="customerService">*CustomerService interface*</a> 
+>Является дженерик интерфейсом, описывающим основные операции по получении имени, адреса, почты, телефона заказчика а также id заказчика, всех заказчиков, создать, обновить и удалить. <Br>Реализацией интерфейса является **CustomerServiceImpl.java** 
+###### Интерфейс CustomerService содержит методы:
+- ***getCustomerByName()** - получение имени заказчика*
+- ***getCustomerByAddress** - получение адреса заказчика*
+- ***getCustomerByPhoneNumber()** - получение номера телефона заказчика*
+- ***getCustomerByEmail()** - получение почты заказчика*
+- ***getCustomerById()** - получение заказчика по id*
+- ***getAllCustomers()** - получение списка всех заказчиков*
+____
