@@ -63,14 +63,14 @@ public class AdminController {
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String getUserForm(Model model){
-        User user = new User();
-        model.addAttribute("user", user);
+//        User user = new User();
+//        model.addAttribute("user", user);
         return "/admin/user";
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String getUserFormSubmit(@ModelAttribute User user, Model model){
-        user.hashCode();
-        return "/admin/users";
-    }
+//    @RequestMapping(value = "/user", method = RequestMethod.POST)
+//    public String getUserFormSubmit(@ModelAttribute User user, Model model){
+//        user.hashCode();
+//        return "/admin/users";
+//    }
 }
