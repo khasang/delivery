@@ -9,9 +9,9 @@ import io.delivery.model.NewsCreator;
 import io.delivery.model.TableCreator;
 import io.delivery.model.impl.BackupCreatorIml;
 import io.delivery.model.impl.NewsCreatorImpl;
-import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
+import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -116,13 +116,13 @@ public class AppConfig {
         return new NoRegistrationCustomerDaoImpl(NoRegistrationCustomer.class);
     }
 
-   @Bean
-    public OfficeDao officeDao(){
+    @Bean
+    public OfficeDao officeDao() {
         return new OfficeDaoImpl(Office.class);
     }
 
     @Bean
-    CustomerDao customerDao() {
+    public CustomerDao customerDao() {
         return new CustomerDaoImpl(Customer.class);
     }
 
@@ -134,6 +134,11 @@ public class AppConfig {
     @Bean
     public BackupCreator backupCreator() {
         return new BackupCreatorIml();
+    }
+
+    @Bean
+    public Client client() {
+        return new Client();
     }
 }
 
