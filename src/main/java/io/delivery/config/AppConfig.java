@@ -5,9 +5,7 @@ import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
 import io.delivery.model.Answer;
 import io.delivery.model.NewsCreator;
-import io.delivery.model.TableCreator;
 import io.delivery.model.impl.NewsCreatorImpl;
-import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,23 +102,28 @@ public class AppConfig {
     }
 
     @Bean
-    NewsDao newsDao() {
+    public NewsDao newsDao() {
         return new NewsDaoImpl(News.class);
     }
 
     @Bean
-    NoRegistrationCustomerDao noRegistrationCustomerDao() {
+    public NoRegistrationCustomerDao noRegistrationCustomerDao() {
         return new NoRegistrationCustomerDaoImpl(NoRegistrationCustomer.class);
     }
 
-   @Bean
-    public OfficeDao officeDao(){
+    @Bean
+    public OfficeDao officeDao() {
         return new OfficeDaoImpl(Office.class);
     }
 
     @Bean
-    CustomerDao customerDao() {
+    public CustomerDao customerDao() {
         return new CustomerDaoImpl(Customer.class);
+    }
+
+    @Bean
+    public OrderDao orderDao() {
+        return new OrderDaoImpl(Order.class);
     }
 }
 
