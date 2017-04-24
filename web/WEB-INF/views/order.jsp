@@ -17,6 +17,7 @@
             if (result.length) {
                 for (var i=0; i < result.length; i++) {
                     var tr = document.createElement('tr');
+                    tr.setAttribute(onclick.getBasket);
 
                     var td = document.createElement('td');
                     td.innerHTML = result[i].id;
@@ -38,6 +39,7 @@
                 }
             } else {
                 var tr = document.createElement('tr');
+                tr.setAttribute(onclick.getBasket);
 
                 var td = document.createElement('td');
                 td.innerHTML = result.id;
@@ -69,6 +71,63 @@
                     $('#response').html(JSON.stringify(jqXHR));
                 }
             })
+        };
+        var getBasket = function() {
+            var id = this.childNode[0].innerHTML;
+            $.ajax({
+                type: 'GET',
+                url: service + "basket/get/id/" + id,
+                dataType: 'json',
+                async: false,
+                success: parseResultBasket,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#response').html(JSON.stringify(jqXHR));
+                }
+            })
+
+        };
+        var parseResultBasket = function (result) {
+            var table = document.getElementById('response');
+
+            while(table.firstChild){
+                table.removeChild(table.firstChild);
+            }
+
+            if (result.length) {
+                for (var i=0; i < result.length; i++) {
+                    var tr = document.createElement('tr');
+
+                    var td = document.createElement('td');
+                    td.innerHTML = result[i].id;
+                    tr.appendChild(td);
+
+                    td = document.createElement('td');
+                    td.innerHTML = result[i].itemId;
+                    tr.appendChild(td);
+
+                    td = document.createElement('td');
+                    td.innerHTML = result[i].quantity;
+                    tr.appendChild(td);
+
+                    table.appendChild(tr);
+                }
+            } else {
+                var tr = document.createElement('tr');
+
+                var td = document.createElement('td');
+                td.innerHTML = result.id;
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerHTML = result.itemId;
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerHTML = result.quantity;
+                tr.appendChild(td);
+
+                table.appendChild(tr);
+            }
         };
     </script>
 </head>
