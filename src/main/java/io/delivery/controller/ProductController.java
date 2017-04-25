@@ -76,7 +76,7 @@ public class ProductController {
     }
 
     @GetMapping(value = "/images/add")
-    public String showProductImageUploadForm() {
+    public String productImageUploadForm() {
         return "uploadProductImage";
     }
 
@@ -85,19 +85,21 @@ public class ProductController {
         return "showProductImage";
     }
 
-    @PostMapping(value = "/images/upload", produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/addImage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Long uploadProductImage(@RequestParam("file") MultipartFile file,
-                           @RequestParam("productId") String productId) {
-        if (!file.getContentType().equals(MediaType.IMAGE_JPEG_VALUE))
-                return null;
+                                   @RequestParam("productId") String productId) {
+        if (!file.getContentType().equals(MediaType.IMAGE_JPEG_VALUE)) {
+            return null;
+        }
         ProductImage image = new ProductImage();
         image.setProduct(productService.getProductById(Long.parseLong(productId)));
         try {
             image.setImage(file.getBytes());
             productService.addImage(image);
             return image.getId();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
             return null;
         }
