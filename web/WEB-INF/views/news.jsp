@@ -50,6 +50,24 @@
 
 <script type="text/javascript">
     var service = '/news';
+    var RestDeleteById = function (id) {
+        $.ajax({
+            type: 'DELETE',
+            url: service + "/delete/" +id,
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                $('#response').html(JSON.stringify(result));
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#response').html(JSON.stringify(jqXHR));
+            }
+        });
+    };
+</script>
+
+<script type="text/javascript">
+    var service = '/news';
     var RestGet = function () {
         $.ajax({
             type: 'GET',
@@ -65,20 +83,31 @@
         });
     };
 </script>
+
 <table class="table">
     <tr>
         <td>
-            news: <input type="text" id="postName" value="newsName"/>
-            <button type="button" onclick="RestPost($('#postName').val())">Add</button>
+            <button type="button" onclick="RestPost($('#postName').val())">Add news:</button>
+            <input type="text" id="postName" value="newsName"/>
         </td>
 
     </tr>
 </table>
+
 <table class="table">
     <tr>
         <td>
             <button type="button" onclick="RestGetById($('#getNewsID').val())">Get news by Id</button>
             Id: <input id = "getNewsID" value="3" size="3"/>
+        </td>
+    </tr>
+</table>
+
+<table class="table">
+    <tr>
+        <td>
+            <button type="button" onclick="RestDeleteById($('#deleteNewsID').val())">Delete news by Id</button>
+            Id: <input id = "deleteNewsID" value="3" size="3"/>
         </td>
     </tr>
 </table>
