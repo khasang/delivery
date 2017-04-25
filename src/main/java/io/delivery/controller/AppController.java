@@ -6,6 +6,7 @@ import io.delivery.service.CreateTable;
 import io.delivery.service.InsertItem;
 import io.delivery.service.PgDump;
 import io.delivery.service.Prepared;
+import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.xml.soap.SOAPException;
+import java.io.IOException;
 
 @Controller
 public class AppController {
@@ -29,6 +33,8 @@ public class AppController {
     private Prepared prepared;
     @Autowired
     private PgDump pgDump;
+    @Autowired
+    private Client client;
 
     // localhost:8080
     @RequestMapping("/")
@@ -80,5 +86,12 @@ public class AppController {
         return "document";
     }
 
+    @RequestMapping(value = "/word/{check}", method = RequestMethod.GET)
+    public ModelAndView checkWord(@PathVariable(value = "check") String check) throws IOException, SOAPException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("spell");
+        modelAndView.addObject("info", client.result(check));
+        return modelAndView;
+    }
 }
 

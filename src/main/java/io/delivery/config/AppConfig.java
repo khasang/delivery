@@ -12,6 +12,7 @@ import io.delivery.service.impl.CreateTableImpl;
 import io.delivery.service.impl.InsertItemImpl;
 import io.delivery.service.impl.PgDumpImpl;
 import io.delivery.service.impl.PreparedImpl;
+import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,8 +65,8 @@ public class AppConfig {
     public Company company() {
         Company company = new Company();
         company.setId(1);
-        company.setName("Yandex" + (int) (Math.random()*10));
-        company.setSize((int) (Math.random()*100));
+        company.setName("Yandex" + (int) (Math.random() * 10));
+        company.setSize((int) (Math.random() * 100));
         return company;
     }
 
@@ -85,8 +86,13 @@ public class AppConfig {
     }
 
     @Bean
-    DocumentDao documentDao() {
+    public DocumentDao documentDao() {
         return new DocumentDaoImpl(Document.class);
+    }
+
+    @Bean
+    public Client client() {
+        return new Client();
     }
 }
 
