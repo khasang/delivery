@@ -8,12 +8,9 @@ import io.delivery.model.NewsCreator;
 import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
-<<<<<<< HEAD
 import net.yandex.speller.services.spellservice.Client;
-=======
 import net.webservicex.ConversionRate;
 import net.webservicex.CurrencyClient;
->>>>>>> 3be55427a41c3f88d4138f363bf4cc871c5a5385
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -128,18 +125,19 @@ public class AppConfig {
     }
 
     @Bean
-<<<<<<< HEAD
+
     public Client client() {
         return new Client();
-=======
-    public CurrencyClient currencyClient(){
+    }
+
+    @Bean
+    public CurrencyClient currencyClient() {
         return new CurrencyClient();
     }
 
     @Bean
-    public ConversionRate conversionRate(){
+    public ConversionRate conversionRate() {
         return new ConversionRate();
->>>>>>> 3be55427a41c3f88d4138f363bf4cc871c5a5385
     }
 }
 
