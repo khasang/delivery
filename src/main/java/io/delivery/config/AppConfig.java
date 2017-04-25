@@ -1,5 +1,6 @@
 package io.delivery.config;
 
+import io.delivery.by.belavia.webservices.Client;
 import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
@@ -113,14 +114,19 @@ public class AppConfig {
         return new NoRegistrationCustomerDaoImpl(NoRegistrationCustomer.class);
     }
 
-   @Bean
+    @Bean
     public OfficeDao officeDao(){
         return new OfficeDaoImpl(Office.class);
     }
 
     @Bean
-    CustomerDao customerDao() {
+    public CustomerDao customerDao() {
         return new CustomerDaoImpl(Customer.class);
+    }
+
+    @Bean
+    public Client client(){
+        return new Client();
     }
 }
 

@@ -1,5 +1,6 @@
 package io.delivery.controller;
 
+import io.delivery.by.belavia.webservices.Client;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.xml.soap.SOAPException;
+import java.io.IOException;
 
 @Controller
 public class AppController {
@@ -33,6 +37,8 @@ public class AppController {
     private TableCreator tableCreator;
     @Autowired
     private Test test;
+    @Autowired
+    private Client client;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -71,8 +77,26 @@ public class AppController {
         return "/noregistration";
     }
 
- @RequestMapping(value = "/documentApi")
+    @RequestMapping(value = "/documentApi")
     public String getDocumentInfo(){
         return "document";
+    }
+
+    @RequestMapping(value = {"/belavia/airports/{language}"}, method = RequestMethod.GET)
+    public ModelAndView getAirportsList(@PathVariable("language") String language) throws IOException, SOAPException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("airports");
+        modelAndView.addObject("info", client.getListOfAirports(language));
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"/belavia/timetable/{airport}/{type}/{date}"}, method = RequestMethod.GET)
+    public ModelAndView getListOfFlights(@PathVariable("airport") String airport,
+                                         @PathVariable("type") String type,
+                                         @PathVariable("date") String date) throws IOException, SOAPException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("timetable");
+        modelAndView.addObject("data", client.getListOfFlights(airport, type, date));
+        return modelAndView;
     }
 }
