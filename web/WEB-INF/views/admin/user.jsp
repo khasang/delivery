@@ -11,7 +11,8 @@
             var JSONObject = {
                 'login': $('#login').val(),
                 'role': $('#role').val(),
-                'password': $('#password').val()
+                'password': $('#password').val(),
+                'active': $('#active').prop('checked')
             }
             $.ajax({
                 type: 'POST',
@@ -43,7 +44,7 @@
             <label for="role" class="col-sm-2 control-label">Роль</label>
             <div class="col-sm-10">
                 <select class="form-control" id="role" placeholder="Роль">
-                    <option>ROLE_ADMIN</option>
+                    <option value="ROLE_ADMIN">Администратор</option>
                 </select>
             </div>
         </div>
