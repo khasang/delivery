@@ -7,6 +7,51 @@
 
     <script type="text/javascript">
         var service = '/admin/users';
+        function viewItem (table, item) {
+            var tr = document.createElement('tr');
+
+            var td = document.createElement('td');
+            td.setAttribute('id', 'key');
+            td.innerHTML = item.id;
+            tr.appendChild(td);
+
+            var mv = document.createElement('a');
+            mv.setAttribute('href', service + "/get/id/" + item.id);
+            mv.innerText = item.login;
+
+            td = document.createElement('td');
+            td.appendChild(mv);
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            if (item.role=='ROLE_ADMIN'){
+                td.innerHTML = 'Администратор';
+            } else {
+                td.innerHTML = item.role;
+            }
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = item.active;
+            tr.appendChild(td);
+
+            var del = document.createElement('button');
+            del.setAttribute('type', "button");
+            del.setAttribute('class', "btn btn-danger btn-xs");
+            del.onclick = function(){
+//                var rows = $("#response").find("tr");
+                var index = $(this).parent().parent().index;
+                var val = $("#response").find("tr")[index].toSource;
+                alert(val);
+            };
+            del.innerText = 'Удалить';
+
+            td = document.createElement('td');
+            td.appendChild(del);
+            tr.appendChild(td);
+
+            table.appendChild(tr);
+        }
         var parseResult = function (result) {
             var table = document.getElementById('response');
           
@@ -16,47 +61,24 @@
 
             if (result.length) {
                 for (var i=0; i < result.length; i++) {
-                    var tr = document.createElement('tr');
-
-                    var td = document.createElement('td');
-                    td.innerHTML = result[i].id;
-                    tr.appendChild(td);
-
-                    td = document.createElement('td');
-                    td.innerHTML = result[i].login;
-                    tr.appendChild(td);
-
-                    td = document.createElement('td');
-                    td.innerHTML = result[i].role;
-                    tr.appendChild(td);
-
-                    td = document.createElement('td');
-                    td.innerHTML = result[i].active;
-                    tr.appendChild(td);
-
-                    table.appendChild(tr);
+                    viewItem(table, result[i]);
                 }
             } else {
-                var tr = document.createElement('tr');
-
-                var td = document.createElement('td');
-                td.innerHTML = result.id;
-                tr.appendChild(td);
-
-                td = document.createElement('td');
-                td.innerHTML = result.login;
-                tr.appendChild(td);
-
-                td = document.createElement('td');
-                td.innerHTML = result.role;
-                tr.appendChild(td);
-
-                td = document.createElement('td');
-                td.innerHTML = result.active;
-                tr.appendChild(td);
-
-                table.appendChild(tr);
+                viewItem(table, result);
             }
+        };
+
+        var RestDeleteById = function (id) {
+            $.ajax({
+                type: 'DELETE',
+                url: service + "/delete/" + id,
+                dataType: 'json',
+                async: false,
+                success: RestGetAll,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#response').html(JSON.stringify(jqXHR));
+                }
+            })
         };
 
         var RestGetById = function (id) {
@@ -74,7 +96,7 @@
         var RestGetAll = function (all) {
             $.ajax({
                 type: 'GET',
-                url: service + "/all",
+                url: service + "/get/all",
                 dataType: 'json',
                 async: false,
                 success: parseResult,
@@ -95,19 +117,12 @@
                 }
             })
         }
+        window.onload=RestGetAll;
     </script>
 </head>
 
 <body>
 <table class="table">
-    <tr>
-        <td>Получить всех пользователей</td>
-        <td><code><strong>GET</strong>/admin/users/all"</code></td>
-        <td></td>
-        <td>
-            <button type="button" class="btn btn-info" onclick="RestGetAll()">Получить</button>
-        </td>
-    </tr>
     <tr>
         <td>Получить пользователя по ID</td>
         <td><code><strong>GET</strong>/admin/users/get/id/{id}"</code></td>
@@ -128,7 +143,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <strong>RESPONSE</strong>
+        <strong>Пользователи</strong>
     </div>
     <table class="table table-hover table-condensed">
         <thead>
@@ -136,6 +151,7 @@
         <th>LOGIN</th>
         <th>ROLE</th>
         <th>ACTIVE</th>
+        <th>#</th>
         </thead>
         <tbody id="response"></tbody>
     </table>

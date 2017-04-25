@@ -18,7 +18,7 @@ public class UserIntegrationTest {
     private final String ADD = "/add";
     private final String UPDATE = "/update";
     private final String DELETE = "/delete/";
-    private final String ALL = "/all";
+    private final String ALL = "/get/all";
     private final String GET_LOGIN = "/get/login/";
 
     @Test

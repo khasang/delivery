@@ -20,7 +20,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/users/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/get/all", method = RequestMethod.GET)
     @ResponseBody
     public List<User> getUserList() {
         return userService.getUserList();

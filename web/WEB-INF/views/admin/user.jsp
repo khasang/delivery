@@ -22,7 +22,7 @@
                 dataType: 'json',
                 async: false,
                 success: function (result) {
-                    $('#response').html(JSON.stringify(result));
+                    window.location.replace('/admin/users');
                 },
                 error: function (jqXHR, textStatus, errorThrpwn) {
                     $('#response').html(JSON.stringify(jqXHR));
