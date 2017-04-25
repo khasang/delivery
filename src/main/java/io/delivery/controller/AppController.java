@@ -4,7 +4,13 @@ import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
 import io.delivery.service.*;
+<<<<<<< HEAD
 import net.yandex.speller.services.spellservice.Client;
+=======
+import net.webservicex.ConversionRate;
+import net.webservicex.Currency;
+import net.webservicex.CurrencyClient;
+>>>>>>> 3be55427a41c3f88d4138f363bf4cc871c5a5385
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -38,7 +44,13 @@ public class AppController {
     @Autowired
     private Test test;
     @Autowired
+<<<<<<< HEAD
     private Client client;
+=======
+    private CurrencyClient currencyClient;
+    @Autowired
+    private ConversionRate conversionRate;
+>>>>>>> 3be55427a41c3f88d4138f363bf4cc871c5a5385
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -82,11 +94,21 @@ public class AppController {
         return "document";
     }
 
+<<<<<<< HEAD
     @RequestMapping(value = {"/word/{check}"}, method = RequestMethod.GET)
     public ModelAndView checkWord(@PathVariable("check") String check) throws IOException, SOAPException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("spell");
         modelAndView.addObject("info", client.result(check));
+=======
+    @RequestMapping(value = {"/currency/{convert}"}, method = RequestMethod.GET)
+    public ModelAndView currencyConvertor (@PathVariable("convert") String convert) throws IOException, SOAPException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("resultconvert");
+        modelAndView.addObject("result", currencyClient.result());
+        modelAndView.addObject("fromCurrency",conversionRate.getFromCurrency());
+        modelAndView.addObject("toCurrency", conversionRate.getToCurrency());
+>>>>>>> 3be55427a41c3f88d4138f363bf4cc871c5a5385
         return modelAndView;
     }
 }
