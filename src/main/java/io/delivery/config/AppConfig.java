@@ -10,6 +10,8 @@ import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
+import net.webservicex.ConversionRate;
+import net.webservicex.CurrencyClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -121,6 +123,16 @@ public class AppConfig {
     @Bean
     CustomerDao customerDao() {
         return new CustomerDaoImpl(Customer.class);
+    }
+
+    @Bean
+    public CurrencyClient currencyClient(){
+        return new CurrencyClient();
+    }
+
+    @Bean
+    public ConversionRate conversionRate(){
+        return new ConversionRate();
     }
 }
 

@@ -4,6 +4,9 @@ import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
 import io.delivery.service.*;
+import net.webservicex.ConversionRate;
+import net.webservicex.Currency;
+import net.webservicex.CurrencyClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.xml.soap.SOAPException;
+import java.io.IOException;
 
 @Controller
 public class AppController {
@@ -33,6 +39,10 @@ public class AppController {
     private TableCreator tableCreator;
     @Autowired
     private Test test;
+    @Autowired
+    private CurrencyClient currencyClient;
+    @Autowired
+    private ConversionRate conversionRate;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -71,8 +81,18 @@ public class AppController {
         return "/noregistration";
     }
 
- @RequestMapping(value = "/documentApi")
-    public String getDocumentInfo(){
+    @RequestMapping(value = "/documentApi")
+    public String getDocumentInfo() {
         return "document";
+    }
+
+    @RequestMapping(value = {"/currency/{convert}"}, method = RequestMethod.GET)
+    public ModelAndView currencyConvertor (@PathVariable("convert") String convert) throws IOException, SOAPException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("resultconvert");
+        modelAndView.addObject("result", currencyClient.result());
+        modelAndView.addObject("fromCurrency",conversionRate.getFromCurrency());
+        modelAndView.addObject("toCurrency", conversionRate.getToCurrency());
+        return modelAndView;
     }
 }
