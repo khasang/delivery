@@ -9,6 +9,29 @@
 <body>
 <script type="text/javascript">
     var service = '/news';
+    var RestPost = function (news_name) {
+        var JSONObject = {
+            'name': news_name
+        }
+        $.ajax({
+            type: 'POST',
+            url: service + "/add",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(JSONObject),
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                $('#response').html(JSON.stringify(result));
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#response').html(JSON.stringify(jqXHR));
+            }
+        });
+    };
+</script>
+
+<script type="text/javascript">
+    var service = '/news';
     var RestGetById = function (id) {
         $.ajax({
             type: 'GET',
@@ -21,8 +44,8 @@
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#response').html(JSON.stringify(jqXHR));
             }
-        })
-    }
+        });
+    };
 </script>
 
 <script type="text/javascript">
@@ -39,10 +62,18 @@
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#response').html(JSON.stringify(jqXHR));
             }
-        })
-    }
+        });
+    };
 </script>
+<table class="table">
+    <tr>
+        <td>
+            news: <input type="text" id="postName" value="newsName"/>
+            <button type="button" onclick="RestPost($('#postName').val())">Add</button>
+        </td>
 
+    </tr>
+</table>
 <table class="table">
     <tr>
         <td>

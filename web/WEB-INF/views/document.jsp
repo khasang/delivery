@@ -37,7 +37,7 @@
                success: function (result) {
                    $('#response').html(JSON.stringify(result));
                },
-               error: function (jqXHR, textStatus, errorThrpwn) {
+               error: function (jqXHR, textStatus, errorThrown) {
                    $('#response').html(JSON.stringify(jqXHR));
                }
            });
