@@ -9,6 +9,7 @@
 <body>
 <p>${info}</p>
 <p>${answ}</p>
+<jsp:include page="header.jsp"/>
 <jsp:include page="news.jsp"/>
 <center>
     <%--<form name="FormEnter"--%>
@@ -32,5 +33,6 @@
         <p><a href="/noregistration">Без регистрации</a></p>
     <%--</form>--%>
 </center>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>
