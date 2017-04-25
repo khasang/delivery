@@ -5,6 +5,7 @@ import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
 import io.delivery.service.ProductService;
 import io.delivery.service.*;
+import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.xml.soap.SOAPException;
+import java.io.IOException;
 
 @Controller
 public class AppController {
@@ -34,6 +38,8 @@ public class AppController {
     private TableCreator tableCreator;
     @Autowired
     private Test test;
+    @Autowired
+    private Client client;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -72,8 +78,16 @@ public class AppController {
         return "/noregistration";
     }
 
- @RequestMapping(value = "/documentApi")
-    public String getDocumentInfo(){
+    @RequestMapping(value = "/documentApi")
+    public String getDocumentInfo() {
         return "document";
+    }
+
+    @RequestMapping(value = {"/word/{check}"}, method = RequestMethod.GET)
+    public ModelAndView checkWord(@PathVariable("check") String check) throws IOException, SOAPException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("spell");
+        modelAndView.addObject("info", client.result(check));
+        return modelAndView;
     }
 }
