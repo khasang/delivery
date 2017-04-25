@@ -125,6 +125,7 @@ public class AppConfig {
     @Bean
     public OrderDao orderDao() {
         return new OrderDaoImpl(Order.class);
+    }
 
     @Bean
     public Client client() {

@@ -85,6 +85,7 @@ public class AppController {
     @RequestMapping(value = "/order")
     public String getOrderInfo() {
         return "order";
+    }
 
     @RequestMapping(value = {"/word/{check}"}, method = RequestMethod.GET)
     public ModelAndView checkWord(@PathVariable("check") String check) throws IOException, SOAPException {
