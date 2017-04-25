@@ -17,7 +17,7 @@
             if (result.length) {
                 for (var i=0; i < result.length; i++) {
                     var tr = document.createElement('tr');
-                    tr.setAttribute(onclick.getBasket);
+                    //tr.setAttribute(onclick.getBasket);
 
                     var td = document.createElement('td');
                     td.innerHTML = result[i].id;
@@ -39,7 +39,7 @@
                 }
             } else {
                 var tr = document.createElement('tr');
-                tr.setAttribute(onclick.getBasket);
+                //tr.setAttribute(onclick.getBasket);
 
                 var td = document.createElement('td');
                 td.innerHTML = result.id;
@@ -58,7 +58,7 @@
                 tr.appendChild(td);
 
                 table.appendChild(tr);
-              }
+            }
         };
         var RestGetById = function (id) {
             $.ajax({
@@ -129,6 +129,28 @@
                 table.appendChild(tr);
             }
         };
+        var RestPost = function (userId,time,date,address) {
+            var JSONObject = {
+                'userId': userId,
+                'deliveryTime':time.toString()+":00",
+                'deliveryDate':date.toString(),
+                'deliveryAddress':address
+            }
+            $.ajax({
+                type: 'POST',
+                url: service + "/add",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(JSONObject),
+                dataType: 'json',
+                async: false,
+                success: function (result) {
+                    $('#response').html(JSON.stringify(result));
+                },
+                error: function (jqXHR, textStatus, errorThrpwn) {
+                    $('#response').html(JSON.stringify(jqXHR));
+                }
+            });
+        };
     </script>
 </head>
 
@@ -140,6 +162,47 @@
         <td><input id="getOrderID" class="form-control" value="" placeholder="Id"/></td>
         <td>
             <button type="button" class="btn btn-info" onclick="RestGetById($('#getOrderID').val())">Получить</button>
+        </td>
+    </tr>
+    <tr>
+        <td>Добавить новый заказ</td>
+        <td><code><strong>POST</strong>/order/add</code></td>
+        <td>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="userid">UserId:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="userid" placeholder="Enter user ID" value="user_id">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="time">Time:</label>
+                    <div class="col-sm-10">
+                        <input type="time" class="form-control" id="time" placeholder="Enter delivery time" value="time">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="date">Date:</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="date" placeholder="Enter delivery date" value="date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="address">Address:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address" placeholder="Enter delivery address" value="address">
+                    </div>
+                </div>
+                <%--UserID: <input type="text" id="UserId" value="user_id"/>--%>
+                <%--Time: <input type="time" id="time" value="time"/>--%>
+                <%--Date: <input type="date" id="date" value="date"/>--%>
+                <%--Address: <input type="text" id="address" value="address"/>--%>
+                <button type="button" class="btn btn-info"
+                        onclick="RestPost($('#userid').val()
+                                            ,$('#time').val()
+                                            ,$('#date').val()
+                                            ,$('#address').val())">Создать заказ</button>
+            </form>
         </td>
     </tr>
 </table>
@@ -159,4 +222,3 @@
     </table>
 </div>
 </body>
-</html>
