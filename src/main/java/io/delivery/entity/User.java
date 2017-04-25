@@ -39,8 +39,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        this.password = bCryptPasswordEncoder.encode(password);
+        this.password = password;
     }
 
     public String getRole() {
@@ -57,5 +56,10 @@ public class User {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public void EncodePassword() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        this.password = bCryptPasswordEncoder.encode(this.password);
     }
 }

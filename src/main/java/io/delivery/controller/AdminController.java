@@ -41,6 +41,7 @@ public class AdminController {
     @RequestMapping(value = "/users/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public User addUser(@RequestBody User user) {
+        user.EncodePassword();
         return userService.create(user);
     }
 
