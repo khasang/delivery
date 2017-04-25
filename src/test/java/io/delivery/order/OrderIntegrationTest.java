@@ -1,4 +1,4 @@
-package io.khasang.order;
+package io.delivery.order;
 
 import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;

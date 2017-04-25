@@ -1,4 +1,4 @@
-package io.khasang.order;
+package io.delivery.order;
 
 import io.delivery.config.AppConfig;
 import io.delivery.config.HibernateConfig;
@@ -6,12 +6,9 @@ import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
 import io.delivery.service.OrderService;
 import io.delivery.service.impl.OrderServiceImpl;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.junit.*;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class, OrderServiceImpl.class, HibernateConfig.class})
@@ -35,7 +32,8 @@ public class OrderServiceTest {
     private static final String TEST_DELIVERY_COMMENT = "Notext";
 
     private static List<BasketUnit> basketUnits = new ArrayList<>();
-    {
+
+    static {
         basketUnits.add(new BasketUnit(20L));
         basketUnits.add(new BasketUnit(21L));
         basketUnits.add(new BasketUnit(22L));
@@ -53,8 +51,8 @@ public class OrderServiceTest {
         Order updatedOrder = orderService.updateOrder(order);
 
         assertNotNull(updatedOrder);
-        assertEquals(TEST_DELIVERY_ADDRESS,updatedOrder.getDeliveryAddress());
-        assertEquals(TEST_DELIVERY_COMMENT,updatedOrder.getComment());
+        assertEquals(TEST_DELIVERY_ADDRESS, updatedOrder.getDeliveryAddress());
+        assertEquals(TEST_DELIVERY_COMMENT, updatedOrder.getComment());
         orderService.deleteOrder(order.getId());
     }
 
@@ -109,9 +107,9 @@ public class OrderServiceTest {
     public void GetByUserId() {
 
         Order order = createOrder();
-        List<Order> ordersByUserId =  orderService.findByUserId(order.getUserId());
+        List<Order> ordersByUserId = orderService.findByUserId(order.getUserId());
 
-        assertThat(ordersByUserId,hasItem(hasProperty("id",is(order.getId()))));
+        assertThat(ordersByUserId, hasItem(hasProperty("id", is(order.getId()))));
 
         assertNotNull(ordersByUserId);
         orderService.deleteOrder(order.getId());
