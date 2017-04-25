@@ -9,5 +9,4 @@ public class ProductCatalogSectionDaoImpl extends BasicDaoImpl<ProductCatalogSec
     public ProductCatalogSectionDaoImpl(Class<ProductCatalogSection> entityClass) {
         super(entityClass);
     }
-
 }

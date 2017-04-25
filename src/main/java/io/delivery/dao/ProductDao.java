@@ -29,5 +29,5 @@ public interface ProductDao extends BasicDao<Product> {
      * @param sectionId id of the target section
      * @return products list
      */
-    List<Product> getBySectionId(long sectionId);
+    List<Product> findByCatalogSectionId(long sectionId);
 }

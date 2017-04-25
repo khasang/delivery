@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product createProduct(Product product) {
+    public Product addProduct(Product product) {
         return productDao.create(product);
     }
 
@@ -59,8 +59,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> getProductBySectionId(long sectionId) {
-        return productDao.getBySectionId(sectionId);
+    public List<Product> getProductsByCatalogSectionId(long sectionId) {
+        return productDao.findByCatalogSectionId(sectionId);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductCatalogSection createCatalogSection(ProductCatalogSection section) {
+    public ProductCatalogSection addCatalogSection(ProductCatalogSection section) {
         return productCatalogSectionDao.create(section);
     }
 
@@ -89,12 +89,12 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductImage> getImageIdsByProductId(long id) {
-        return productImageDao.getByProductId(id);
+    public List<ProductImage> getImagesByProductId(long id) {
+        return productImageDao.findByProductId(id);
     }
 
     @Override
-    public ProductImage createImage(ProductImage image) {
+    public ProductImage addImage(ProductImage image) {
         return productImageDao.create(image);
     }
 

@@ -11,25 +11,31 @@ public class ProductDaoImpl extends BasicDaoImpl<Product> implements ProductDao 
         super(entityClass);
     }
 
-
     @Override
     public List<Product> findByName(String name) {
-        return (List<Product>) sessionFactory.getCurrentSession().
-                createQuery("from Product as p where p.name = ?").
-                setParameter(0, name).list();
+        List<Product> productList = (List<Product>) sessionFactory.getCurrentSession()
+                .createQuery("from Product as p where p.name = ?")
+                .setParameter(0, name)
+                .list();
+        return productList;
     }
 
     @Override
     public List<Product> findByPriceRange(int min, int max) {
-         return (List<Product>) sessionFactory.getCurrentSession().
-                 createQuery("from Product as p where p.price between ? and ?").
-                 setParameter(0, min).setParameter(1, max).list();
+        List<Product> productList = (List<Product>) sessionFactory.getCurrentSession()
+                .createQuery("from Product as p where p.price between ? and ?")
+                .setParameter(0, min)
+                .setParameter(1, max)
+                .list();
+        return productList;
     }
 
     @Override
-    public List<Product> getBySectionId(long sectionId) {
-        return (List<Product>) sessionFactory.getCurrentSession().
-                createQuery("from Product as p where p.productCatalogSection.id = ?").
-                setParameter(0, sectionId).list();
+    public List<Product> findByCatalogSectionId(long sectionId) {
+        List<Product> productList = (List<Product>) sessionFactory.getCurrentSession()
+                .createQuery("from Product as p where p.productCatalogSection.id = ?")
+                .setParameter(0, sectionId)
+                .list();
+        return productList;
     }
 }

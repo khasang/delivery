@@ -26,7 +26,7 @@ public interface ProductService {
      * @param product current product for creation
      * @return created product
      */
-    Product createProduct(Product product);
+    Product addProduct(Product product);
 
     /**
      * @param product product for updateProduct
@@ -62,7 +62,7 @@ public interface ProductService {
      * @param sectionId id of the section to be loaded
      * @return list of products
      */
-    List<Product> getProductBySectionId(long sectionId);
+    List<Product> getProductsByCatalogSectionId(long sectionId);
 
     /**
      * Receive all product sections
@@ -75,7 +75,7 @@ public interface ProductService {
      * @param section current section for creation
      * @return created section
      */
-    ProductCatalogSection createCatalogSection(ProductCatalogSection section);
+    ProductCatalogSection addCatalogSection(ProductCatalogSection section);
 
     /**
      * Get product catalog section with the specified id from the db
@@ -102,14 +102,14 @@ public interface ProductService {
      * @param id id of the product
      * @return list of product images
      */
-    List<ProductImage> getImageIdsByProductId(long id);
+    List<ProductImage> getImagesByProductId(long id);
 
     /**
      * Add product image to the db
      * @param image product image to be added
      * @return image
      */
-    ProductImage createImage(ProductImage image);
+    ProductImage addImage(ProductImage image);
 
     /**
      * Delete product image from the db

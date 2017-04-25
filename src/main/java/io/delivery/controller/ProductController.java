@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
     final private ProductService productService;
 
@@ -24,22 +24,22 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(value = "/getAllProducts", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllProducts", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
     }
 
-    @RequestMapping(value = "/getProductsByName/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getProductsByName/{name}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<Product> getProductsByName(@PathVariable(value = "name") String name){
         return productService.getProductsByName(name);
     }
 
-    @RequestMapping(value = "/createProduct", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/addProduct", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Product addProduct(@RequestBody Product product){
-        productService.createProduct(product);
+        productService.addProduct(product);
         return product;
     }
 
@@ -50,22 +50,29 @@ public class ProductController {
         return product;
     }
 
-    @RequestMapping(value = "/deleteProduct/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteProduct/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Product deleteProduct(@PathVariable(value = "id") String inputId){
         return productService.deleteProduct(Long.parseLong(inputId));
     }
 
-    @RequestMapping(value = "/getProductById/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getProductById/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Product getProductById(@PathVariable(value = "id") String id){
         return productService.getProductById(Long.parseLong(id));
     }
 
-    @RequestMapping(value = "/getProductsByPriceRange/{min}/{max}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getProductsByPriceRange/{min}/{max}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<Product> getProductsByPriceRange(@PathVariable(value = "min") int min, @PathVariable(value = "max") int max) {
         return productService.getProductsByPriceRange(min, max);
+    }
+
+    @RequestMapping(value = "/getProductsByCatalogSectionId/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public List<Product> getProductsByCatalogSectionId(@PathVariable(value = "id") String id)
+    {
+        return productService.getProductsByCatalogSectionId(Long.parseLong(id));
     }
 
     @GetMapping(value = "/images/add")
@@ -73,9 +80,14 @@ public class ProductController {
         return "uploadProductImage";
     }
 
-    @PostMapping(value = "/images/upload", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/images/show")
+    public String showProductImage() {
+        return "showProductImage";
+    }
+
+    @PostMapping(value = "/images/upload", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public byte[] uploadProductImage(@RequestParam("file") MultipartFile file,
+    public Long uploadProductImage(@RequestParam("file") MultipartFile file,
                            @RequestParam("productId") String productId) {
         if (!file.getContentType().equals(MediaType.IMAGE_JPEG_VALUE))
                 return null;
@@ -83,35 +95,36 @@ public class ProductController {
         image.setProduct(productService.getProductById(Long.parseLong(productId)));
         try {
             image.setImage(file.getBytes());
-            productService.createImage(image);
-            return image.getImage();
+            productService.addImage(image);
+            return image.getId();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    @RequestMapping(value = "/deleteImage/{id}", method = RequestMethod.DELETE, produces = MediaType.IMAGE_JPEG_VALUE)
+    @RequestMapping(value = "/deleteImage/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public byte[] deleteImage(@PathVariable(value = "id") String inputId){
-        return productService.deleteImage(Long.parseLong(inputId)).getImage();
+    public Long deleteImage(@PathVariable(value = "id") String inputId){
+        productService.deleteImage(Long.parseLong(inputId));
+        return Long.parseLong(inputId);
     }
 
-    @RequestMapping(value = "/getImageIdsByProductId/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getImageIdsByProductId/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<Long> getImageIdsByProductId(@PathVariable(value = "id") String productId) {
         List<Long> result = new ArrayList<>();
-        for (ProductImage image:productService.getImageIdsByProductId(Long.parseLong(productId))) {
+        for (ProductImage image : productService.getImagesByProductId(Long.parseLong(productId))) {
             result.add(image.getId());
         }
         return result;
     }
 
-    @GetMapping(value = "getImageById/{id}")
+    @RequestMapping(value = "/getImageById/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
-    public ProductImage getImageById(@PathVariable(value = "id") String id)
+    public byte[] getImageById(@PathVariable(value = "id") String id)
     {
-        return productService.getImageById(Long.parseLong(id));
+        return productService.getImageById(Long.parseLong(id)).getImage();
     }
 
     @RequestMapping(value = "/getAllCatalogSections", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
@@ -120,10 +133,10 @@ public class ProductController {
         return productService.getAllCatalogSections();
     }
 
-    @RequestMapping(value = "/createCatalogSection", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/addCatalogSection", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public ProductCatalogSection createCatalogSection(@RequestBody ProductCatalogSection section){
-        productService.createCatalogSection(section);
+    public ProductCatalogSection addCatalogSection(@RequestBody ProductCatalogSection section){
+        productService.addCatalogSection(section);
         return section;
     }
 
@@ -134,13 +147,13 @@ public class ProductController {
         return section;
     }
 
-    @RequestMapping(value = "deleteCatalogSection/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "deleteCatalogSection/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public ProductCatalogSection deleteCatalogSection(@PathVariable(value = "id") String inputId){
         return productService.deleteCatalogSection(Long.parseLong(inputId));
     }
 
-    @RequestMapping(value = "/getCatalogSectionById/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCatalogSectionById/{id}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public ProductCatalogSection getCatalogSectionById(@PathVariable(value = "id") String id){
         return productService.getCatalogSectionById(Long.parseLong(id));

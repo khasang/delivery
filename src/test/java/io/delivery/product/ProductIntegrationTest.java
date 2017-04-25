@@ -38,7 +38,7 @@ public class ProductIntegrationTest {
         product.setName("Magic");
         product.setDescription("fire");
         product.setPrice(100);
-        productService.createProduct(product);
+        productService.addProduct(product);
         return product;
     }
 
