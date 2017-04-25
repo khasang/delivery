@@ -1,11 +1,15 @@
 package io.khasang.document;
 
 import io.delivery.entity.Document;
+import io.delivery.entity.DocumentItem;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -60,6 +64,20 @@ public class DocumentIntegrationTest {
         Document document = new Document();
         document.setName("Magic");
         document.setSpecificInnerInfo("fire");
+
+        DocumentItem documentItem = new DocumentItem();
+        documentItem.setName("fireball");
+        documentItem.setPrice(new BigDecimal(BigInteger.valueOf(10)));
+        DocumentItem documentItem2 = new DocumentItem();
+        documentItem2.setName("iceball");
+        documentItem2.setPrice(new BigDecimal(BigInteger.valueOf(8)));
+
+        List<DocumentItem> documentItemList = new ArrayList<>();
+        documentItemList.add(documentItem);
+        documentItemList.add(documentItem2);
+
+        document.setDocumentItems(documentItemList);
+
         return document;
     }
 
