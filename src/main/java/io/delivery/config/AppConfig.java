@@ -1,16 +1,24 @@
 package io.delivery.config;
 
-import io.delivery.dao.DocumentDao;
-import io.delivery.dao.UserDao;
-import io.delivery.dao.impl.DocumentDaoImpl;
-import io.delivery.dao.impl.UserDaoIml;
-import io.delivery.entity.Document;
-import io.delivery.entity.User;
+import io.delivery.dao.*;
+import io.delivery.dao.impl.*;
+import io.delivery.entity.*;
 import io.delivery.model.Answer;
+<<<<<<< Updated upstream
 import io.delivery.model.TableCreator;
 import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.CreateTable;
 import io.delivery.service.impl.CreateTableImpl;
+=======
+import io.delivery.model.BackupCreator;
+import io.delivery.model.NewsCreator;
+import io.delivery.model.TableCreator;
+import io.delivery.model.impl.BackupCreatorIml;
+import io.delivery.model.impl.NewsCreatorImpl;
+import io.delivery.service.*;
+import io.delivery.service.impl.*;
+import net.yandex.speller.services.spellservice.Client;
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,13 +63,43 @@ public class AppConfig {
     }
 
     @Bean
-    public TableCreator tableCreator() {
-        return new TableCreatorImpl(jdbcTemplate());
+    public CreateTable createTable() {
+        return new CreateTableImpl(jdbcTemplate());
     }
 
     @Bean
+<<<<<<< Updated upstream
     public CreateTable createTable() {
         return new CreateTableImpl("asd");
+=======
+    public InsertUser insertUser() {
+        return new InsertUserImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public UpdateTable updateTable() {
+        return new UpdateTableImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public SelectTable selectTable() {
+        return new SelectTableImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public PreparedSQL preparedSQL() {
+        return new PreparedSQLImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public DumpDB dumpDB() {
+        return new DumpDbImpl();
+    }
+
+    @Bean
+    public Test test() {
+        return new TestImpl("test");
+>>>>>>> Stashed changes
     }
 
     @Bean
@@ -70,12 +108,52 @@ public class AppConfig {
     }
 
     @Bean
-    DocumentDao documentDao(){
+    public DocumentDao documentDao() {
         return new DocumentDaoImpl(Document.class);
     }
 
     @Bean
+<<<<<<< Updated upstream
     UserDao userDao(){
+=======
+    public NewsCreator newsCreator() {
+        return new NewsCreatorImpl(jdbcTemplate());
+    }
+
+    @Bean
+    NewsDao newsDao() {
+        return new NewsDaoImpl(News.class);
+    }
+
+    @Bean
+    NoRegistrationCustomerDao noRegistrationCustomerDao() {
+        return new NoRegistrationCustomerDaoImpl(NoRegistrationCustomer.class);
+    }
+
+    @Bean
+    public OfficeDao officeDao() {
+        return new OfficeDaoImpl(Office.class);
+    }
+
+    @Bean
+    public CustomerDao customerDao() {
+        return new CustomerDaoImpl(Customer.class);
+    }
+
+    @Bean
+    UserDao userDao() {
+>>>>>>> Stashed changes
         return new UserDaoIml(User.class);
     }
+
+    @Bean
+    public BackupCreator backupCreator() {
+        return new BackupCreatorIml();
+    }
+
+    @Bean
+    public Client client() {
+        return new Client();
+    }
 }
+

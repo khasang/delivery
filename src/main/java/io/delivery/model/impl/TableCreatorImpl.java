@@ -4,7 +4,9 @@ import io.delivery.model.TableCreator;
 import io.delivery.service.impl.CreateTableImpl;
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
+@Component("tableCreator")
 public class TableCreatorImpl implements TableCreator{
     private static final Logger LOG = Logger.getLogger(TableCreatorImpl.class);
     private JdbcTemplate jdbcTemplate;

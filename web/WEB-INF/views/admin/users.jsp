@@ -9,7 +9,11 @@
         var service = '/admin/users';
         var parseResult = function (result) {
             var table = document.getElementById('response');
+<<<<<<< Updated upstream
 
+=======
+          
+>>>>>>> Stashed changes
             while(table.firstChild){
                 table.removeChild(table.firstChild);
             }

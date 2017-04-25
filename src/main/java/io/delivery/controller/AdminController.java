@@ -4,6 +4,7 @@ import io.delivery.entity.User;
 import io.delivery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class AdminController {
     @RequestMapping(value = "/users/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public User addUser(@RequestBody User user) {
+        user.EncodePassword();
         return userService.create(user);
     }
 
@@ -53,5 +55,15 @@ public class AdminController {
     @ResponseBody
     public User deleteUser(@PathVariable(value = "id") String InputID) {
         return userService.deleteUser(Long.parseLong(InputID));
+    }
+
+    @RequestMapping(value = "/users")
+    public String getUsersInfo(){
+        return "/admin/users";
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String getUserForm(Model model){
+        return "/admin/user";
     }
 }

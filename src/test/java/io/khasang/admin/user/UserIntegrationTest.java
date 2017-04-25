@@ -89,7 +89,7 @@ public class UserIntegrationTest {
 
     private User prefillUser() {
         User user = new User();
-        user.setLogin("User1");
+        user.setLogin("Вася");
         user.setPassword("$2a$10$iWZqh3OUvPVNPRNkboVdSuAF6dN0BrAZcIcPUycLURHfy871EntQm");
         user.setRole("ROLE_ADMIN");
         user.setActive(true);
@@ -152,7 +152,7 @@ public class UserIntegrationTest {
         User user = createUser();
         assertNotNull(user);
 
-        user.setLogin("User2");
+        user.setLogin("Петя");
         user.setActive(false);
 
         HttpEntity<User> httpEntity = new HttpEntity<>(user, headers);
