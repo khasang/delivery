@@ -4,6 +4,7 @@ import io.delivery.dao.DocumentDao;
 import io.delivery.dao.impl.DocumentDaoImpl;
 import io.delivery.entity.Document;
 import io.delivery.model.Company;
+import io.delivery.model.CountryInfo;
 import io.delivery.service.CreateTable;
 import io.delivery.service.InsertItem;
 import io.delivery.service.PgDump;
@@ -99,6 +100,11 @@ public class AppConfig {
     @Bean
     public CountryClient countryClient() {
         return new CountryClient();
+    }
+
+    @Bean
+    public CountryInfo countryInfo() {
+        return new CountryInfo();
     }
 }
 
