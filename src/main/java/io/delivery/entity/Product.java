@@ -19,7 +19,7 @@ public class Product {
 
     private String description;
 
-    @ManyToOne(optional=false)
+    @ManyToOne
     @JoinColumn(name = "product_catalog_section_id")
     private ProductCatalogSection productCatalogSection;
 

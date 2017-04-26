@@ -7,10 +7,7 @@ import io.delivery.entity.ProductCatalogSection;
 import io.delivery.entity.ProductImage;
 import io.delivery.service.ProductService;
 import io.delivery.service.impl.ProductServiceImpl;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -28,49 +25,38 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = {AppConfig.class, ProductServiceImpl.class, HibernateConfig.class})
 public class ProductCatalogIntegrationTest {
     private final String ROOT = "http://localhost:8080/products";
-    private final String GET_ID = "/get/id/";
-    private final String ADD = "/add";
-    private final String UPDATE = "/updateProduct";
-    private final String DELETE = "/deleteProduct/";
-    private final String ALL = "/all";
-    private final String GET_NAME = "/get/name/";
-    private final String GET_PRICE = "/get/price/";
 
     @Autowired
     private ProductService productService;
 
-    private List<Product> productList;
-    private List<ProductCatalogSection> catalogSectionList;
-    private List<ProductImage> imageList;
+    private ProductCatalogSection createdCatalogSection = new ProductCatalogSection();
+    private Product createdProduct = new Product();
+    private ProductImage createdImage = new ProductImage();
+
 
     @Before
     public void createTestEntities() {
-        Product product = new Product();
-        ProductCatalogSection section = new ProductCatalogSection();
-        ProductImage image = new ProductImage();
-        List<ProductImage> imageList = new ArrayList<>();
-        List<Product> productList = new ArrayList<>();
-        product.setName("Magic");
-        product.setDescription("fire");
-        product.setPrice(100);
-        section.setName("PizzaTest");
-        image.setImage(new byte[] {1, 2 , 3, 4});
-        imageList.add(image);
-        product.setImages(imageList);
-        productList.add(product);
-        section.setProducts(productList);
-//        product.setProductCatalogSection(section);
-        productService.addCatalogSection(section);
-        catalogSectionList = new ArrayList<>();
-        catalogSectionList.add(section);
+        createdCatalogSection.setName("PizzaTest");
+        productService.addCatalogSection(createdCatalogSection);
+
+        createdProduct.setName("Magic");
+        createdProduct.setDescription("fire");
+        createdProduct.setPrice(100);
+        createdProduct.setProductCatalogSection(createdCatalogSection);
+        productService.addProduct(createdProduct);
+
+        createdImage.setImage(new byte[] {1, 2 , 3, 4});
+        createdImage.setProduct(createdProduct);
+        productService.addImage(createdImage);
     }
 
-    @Test
-    public void Test1() {
-        assertTrue(true);
+    @After
+    public void deleteTestEntities() {
+        if (createdCatalogSection != null) {
+            productService.deleteCatalogSection(createdCatalogSection.getId());
+        }
     }
 
-/*
     @Test
     public void addProduct() {
         HttpHeaders headers = new HttpHeaders();
@@ -79,50 +65,44 @@ public class ProductCatalogIntegrationTest {
         product.setName("Magic");
         product.setDescription("fire");
         product.setPrice(100);
+        product.setProductCatalogSection(createdCatalogSection);
         HttpEntity<Product> httpEntity = new HttpEntity<>(product, headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Product> responseEntity = restTemplate.exchange(
-                ROOT + ADD,
+                ROOT + "/addProduct",
                 HttpMethod.POST,
                 httpEntity,
                 Product.class
         );
-        Product createdProduct = responseEntity.getBody();
+        Product addedProduct = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(createdProduct);
-        assertEquals(createdProduct.getName(), product.getName());
-        productService.deleteProduct(createdProduct.getId());
+        assertNotNull(addedProduct);
+        assertEquals(addedProduct.getName(), product.getName());
     }
 
     @Test
     public void getProductById() {
-        Product createdProduct = createProduct();
-
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<Product> responseEntity = restTemplate.exchange(
-                ROOT + GET_ID + "{id}",
+                ROOT + "/getProductById/" + "{id}",
                 HttpMethod.GET,
                 null,
                 Product.class,
                 createdProduct.getId()
         );
-
         Product resultProduct = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(resultProduct);
         assertEquals(createdProduct.getName(), resultProduct.getName());
-        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test
     public void getProductByName() {
-        Product createdProduct = createProduct();
-
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<List<Product>> result = restTemplate.exchange(
-                ROOT + GET_NAME + "{name}",
+                ROOT + "/getProductsByName/" + "{name}",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Product>>() {
@@ -134,17 +114,14 @@ public class ProductCatalogIntegrationTest {
         assertNotNull(result.getBody());
         List<Product> list = result.getBody();
         assertNotNull(list.get(0));
-        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test
     public void getProductByPriceRange() {
-        Product createdProduct = createProduct();
-
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<List<Product>> result = restTemplate.exchange(
-                ROOT + GET_PRICE + "{min}/{max}",
+                ROOT + "/getProductsByPriceRange/" + "{min}/{max}",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Product>>() {
@@ -157,17 +134,14 @@ public class ProductCatalogIntegrationTest {
         assertNotNull(result.getBody());
         List<Product> list = result.getBody();
         assertNotNull(list.get(0));
-        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test
-    public void getAllProducts(){
-        Product createdProduct = createProduct();
-
+    public void getAllProducts() {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<List<Product>> result = restTemplate.exchange(
-                ROOT + ALL,
+                ROOT + "/getAllProducts",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Product>>() {
@@ -177,12 +151,10 @@ public class ProductCatalogIntegrationTest {
         assertNotNull(result.getBody());
         List<Product> list = result.getBody();
         assertNotNull(list.get(0));
-        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test
     public void updateProduct() {
-        Product createdProduct = createProduct();
         createdProduct.setName("Sword");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -191,7 +163,7 @@ public class ProductCatalogIntegrationTest {
 
         HttpEntity<Product> httpEntity = new HttpEntity<>(createdProduct, headers);
         ResponseEntity<Product> responseEntity = restTemplate.exchange(
-               ROOT + UPDATE,
+               ROOT + "/updateProduct",
                HttpMethod.PUT,
                httpEntity,
                Product.class
@@ -200,15 +172,13 @@ public class ProductCatalogIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(updatedProduct);
         assertEquals(updatedProduct.getName(), createdProduct.getName());
-        productService.deleteProduct(createdProduct.getId());
     }
 
     @Test
     public void deleteProduct(){
-        Product createdProduct = createProduct();
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.exchange(
-                ROOT + DELETE + "{id}",
+                ROOT + "/deleteProduct/" + "{id}",
                 HttpMethod.DELETE,
                 null,
                 String.class,
@@ -218,7 +188,7 @@ public class ProductCatalogIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         ResponseEntity<Product> checkProductById = restTemplate.exchange(
-                ROOT + GET_ID + "{id}",
+                ROOT + "/getProductById/" + "{id}",
                 HttpMethod.GET,
                 null,
                 Product.class,
@@ -228,5 +198,4 @@ public class ProductCatalogIntegrationTest {
         assertEquals(HttpStatus.OK, checkProductById.getStatusCode());
         assertNull(checkProductById.getBody());
     }
-*/
 }

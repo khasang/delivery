@@ -17,7 +17,6 @@ public class ProductCatalogSection {
 
     @JsonIgnore
     @OneToMany (mappedBy="productCatalogSection", cascade = CascadeType.ALL)
-//    @JoinColumn(name = "product_catalog_section_id")
     private List<Product> products = new ArrayList<Product>();
 
     public long getId() {
