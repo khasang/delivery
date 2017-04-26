@@ -16,14 +16,14 @@ public class CurrencyClient {
     public CurrencyClient() {
     }
 
-    public double result() throws SOAPException, IOException {
+    public double result(Currency fromCurrency, Currency toCurrency) throws SOAPException, IOException {
         URL url = new URL(ADDRESS);
         QName qName = new QName("http://www.webserviceX.NET/", "CurrencyConvertor");
         Service service = Service.create(url, qName);
 
         CurrencyConvertorSoap convertorSoap = service.getPort(CurrencyConvertorSoap.class);
-        conversionRate.setFromCurrency(Currency.EUR);
-        conversionRate.setToCurrency(Currency.RUB);
+        conversionRate.setFromCurrency(fromCurrency);
+        conversionRate.setToCurrency(toCurrency);
 
         return convertorSoap.conversionRate(conversionRate.getFromCurrency(), conversionRate.getToCurrency());
     }

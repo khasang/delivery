@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<p>${fromCurrency} / ${toCurrency}</p>
+<p>${fromCurrency} / ${to}</p>
 ${result}
 </body>
 </html>

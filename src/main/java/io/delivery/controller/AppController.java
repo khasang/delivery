@@ -6,6 +6,7 @@ import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
 import io.delivery.service.*;
 import net.webservicex.ConversionRate;
+import net.webservicex.Currency;
 import net.webservicex.CurrencyClient;
 import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.soap.SOAPException;
@@ -101,16 +103,20 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/currency/{convert}"}, method = RequestMethod.GET)
-    public ModelAndView currencyConvertor(@PathVariable("convert") String convert) throws IOException, SOAPException {
+    /**
+     * http://localhost:8080/currency/CAD?to=EUR
+     */
+    public ModelAndView currencyConvertor(@PathVariable("convert") Currency convert,
+                                          @RequestParam (value = "to") Currency toCurrency) throws IOException, SOAPException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("resultconvert");
-        modelAndView.addObject("result", currencyClient.result());
+        modelAndView.addObject("result", currencyClient.result(convert, toCurrency));
         modelAndView.addObject("fromCurrency", conversionRate.getFromCurrency());
-        modelAndView.addObject("toCurrency", conversionRate.getToCurrency());
+        modelAndView.addObject("to", conversionRate.getToCurrency());
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/temp/{convert}"}, method = RequestMethod.GET)
+       @RequestMapping(value = {"/temp/{convert}"}, method = RequestMethod.GET)
     public ModelAndView convertTemp(@PathVariable("convert") String convert) throws IOException, SOAPException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("temperatur");
