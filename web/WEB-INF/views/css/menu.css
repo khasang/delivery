@@ -1,0 +1,231 @@
+/*@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);*/
+body {
+    /*font-family: 'Open Sans', 'sans-serif';*/
+    /*background: rgb(0,0,48); !* Old browsers *!*/
+    /*background: -moz-linear-gradient(left,  rgba(0,0,48,1) 0%, rgba(255,34,244,1) 100%); !* FF3.6-15 *!*/
+    /*background: -webkit-linear-gradient(left,  rgba(0,0,48,1) 0%,rgba(255,34,244,1) 100%); !* Chrome10-25,Safari5.1-6 *!*/
+    /*background: linear-gradient(to right,  rgba(0,0,48,1) 0%,rgba(255,34,244,1) 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2196f3', endColorstr='#9222f4',GradientType=1 ); /* IE6-9 */
+}
+
+h1,
+.h1 {
+    font-size: 36px;
+    text-align: center;
+    font-size: 5em;
+    color: #404041;
+}
+
+/*Top line*/
+.navbar-default{
+    background: #171717;
+    border-radius: 0;
+    border: none;
+}
+.navbar-default .navbar-brand {
+    color: #ff4326;
+}
+.navbar-default .navbar-nav > li > a{
+    color: #eee;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
+    color: #ff1500;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
+    color: #fff;
+}
+.navbar-nav>li>.dropdown-menu{
+    background: #353535; /* Old browsers */
+    /*background: -moz-linear-gradient(left,  rgba(33,150,243,1) 0%, rgba(146,34,244,1) 100%); !* FF3.6-15 *!*/
+    /*background: -webkit-linear-gradient(left,  rgba(33,150,243,1) 0%,rgba(146,34,244,1) 100%); !* Chrome10-25,Safari5.1-6 *!*/
+    /*background: linear-gradient(to right,  rgba(33,150,243,1) 0%,rgba(146,34,244,1) 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2196f3', endColorstr='#9222f4',GradientType=1 ); !* IE6-9 *!*/
+}
+.navbar-default .no-padding{
+    padding: 0;
+}
+.navbar-default .btn-price, .navbar-default .btn-wishlist , .navbar-default .btn-signin{
+    border-radius: 20px;
+    background: transparent;
+    border:1px solid rgba(255, 255, 255, 0.5);
+    color: #FFF;
+}
+.navbar-default  .form-control{
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 0;
+    box-shadow: none;
+}
+.navbar-default .nav .open > a, .navbar-default .nav .open > a:hover, .navbar-default .nav .open > a:focus{
+    background: #ff1500; /* Old browsers */
+    /*background: -moz-linear-gradient(left,  rgba(33,150,243,1) 0%, rgba(146,34,244,1) 100%); !* FF3.6-15 *!*/
+    /*background: -webkit-linear-gradient(left,  rgba(33,150,243,1) 0%,rgba(146,34,244,1) 100%); !* Chrome10-25,Safari5.1-6 *!*/
+    /*background: linear-gradient(to right,  rgba(33,150,243,1) 0%,rgba(146,34,244,1) 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2196f3', endColorstr='#9222f4',GradientType=1 ); !* IE6-9 *!*/
+}
+.navbar-default .dropdown-menu .divider{
+    background: rgba(255, 255, 255, 0.3);
+}
+.navbar-default h4 small{
+    color: rgba(255, 255, 255, 0.7);
+}
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 20px;
+    border:none;
+}
+
+/*Длинна меню*/
+.navbar-default .navbar-nav>li>a {
+    width: 140px;
+    font-weight: bold;
+}
+
+.mega-dropdown {
+    position: static !important;
+    width: 100%;
+}
+
+.mega-dropdown-menu {
+    padding: 20px 0px;
+    width: 100%;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.mega-dropdown-menu:before {
+    content: "";
+    border-bottom: 15px solid #353535;
+    border-right: 17px solid transparent;
+    border-left: 17px solid transparent;
+    position: absolute;
+    top: -14px;
+    left: 165px;
+    z-index: 10;
+}
+
+.menu-indicator-1:before {
+    content: "";
+    border-bottom: 21px solid #353535;
+    border-right: 17px solid transparent;
+    border-left: 17px solid transparent;
+    position: absolute;
+    top: -20px;
+    left: 200px;
+    z-index: 10;
+}
+
+.menu-indicator-2:before {
+    content: "";
+    border-bottom: 21px solid #353535;
+    border-right: 17px solid transparent;
+    border-left: 17px solid transparent;
+    position: absolute;
+    top: -20px;
+    left: 340px;
+    z-index: 10;
+}
+
+.menu-indicator-3:before {
+    content: "";
+    border-bottom: 21px solid #353535;
+    border-right: 17px solid transparent;
+    border-left: 17px solid transparent;
+    position: absolute;
+    top: -20px;
+    left: 480px;
+    z-index: 10;
+}
+
+.menu-indicator-4:before {
+    content: "";
+    border-bottom: 21px solid #353535;
+    border-right: 17px solid transparent;
+    border-left: 17px solid transparent;
+    position: absolute;
+    top: -20px;
+    left: 620px;
+    z-index: 10;
+}
+
+.mega-dropdown-menu > li > ul {
+    padding: 0;
+    margin: 0;
+}
+
+.mega-dropdown-menu > li > ul > li {
+    list-style: none;
+}
+
+.mega-dropdown-menu > li > ul > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #DDD;
+    white-space: normal;
+}
+
+.mega-dropdown-menu > li ul > li > a:hover,
+.mega-dropdown-menu > li ul > li > a:focus {
+    text-decoration: none;
+    color: #fff;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mega-dropdown-menu .dropdown-header {
+    color: #FCFCFC;
+    font-size: 18px;
+}
+
+.mega-dropdown-menu form {
+    margin: 3px 20px;
+}
+
+.mega-dropdown-menu .form-group {
+    margin-bottom: 3px;
+}
+
+.nb-copyright{
+    background: #171717;
+}
+.nb-copyright .copyrt{
+    margin-top: 22px;
+    font-size: 14px;
+}
+.nb-copyright .copyrt a{
+    color: #FF1500;
+}
+.nb-copyright .footer-social{
+    margin-top: 10px;
+}
+.nb-copyright .footer-social i{
+    padding: 5px 10px;
+    color: #999;
+    border: 1px solid #333;
+    margin-top: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    transition:all 0.4s ease-in-out;
+}
+.nb-copyright .footer-social i:hover{
+    background: #FF1500;
+    color: #fff;
+}
+.nb-copyright .footer-social .fa-facebook{
+    padding: 5px 14px;
+}
+
+.navbar-brand-company-name {
+    float: left;
+    height: 50px;
+    padding: 8px 15px;
+    font-size: 35px;
+    line-height: 25px;
+}
+
+.menu-fonts {
+    font-size: 17px;
+}
