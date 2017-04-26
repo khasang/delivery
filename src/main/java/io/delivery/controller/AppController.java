@@ -87,11 +87,12 @@ public class AppController {
         return "order";
     }
 
-    @RequestMapping(value = {"/word/{check}"}, method = RequestMethod.GET)
-    public ModelAndView checkWord(@PathVariable("check") String check) throws IOException, SOAPException {
+    @RequestMapping(value = {"/country/{country}"}, method = RequestMethod.GET)
+    public ModelAndView countryInfo(@PathVariable("country") String country) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("spell");
-        modelAndView.addObject("info", client.result(check));
+        modelAndView.setViewName("country");
+        modelAndView.addObject("name", country);
+        modelAndView.addObject("currency", client.getCurrencyName(client.currencyInfo(country)));
         return modelAndView;
     }
 }

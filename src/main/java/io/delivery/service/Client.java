@@ -4,7 +4,7 @@ import net.webservicex.*;
 
 public class Client {
 
-    private CurrencyConvertorSoap convertor = new CurrencyConvertor().getCurrencyConvertorSoap();
+    //private CurrencyConvertorSoap convertor = new CurrencyConvertor().getCurrencyConvertorSoap();
     private CountrySoap countryDetails = new Country().getCountrySoap();
 
     public Client() {
@@ -14,10 +14,10 @@ public class Client {
       return countryDetails.getCurrencyByCountry(country);
     }
 
-    public String currencyRate(String from, String to) {
-        Double currencyRate = convertor.conversionRate(Currency.RUB,Currency.USD);
-        return currencyRate.toString();
-    }
+//    public String currencyRate(String from, String to) {
+//        Double currencyRate = convertor.conversionRate(Currency.RUB,Currency.USD);
+//        return currencyRate.toString();
+//    }
 
     public String getCurrencyName(String result) {
         if (result.contains("Table")) {
