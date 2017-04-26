@@ -24,6 +24,32 @@ public class DocumentIntegrationTest {
     private final String GET_NAME = "/get/name/";
 
     @Test
+    public void getDocumentById() {
+        addDocumentAndGet();
+    }
+
+    @Test
+    public void getDocumentByName() {
+        Document document = createDocument();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<List<Document>> result = restTemplate.exchange(
+                ROOT + GET_NAME + "{name}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Document>>() {
+                },
+                document.getName()
+        );
+
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertNotNull(result.getBody());
+        List<Document> list = result.getBody();
+        assertNotNull(list.get(0));
+    }
+
+    @Test
     public void addDocumentAndGet() {
         Document document = createDocument();
 

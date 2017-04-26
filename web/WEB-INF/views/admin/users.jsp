@@ -7,78 +7,86 @@
 
     <script type="text/javascript">
         var service = '/admin/users';
+        function viewItem (table, item) {
+            var tr = document.createElement('tr');
+
+            var td = document.createElement('td');
+            td.setAttribute('style', 'display:none');
+            td.innerHTML = item.id;
+            tr.appendChild(td);
+
+            var mv = document.createElement('a');
+            mv.setAttribute('href', service + "/get/id/" + item.id);
+            mv.innerText = item.login;
+
+            td = document.createElement('td');
+            td.appendChild(mv);
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            if (item.role=='ROLE_ADMIN'){
+                td.innerHTML = 'Администратор';
+            } else {
+                td.innerHTML = item.role;
+            }
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = item.active;
+            tr.appendChild(td);
+
+            var del = document.createElement('button');
+            del.setAttribute('type', "button");
+            del.setAttribute('class', "btn btn-danger btn-xs");
+            del.onclick = function(){
+                var index = $(this).parent().parent().index();
+                var val = $("#response").find("tr")[index].firstChild.innerText;
+                if (confirm("Вы уверены?")){
+                    RestDeleteById(val);
+                }
+            };
+            del.innerText = 'Удалить';
+
+            td = document.createElement('td');
+            td.appendChild(del);
+            tr.appendChild(td);
+
+            table.appendChild(tr);
+        }
+
         var parseResult = function (result) {
             var table = document.getElementById('response');
-<<<<<<< Updated upstream
-
-=======
           
->>>>>>> Stashed changes
             while(table.firstChild){
                 table.removeChild(table.firstChild);
             }
 
             if (result.length) {
                 for (var i=0; i < result.length; i++) {
-                    var tr = document.createElement('tr');
-
-                    var td = document.createElement('td');
-                    td.innerHTML = result[i].id;
-                    tr.appendChild(td);
-
-                    td = document.createElement('td');
-                    td.innerHTML = result[i].login;
-                    tr.appendChild(td);
-
-                    td = document.createElement('td');
-                    td.innerHTML = result[i].role;
-                    tr.appendChild(td);
-
-                    td = document.createElement('td');
-                    td.innerHTML = result[i].active;
-                    tr.appendChild(td);
-
-                    table.appendChild(tr);
+                    viewItem(table, result[i]);
                 }
             } else {
-                var tr = document.createElement('tr');
-
-                var td = document.createElement('td');
-                td.innerHTML = result.id;
-                tr.appendChild(td);
-
-                td = document.createElement('td');
-                td.innerHTML = result.login;
-                tr.appendChild(td);
-
-                td = document.createElement('td');
-                td.innerHTML = result.role;
-                tr.appendChild(td);
-
-                td = document.createElement('td');
-                td.innerHTML = result.active;
-                tr.appendChild(td);
-
-                table.appendChild(tr);
+                viewItem(table, result);
             }
         };
 
-        var RestGetById = function (id) {
+        var RestDeleteById = function (id) {
             $.ajax({
-                type: 'GET',
-                url: service + "/get/id/" + id,
+                type: 'DELETE',
+                url: service + "/delete/" + id,
                 dataType: 'json',
                 async: false,
-                success: parseResult,
+                success: RestGetAll,
                 error: function (jqXHR, textStatus, errorThrown) {
                     $('#response').html(JSON.stringify(jqXHR));
                 }
             })
         };
+
         var RestGetAll = function (all) {
             $.ajax({
                 type: 'GET',
-                url: service + "/all",
+                url: service + "/get/all",
                 dataType: 'json',
                 async: false,
                 success: parseResult,
@@ -87,62 +95,28 @@
                 }
             })
         };
-        var RestGetByLogin = function (login) {
-            $.ajax({
-                type: 'GET',
-                url: service + "/get/login/" + login,
-                dataType: 'json',
-                async: false,
-                success: parseResult,
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $('#response').html(JSON.stringify(jqXHR));
-                }
-            })
-        }
+
+        window.onload=RestGetAll;
     </script>
 </head>
 
 <body>
-<table class="table">
-    <tr>
-        <td>Получить всех пользователей</td>
-        <td><code><strong>GET</strong>/admin/users/all"</code></td>
-        <td></td>
-        <td>
-            <button type="button" class="btn btn-info" onclick="RestGetAll()">Получить</button>
-        </td>
-    </tr>
-    <tr>
-        <td>Получить пользователя по ID</td>
-        <td><code><strong>GET</strong>/admin/users/get/id/{id}"</code></td>
-        <td><input id="getDocumentID" class="form-control" value="" placeholder="Id"/></td>
-        <td>
-            <button type="button" class="btn btn-info" onclick="RestGetById($('#getDocumentID').val())">Получить</button>
-        </td>
-    </tr>
-    <tr>
-        <td>Получить пользователя по логину</td>
-        <td><code><strong>GET</strong>/admin/users/get/login/{login}"</code></td>
-        <td><input id="getDocumentLOG" class="form-control" value="" placeholder="Login"/></td>
-        <td>
-            <button type="button" class="btn btn-info" onclick="RestGetByLogin($('#getDocumentLOG').val())">Получить</button>
-        </td>
-    </tr>
-</table>
-
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <strong>RESPONSE</strong>
-    </div>
+    <div class="panel-heading"><strong>Пользователи</strong></div>
+
     <table class="table table-hover table-condensed">
         <thead>
+        <th>Логин</th>
+        <th>Роль</th>
+        <th>Активен</th>
         <th>#</th>
-        <th>LOGIN</th>
-        <th>ROLE</th>
-        <th>ACTIVE</th>
         </thead>
         <tbody id="response"></tbody>
     </table>
 </div>
+<a href="/admin/adduser" class="btn btn-default">
+    <span class="glyphicon glyphicon-plus"></span>
+    Новый пользователь
+</a>
 </body>
 </html>

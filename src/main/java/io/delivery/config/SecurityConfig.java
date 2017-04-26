@@ -34,16 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/secure").access("hasRole('ADMIN')")
-<<<<<<< Updated upstream
-                .and().csrf().disable().formLogin().defaultSuccessUrl("/", false);
-    }
-
-
-=======
-                .antMatchers("/backup").access("hasRole('ADMIN')")
                 .antMatchers("/dump").access("hasRole('ADMIN')")
+//                .antMatchers("/admin/*").access("hasRole('ADMIN')")
                 .and().csrf().disable().formLogin().defaultSuccessUrl("/", false);
     }
 
->>>>>>> Stashed changes
 }

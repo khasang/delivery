@@ -3,14 +3,8 @@ package io.delivery.config;
 import io.delivery.config.application.WebConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-<<<<<<< Updated upstream
-import org.springframework.web.filter.CharacterEncodingFilter;
-import javax.servlet.Filter;
-=======
 
 import javax.servlet.*;
->>>>>>> Stashed changes
-
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -36,5 +30,4 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         Filter[] filter = new Filter[]{characterEncodingFilter};
         return filter;
     }
-
 }

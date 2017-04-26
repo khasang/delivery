@@ -1,6 +1,7 @@
 package io.delivery.controller;
 
 import io.delivery.model.Answer;
+import io.delivery.model.BackupCreator;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
 import io.delivery.service.*;
@@ -35,15 +36,10 @@ public class AppController {
     private PreparedSQL preparedSQL;
     @Autowired
     private TableCreator tableCreator;
-<<<<<<< Updated upstream
-=======
     @Autowired
     private Test test;
     @Autowired
     private Client client;
-    @Autowired
-    private BackupCreator backupCreator;
->>>>>>> Stashed changes
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {

@@ -4,12 +4,6 @@ import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
 import io.delivery.model.Answer;
-<<<<<<< Updated upstream
-import io.delivery.model.TableCreator;
-import io.delivery.model.impl.TableCreatorImpl;
-import io.delivery.service.CreateTable;
-import io.delivery.service.impl.CreateTableImpl;
-=======
 import io.delivery.model.BackupCreator;
 import io.delivery.model.NewsCreator;
 import io.delivery.model.TableCreator;
@@ -18,7 +12,6 @@ import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
 import net.yandex.speller.services.spellservice.Client;
->>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +25,7 @@ import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 @Configuration
 @PropertySource(value = {"classpath:util.properties"})
 @PropertySource(value = {"classpath:auth.properties"})
+@PropertySource(value = {"classpath:backup.properties"})
 public class AppConfig {
     @Autowired
     private Environment environment;
@@ -68,10 +62,6 @@ public class AppConfig {
     }
 
     @Bean
-<<<<<<< Updated upstream
-    public CreateTable createTable() {
-        return new CreateTableImpl("asd");
-=======
     public InsertUser insertUser() {
         return new InsertUserImpl(jdbcTemplate());
     }
@@ -99,7 +89,6 @@ public class AppConfig {
     @Bean
     public Test test() {
         return new TestImpl("test");
->>>>>>> Stashed changes
     }
 
     @Bean
@@ -113,9 +102,6 @@ public class AppConfig {
     }
 
     @Bean
-<<<<<<< Updated upstream
-    UserDao userDao(){
-=======
     public NewsCreator newsCreator() {
         return new NewsCreatorImpl(jdbcTemplate());
     }
@@ -142,7 +128,6 @@ public class AppConfig {
 
     @Bean
     UserDao userDao() {
->>>>>>> Stashed changes
         return new UserDaoIml(User.class);
     }
 
