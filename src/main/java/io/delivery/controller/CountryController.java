@@ -16,12 +16,11 @@ import java.util.HashMap;
 public class CountryController {
     @Autowired
     private CountryClient countryClient;
-    @Autowired
-    private CountryInfo countryInfo;
 
     @RequestMapping(value = "/code/{code}", method = RequestMethod.GET)
     @ResponseBody
     public CountryInfo getCountyByCode(@PathVariable(value = "code") String code) {
+        CountryInfo countryInfo = new CountryInfo();
         HashMap<String, String> result = (HashMap<String, String>) countryClient.getCountryByCode(code);
         countryInfo.setCountryCode(result.get("code"));
         countryInfo.setName(result.get("name"));
@@ -31,6 +30,7 @@ public class CountryController {
     @RequestMapping(value = "/{country}", method = RequestMethod.GET)
     @ResponseBody
     public CountryInfo countryInfo(@PathVariable("country") String country) {
+        CountryInfo countryInfo = new CountryInfo();
         HashMap<String, String> result = (HashMap<String, String>) countryClient.currencyInfo(country);
         countryInfo.setName(result.get("name"));
         countryInfo.setCurrency(result.get("curency"));

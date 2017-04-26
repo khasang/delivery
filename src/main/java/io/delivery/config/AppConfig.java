@@ -4,7 +4,6 @@ import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
 import io.delivery.model.Answer;
-import io.delivery.model.CountryInfo;
 import io.delivery.model.NewsCreator;
 import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.service.*;
@@ -125,11 +124,6 @@ public class AppConfig {
     @Bean
     public OrderDao orderDao() {
         return new OrderDaoImpl(Order.class);
-    }
-
-    @Bean
-    public CountryInfo countryInfo() {
-        return new CountryInfo();
     }
 
     @Bean

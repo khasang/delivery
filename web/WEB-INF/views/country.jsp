@@ -8,73 +8,70 @@
     <script type="text/javascript">
         var service = '/country';
 
-        var parseCountryByCode = function (result) {
+        var parseCountry = function (result) {
             var table = document.getElementById('response');
 
             while (table.firstChild) {
                 table.removeChild(table.firstChild);
             }
+            var tr = document.createElement('tr');
+            var td = document.createElement('td');
 
             if (result.length) {
                 for (var i = 0; i < result.length; i++) {
-                    var tr = document.createElement('tr');
-
-                    var td = document.createElement('td');
+                    tr = document.createElement('tr');
+                    td = document.createElement('td');
+                    td.innerHTML = "Country Code";
+                    tr.appendChild(td);
                     td.innerHTML = result[i].countryCode;
                     tr.appendChild(td);
+                    table.appendChild(tr);
 
+                    tr = document.createElement('tr');
                     td = document.createElement('td');
+                    td.innerHTML = "Name";
+                    tr.appendChild(td);
                     td.innerHTML = result[i].name;
                     tr.appendChild(td);
+                    table.appendChild(tr);
 
+                    tr = document.createElement('tr');
+                    td = document.createElement('td');
+                    td.innerHTML = "Currency";
+                    tr.appendChild(td);
+                    td.innerHTML = result[i].currency;
+                    tr.appendChild(td);
                     table.appendChild(tr);
                 }
             } else {
-                var tr = document.createElement('tr');
+                tr = document.createElement('tr');
+                td = document.createElement('td');
+                td.innerHTML = "Country Code";
+                tr.appendChild(td);
 
-                var td = document.createElement('td');
+                td = document.createElement('td')
                 td.innerHTML = result.countryCode;
+                tr.appendChild(td);
+                table.appendChild(tr);
+
+                tr = document.createElement('tr');
+                td = document.createElement('td');
+                td.innerHTML = "Name";
                 tr.appendChild(td);
 
                 td = document.createElement('td');
                 td.innerHTML = result.name;
                 tr.appendChild(td);
-
                 table.appendChild(tr);
-            }
-        };
-        var parseCurrencyByName = function (result) {
-            var table = document.getElementById('response');
 
-            while (table.firstChild) {
-                table.removeChild(table.firstChild);
-            }
-
-            if (result.length) {
-                for (var i = 0; i < result.length; i++) {
-                    var tr = document.createElement('tr');
-
-                    var td = document.createElement('td');
-                    td.innerHTML = result[i].name;
-                    tr.appendChild(td);
-
-                    td = document.createElement('td');
-                    td.innerHTML = result[i].currency;
-                    tr.appendChild(td);
-
-                    table.appendChild(tr);
-                }
-            } else {
-                var tr = document.createElement('tr');
-
-                var td = document.createElement('td');
-                td.innerHTML = result.name;
+                tr = document.createElement('tr');
+                td = document.createElement('td');
+                td.innerHTML = "Currency";
                 tr.appendChild(td);
 
                 td = document.createElement('td');
                 td.innerHTML = result.currency;
                 tr.appendChild(td);
-
                 table.appendChild(tr);
             }
         };
@@ -85,7 +82,7 @@
                 url: service + "/code/" + code,
                 dataType: 'json',
                 async: false,
-                success: parseCountryByCode,
+                success: parseCountry,
                 error: function (jqXHR, textStatus, errorThrown) {
                     $('#response').html(JSON.stringify(jqXHR));
                 }
@@ -98,7 +95,7 @@
                 url: service + "/" + country,
                 dataType: 'json',
                 async: false,
-                success: parseCurrencyByName,
+                success: parseCountry,
                 error: function (jqXHR, textStatus, errorThrown) {
                     $('#response').html(JSON.stringify(jqXHR));
                 }
