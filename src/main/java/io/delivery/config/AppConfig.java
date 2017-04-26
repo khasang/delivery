@@ -12,6 +12,7 @@ import io.delivery.service.impl.CreateTableImpl;
 import io.delivery.service.impl.InsertItemImpl;
 import io.delivery.service.impl.PgDumpImpl;
 import io.delivery.service.impl.PreparedImpl;
+import net.webservicex.CountryClient;
 import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -93,6 +94,11 @@ public class AppConfig {
     @Bean
     public Client client() {
         return new Client();
+    }
+
+    @Bean
+    public CountryClient countryClient() {
+        return new CountryClient();
     }
 }
 
