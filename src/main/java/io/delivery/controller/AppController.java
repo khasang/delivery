@@ -33,8 +33,6 @@ public class AppController {
     private TableCreator tableCreator;
     @Autowired
     private Test test;
-    @Autowired
-    private Country countryService;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -83,12 +81,8 @@ public class AppController {
         return "order";
     }
 
-    @RequestMapping(value = {"/country/{country}"}, method = RequestMethod.GET)
-    public ModelAndView countryInfo(@PathVariable("country") String country) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("country");
-        modelAndView.addObject("name", country);
-        modelAndView.addObject("currency", countryService.getCurrencyName(countryService.currencyInfo(country)));
-        return modelAndView;
+    @RequestMapping(value = "/country")
+    public String getCountryInfo() {
+        return "country";
     }
 }

@@ -7,6 +7,7 @@
 
     <script type="text/javascript">
         var service = '/country';
+
         var parseCountryByCode = function (result) {
             var table = document.getElementById('response');
 
@@ -42,6 +43,42 @@
                 table.appendChild(tr);
             }
         };
+        var parseCurrencyByName = function (result) {
+            var table = document.getElementById('response');
+
+            while (table.firstChild) {
+                table.removeChild(table.firstChild);
+            }
+
+            if (result.length) {
+                for (var i = 0; i < result.length; i++) {
+                    var tr = document.createElement('tr');
+
+                    var td = document.createElement('td');
+                    td.innerHTML = result[i].name;
+                    tr.appendChild(td);
+
+                    td = document.createElement('td');
+                    td.innerHTML = result[i].currency;
+                    tr.appendChild(td);
+
+                    table.appendChild(tr);
+                }
+            } else {
+                var tr = document.createElement('tr');
+
+                var td = document.createElement('td');
+                td.innerHTML = result.name;
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                td.innerHTML = result.currency;
+                tr.appendChild(td);
+
+                table.appendChild(tr);
+            }
+        };
+
         var RestGetByCode = function (code) {
             $.ajax({
                 type: 'GET',
@@ -54,6 +91,19 @@
                 }
             })
         };
+
+        var RestGetCurrency = function (country) {
+            $.ajax({
+                type: 'GET',
+                url: service + "/" + country,
+                dataType: 'json',
+                async: false,
+                success: parseCurrencyByName,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#response').html(JSON.stringify(jqXHR));
+                }
+            });
+        };
     </script>
 
 
@@ -62,10 +112,21 @@
 <table class="table">
     <tr>
         <td>Узнать детали о стране</td>
+    </tr>
+    <tr>
         <td><code><strong>GET</strong>/country/code/{code}</code></td>
         <td><input id="getCountryByCode" class="form-control" value="" placeholder="CountryCode"/></td>
         <td>
             <button type="button" class="btn btn-info" onclick="RestGetByCode($('#getCountryByCode').val())">
+                Получить
+            </button>
+        </td>
+    </tr>
+    <tr>
+        <td><code><strong>GET</strong>/country/{country}</code></td>
+        <td><input id="getCurrencyByName" class="form-control" value="" placeholder="CountryName"/></td>
+        <td>
+            <button type="button" class="btn btn-info" onclick="RestGetCurrency($('#getCurrencyByName').val())">
                 Получить
             </button>
         </td>
@@ -79,13 +140,8 @@
     <table class="table table-hover table-condensed">
         <thead>
         </thead>
-        <tbody id="response">
-<p>Currency of ${name} is ${currency}</p>
-Actual exchange rate to RUB is ${rate}
-
-        </tbody>
+        <tbody id="response"></tbody>
     </table>
 </div>
->>>>>>> 2cfd6b7... add CountryInfo object for response into JS
 </body>
 </html>

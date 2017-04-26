@@ -1,7 +1,7 @@
 package io.delivery.controller;
 
 import io.delivery.model.CountryInfo;
-import net.webservicex.CountryClient;
+import io.delivery.service.CountryClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +19,21 @@ public class CountryController {
     @Autowired
     private CountryInfo countryInfo;
 
-    @RequestMapping(value = "")
-    public String country() {
-        return "country";
-    }
-
     @RequestMapping(value = "/code/{code}", method = RequestMethod.GET)
     @ResponseBody
     public CountryInfo getCountyByCode(@PathVariable(value = "code") String code) {
         HashMap<String, String> result = (HashMap<String, String>) countryClient.getCountryByCode(code);
         countryInfo.setCountryCode(result.get("code"));
         countryInfo.setName(result.get("name"));
+        return countryInfo;
+    }
+
+    @RequestMapping(value = "/{country}", method = RequestMethod.GET)
+    @ResponseBody
+    public CountryInfo countryInfo(@PathVariable("country") String country) {
+        HashMap<String, String> result = (HashMap<String, String>) countryClient.currencyInfo(country);
+        countryInfo.setName(result.get("name"));
+        countryInfo.setCurrency(result.get("curency"));
         return countryInfo;
     }
 }
