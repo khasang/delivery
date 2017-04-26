@@ -93,10 +93,5 @@ public class AppController {
         modelAndView.addObject("info", client.result(check));
         return modelAndView;
     }
-
-    @RequestMapping(value = "/country")
-    public String country() {
-        return "country";
-    }
 }
 
