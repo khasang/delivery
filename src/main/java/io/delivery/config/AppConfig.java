@@ -8,6 +8,12 @@ import io.delivery.model.NewsCreator;
 import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
+import io.delivery.service.Prepared;
+import io.delivery.service.impl.CreateTableImpl;
+import io.delivery.service.impl.InsertItemImpl;
+import io.delivery.service.impl.PgDumpImpl;
+import io.delivery.service.impl.PreparedImpl;
+import net.webservicex.CountryClient;
 import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -123,6 +129,11 @@ public class AppConfig {
     }
 
     @Bean
+    public CountryClient countryClient() {
+        return new CountryClient();
+    }
+
+@Bean
     public OrderDao orderDao() {
         return new OrderDaoImpl(Order.class);
     }
@@ -130,6 +141,11 @@ public class AppConfig {
     @Bean
     public Country country() {
         return new Country();
+    }
+
+    @Bean
+    public CountryInfo countryInfo() {
+        return new CountryInfo();
     }
 }
 
