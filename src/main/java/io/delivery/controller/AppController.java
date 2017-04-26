@@ -89,4 +89,9 @@ public class AppController {
         modelAndView.addObject("info", client.result(check));
         return modelAndView;
     }
+
+    @RequestMapping(value = "/feedback")
+    public String feedBack() {
+        return "feedback";
+    }
 }

@@ -7,51 +7,80 @@
 <html>
 <head>
     <title>Отзывы</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
-<body>
-<div align="center">
-    <h3>Отзывы покупателей</h3>
-    <br/>
-    <form:form action="/feedback/add" method="POST" modelAttribute="feedbackDto">
-        <form:input path="text" placeholder="Оставьте отзыв..."/>
-        <form:button type="submit">Добавить</form:button>
-    </form:form>
-    <br/>
-    <h1>Отзывы</h1>
-    <c:if test="${!empty feedbacks}">
-        <table border="1px">
-            <tr>
-                <th>Покупатель</th>
-                <th width="400">Отзыв</th>
-            </tr>
-            <c:forEach items="${feedbacks}" var="feedback">
-                <tr>
-                    <td>
-                        <table>
-                            <tr>
-                                <td>Здесь могло быть имя юзера</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <c:set var="cleanedDateTime" value="${fn:replace(feedback.date, 'T', ' ')}"/>
-                                    <fmt:parseDate value="${ cleanedDateTime }" pattern="yyyy-MM-dd HH:mm"
-                                                   var="parsedDateTime" type="both"/>
-                                    <fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>${feedback.feedBackText}</td>
-                    <td>
-                        <form:form action="/feedback/delete" method="POST">
-                            <input type="hidden" name="feedbackId" value="${feedback.id}"/>
-                            <input type="submit" value="Удалить">
-                        </form:form>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-    </c:if>
+<body onload="AllFeedBacks()">
+<script type="text/javascript">
+    var service = '/feedback';
+    var AddFeedBack = function (feedback_date, feedback_text) {
+        var JSONObject = {
+            'date': feedback_date,
+            'feedBackText': feedback_text
+
+        }
+        $.ajax({
+            type: 'POST',
+            url: service + "/add",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(JSONObject),
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                $('#response').html(JSON.stringify(result));
+            },
+            error: function (jqXHR, textStatus, errorThrpwn) {
+                $('#response').html(JSON.stringify(jqXHR));
+            }
+        });
+    };
+
+    var AllFeedBacks = function () {
+        $.ajax({
+            type: 'GET',
+            url: service + "/all",
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                var JSONobj = JSON.stringify(result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#respons').html(JSON.stringify(jqXHR));
+            }
+        })
+    };
+</script>
+<div class="col-md-3">
+</div>
+<div class="col-md-6 table-responsive">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <textarea rows="4" class="form-control" id="feedBackText"
+                      placeholder="Нам важно Ваше мнение.. (нет)"></textarea>
+            <button class="btn btn-large btn-primary btn-block" type="button"
+                    onclick="AddFeedBack(new Date().toJSON(),$('#feedBackText').val()); AllFeedBacks()">Оставить отзыв
+            </button>
+
+        </tr>
+        <br>
+        <tr class="active">
+            <td width="100">Дата</td>
+            <td width="300">
+                Отзыв
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="info">
+            <td></td>
+            <td>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-md-3">
 </div>
 </body>
 </html>

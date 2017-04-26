@@ -20,7 +20,7 @@ public class FeedBackController {
         return feedbackService.getFeedbackList();
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public FeedBack addFeedBack(@RequestBody FeedBack feedBack) {
         feedbackService.create(feedBack);
