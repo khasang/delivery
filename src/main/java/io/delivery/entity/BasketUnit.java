@@ -8,14 +8,7 @@ import javax.persistence.*;
 @Table(name = "basket")
 public class BasketUnit {
     @Id
-    @TableGenerator(
-            name = "BASKET_GEN",
-            table = "SEQUENCE_TABLE",
-            pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_COUNT",
-            pkColumnValue = "BASKET_SEQ",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "BASKET_GEN")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "unit_id")
     private Long id;
     @Column(name = "item_id")

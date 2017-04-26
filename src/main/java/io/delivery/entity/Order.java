@@ -11,16 +11,8 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 public class Order {
-
     @Id
-    @TableGenerator(
-            name = "ORD_GEN",
-            table = "SEQUENCE_TABLE",
-            pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_COUNT",
-            pkColumnValue = "ORD_SEQ",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "ORD_GEN")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long id;
     @Column(name = "delivery_date")
