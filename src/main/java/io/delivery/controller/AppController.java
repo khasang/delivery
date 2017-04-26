@@ -1,13 +1,13 @@
 package io.delivery.controller;
 
+import https.www_w3schools_com.xml.ClientTemp;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
 import io.delivery.service.*;
-import net.yandex.speller.services.spellservice.Client;
 import net.webservicex.ConversionRate;
-import net.webservicex.Currency;
 import net.webservicex.CurrencyClient;
+import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -46,6 +46,8 @@ public class AppController {
     private CurrencyClient currencyClient;
     @Autowired
     private ConversionRate conversionRate;
+    @Autowired
+    private ClientTemp clientTemp;
 
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
@@ -105,6 +107,14 @@ public class AppController {
         modelAndView.addObject("result", currencyClient.result());
         modelAndView.addObject("fromCurrency", conversionRate.getFromCurrency());
         modelAndView.addObject("toCurrency", conversionRate.getToCurrency());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"/temp/{convert}"}, method = RequestMethod.GET)
+    public ModelAndView convertTemp(@PathVariable("convert") String convert) throws IOException, SOAPException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("temperatur");
+        modelAndView.addObject("convertTemp", clientTemp.result(convert));
         return modelAndView;
     }
 }

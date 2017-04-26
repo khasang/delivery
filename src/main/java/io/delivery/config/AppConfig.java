@@ -1,5 +1,6 @@
 package io.delivery.config;
 
+import https.www_w3schools_com.xml.ClientTemp;
 import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
@@ -138,6 +139,11 @@ public class AppConfig {
     @Bean
     public ConversionRate conversionRate() {
         return new ConversionRate();
+    }
+
+    @Bean
+    public ClientTemp clientTemp() {
+        return new ClientTemp();
     }
 }
 
