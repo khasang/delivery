@@ -40,8 +40,6 @@ public class AppController {
     private Test test;
     @Autowired
     private Client client;
-    @Autowired
-    private BackupCreator backupCreator;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -62,12 +60,6 @@ public class AppController {
     @RequestMapping(value = "/create")
     public String create(Model model) {
         model.addAttribute("status", tableCreator.createCompany());
-        return "create";
-    }
-
-    @RequestMapping(value = "/backup")
-    public String backup(Model model) {
-        model.addAttribute("status", backupCreator.createBackup());
         return "create";
     }
 

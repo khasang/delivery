@@ -11,7 +11,7 @@
             var tr = document.createElement('tr');
 
             var td = document.createElement('td');
-            td.setAttribute('id', 'key');
+            td.setAttribute('style', 'display:none');
             td.innerHTML = item.id;
             tr.appendChild(td);
 
@@ -39,10 +39,11 @@
             del.setAttribute('type', "button");
             del.setAttribute('class', "btn btn-danger btn-xs");
             del.onclick = function(){
-//                var rows = $("#response").find("tr");
-                var index = $(this).parent().parent().index;
-                var val = $("#response").find("tr")[index].toSource;
-                alert(val);
+                var index = $(this).parent().parent().index();
+                var val = $("#response").find("tr")[index].firstChild.innerText;
+                if (confirm("Вы уверены?")){
+                    RestDeleteById(val);
+                }
             };
             del.innerText = 'Удалить';
 
@@ -52,6 +53,7 @@
 
             table.appendChild(tr);
         }
+
         var parseResult = function (result) {
             var table = document.getElementById('response');
           
@@ -81,18 +83,6 @@
             })
         };
 
-        var RestGetById = function (id) {
-            $.ajax({
-                type: 'GET',
-                url: service + "/get/id/" + id,
-                dataType: 'json',
-                async: false,
-                success: parseResult,
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $('#response').html(JSON.stringify(jqXHR));
-                }
-            })
-        };
         var RestGetAll = function (all) {
             $.ajax({
                 type: 'GET',
@@ -105,56 +95,28 @@
                 }
             })
         };
-        var RestGetByLogin = function (login) {
-            $.ajax({
-                type: 'GET',
-                url: service + "/get/login/" + login,
-                dataType: 'json',
-                async: false,
-                success: parseResult,
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $('#response').html(JSON.stringify(jqXHR));
-                }
-            })
-        }
+
         window.onload=RestGetAll;
     </script>
 </head>
 
 <body>
-<table class="table">
-    <tr>
-        <td>Получить пользователя по ID</td>
-        <td><code><strong>GET</strong>/admin/users/get/id/{id}"</code></td>
-        <td><input id="getDocumentID" class="form-control" value="" placeholder="Id"/></td>
-        <td>
-            <button type="button" class="btn btn-info" onclick="RestGetById($('#getDocumentID').val())">Получить</button>
-        </td>
-    </tr>
-    <tr>
-        <td>Получить пользователя по логину</td>
-        <td><code><strong>GET</strong>/admin/users/get/login/{login}"</code></td>
-        <td><input id="getDocumentLOG" class="form-control" value="" placeholder="Login"/></td>
-        <td>
-            <button type="button" class="btn btn-info" onclick="RestGetByLogin($('#getDocumentLOG').val())">Получить</button>
-        </td>
-    </tr>
-</table>
-
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <strong>Пользователи</strong>
-    </div>
+    <div class="panel-heading"><strong>Пользователи</strong></div>
+
     <table class="table table-hover table-condensed">
         <thead>
-        <th>#</th>
-        <th>LOGIN</th>
-        <th>ROLE</th>
-        <th>ACTIVE</th>
+        <th>Логин</th>
+        <th>Роль</th>
+        <th>Активен</th>
         <th>#</th>
         </thead>
         <tbody id="response"></tbody>
     </table>
 </div>
+<a href="/admin/adduser" class="btn btn-default">
+    <span class="glyphicon glyphicon-plus"></span>
+    Новый пользователь
+</a>
 </body>
 </html>

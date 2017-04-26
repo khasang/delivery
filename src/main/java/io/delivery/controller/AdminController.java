@@ -1,6 +1,7 @@
 package io.delivery.controller;
 
 import io.delivery.entity.User;
+import io.delivery.model.BackupCreator;
 import io.delivery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+    @Autowired
+    private BackupCreator backupCreator;
 
     final private UserService userService;
 
@@ -62,8 +65,14 @@ public class AdminController {
         return "/admin/users";
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/adduser", method = RequestMethod.GET)
     public String getUserForm(Model model){
         return "/admin/user";
+    }
+
+    @RequestMapping(value = "/backup")
+    public String backup(Model model) {
+        model.addAttribute("status", backupCreator.createBackup());
+        return "create";
     }
 }
