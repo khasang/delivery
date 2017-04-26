@@ -128,8 +128,8 @@ public class AppConfig {
     }
 
     @Bean
-    public Client client() {
-        return new Client();
+    public Country country() {
+        return new Country();
     }
 }
 

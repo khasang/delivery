@@ -2,12 +2,12 @@ package io.delivery.service;
 
 import net.webservicex.*;
 
-public class Client {
+public class Country {
 
     //private CurrencyConvertorSoap convertor = new CurrencyConvertor().getCurrencyConvertorSoap();
-    private CountrySoap countryDetails = new Country().getCountrySoap();
+    private CountrySoap countryDetails = new net.webservicex.Country().getCountrySoap();
 
-    public Client() {
+    public Country() {
     }
 
     public String currencyInfo(String country) {
