@@ -1,11 +1,12 @@
 package io.delivery.model;
 
-public class CountryInfo {
+public class CountryInfoContainer {
     private String countryCode;
     private String name;
     private String currency;
+    private String currencyCode;
 
-    public CountryInfo() {
+    public CountryInfoContainer() {
     }
 
     public String getCountryCode() {
@@ -30,5 +31,13 @@ public class CountryInfo {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
     }
 }

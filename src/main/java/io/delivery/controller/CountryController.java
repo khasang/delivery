@@ -1,6 +1,6 @@
 package io.delivery.controller;
 
-import io.delivery.model.CountryInfo;
+import io.delivery.model.CountryInfoContainer;
 import io.delivery.service.CountryClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,21 +19,45 @@ public class CountryController {
 
     @RequestMapping(value = "/code/{code}", method = RequestMethod.GET)
     @ResponseBody
-    public CountryInfo getCountyByCode(@PathVariable(value = "code") String code) {
-        CountryInfo countryInfo = new CountryInfo();
-        HashMap<String, String> result = (HashMap<String, String>) countryClient.getCountryByCode(code);
-        countryInfo.setCountryCode(result.get("code"));
-        countryInfo.setName(result.get("name"));
-        return countryInfo;
+    public CountryInfoContainer getCountyByCountryCode(@PathVariable(value = "code") String code) {
+        HashMap<String, String> result = (HashMap<String, String>) countryClient.getCountryByCountryCode(code);
+        CountryInfoContainer countryInfoContainer = new CountryInfoContainer();
+        countryInfoContainer.setCountryCode(result.get("code"));
+        countryInfoContainer.setName(result.get("name"));
+        return countryInfoContainer;
     }
 
-    @RequestMapping(value = "/{country}", method = RequestMethod.GET)
+    @RequestMapping(value = "/currency/{currencycode}", method = RequestMethod.GET)
     @ResponseBody
-    public CountryInfo countryInfo(@PathVariable("country") String country) {
-        CountryInfo countryInfo = new CountryInfo();
-        HashMap<String, String> result = (HashMap<String, String>) countryClient.currencyInfo(country);
-        countryInfo.setName(result.get("name"));
-        countryInfo.setCurrency(result.get("curency"));
-        return countryInfo;
+    public CountryInfoContainer getCountryByCurrencyCode(@PathVariable(value = "currencycode") String currencyCode) {
+        CountryInfoContainer countryInfoContainer = new CountryInfoContainer();
+        HashMap<String, String> result = (HashMap<String, String>) countryClient.getCountryByCurrencyCode(currencyCode);
+        countryInfoContainer.setName(result.get("name"));
+        countryInfoContainer.setCountryCode(result.get("code"));
+        countryInfoContainer.setCurrency(result.get("curency"));
+        countryInfoContainer.setCurrencyCode(result.get("curencycode"));
+        return countryInfoContainer;
+    }
+
+    @RequestMapping(value = "/currency/name/{currencyname}", method = RequestMethod.GET)
+    @ResponseBody
+    public CountryInfoContainer getCountryByCurrency(@PathVariable(value = "currencyname") String currencyName) {
+        CountryInfoContainer countryInfoContainer = new CountryInfoContainer();
+        HashMap<String, String> result = (HashMap<String, String>) countryClient.getCountryByCurrency(currencyName);
+        countryInfoContainer.setCurrency(result.get("curency"));
+        countryInfoContainer.setCurrencyCode(result.get("curencycode"));
+        return countryInfoContainer;
+    }
+
+    @RequestMapping(value = "/name/{country}", method = RequestMethod.GET)
+    @ResponseBody
+    public CountryInfoContainer getCurrencyByCountry(@PathVariable("country") String country) {
+        CountryInfoContainer countryInfoContainer = new CountryInfoContainer();
+        HashMap<String, String> result = (HashMap<String, String>) countryClient.getCurrencyByCountry(country);
+        countryInfoContainer.setName(result.get("name"));
+        countryInfoContainer.setCurrencyCode(result.get("curencycode"));
+        countryInfoContainer.setCurrency(result.get("curency"));
+        countryInfoContainer.setCurrencyCode(result.get("curencycode"));
+        return countryInfoContainer;
     }
 }

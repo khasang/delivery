@@ -16,29 +16,24 @@ public class CountryClient {
     public CountryClient() {
     }
 
-    public Map<String, String> getCountryByCode(String code) {
+    public Map<String, String> getCountryByCountryCode(String code) {
         String response = countrySoap.getCountryByCountryCode(code);
         return parseCountry(response);
     }
 
-    //private CurrencyConvertorSoap convertor = new CurrencyConvertor().getCurrencyConvertorSoap();
-
-    public Map<String, String> currencyInfo(String country) {
+    public Map<String, String> getCurrencyByCountry(String country) {
         String response = countrySoap.getCurrencyByCountry(country);
         return parseCountry(response);
     }
 
-//    public String currencyRate(String from, String to) {
-//        Double currencyRate = convertor.conversionRate(Currency.RUB,Currency.USD);
-//        return currencyRate.toString();
-//    }
+    public Map<String, String> getCountryByCurrency(String currency) {
+        String response = countrySoap.getCurrencyCodeByCurrencyName(currency);
+        return parseCountry(response);
+    }
 
-//    public String getCurrencyName(String result) {
-//        return "unknown";
-//    }
-
-    public String getCurrencyCode(String result) {
-        return result.substring(result.indexOf("<CurrencyCode>") + 14, result.indexOf("</CurrencyCode>"));
+    public Map<String, String> getCountryByCurrencyCode(String currencycode) {
+        String response = countrySoap.getCountryByCurrencyCode(currencycode);
+        return parseCountry(response);
     }
 
     private Map<String, String> parseCountry(String response) {
