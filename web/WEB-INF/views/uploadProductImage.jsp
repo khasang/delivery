@@ -5,7 +5,7 @@
     <title>Upload product image file</title>
 </head>
 <body>
-<form method="POST" action="/products/images/upload"  enctype="multipart/form-data">
+<form method="POST" action="/products/addImage"  enctype="multipart/form-data">
     Image to upload: <input type="file" name="file" class="file">
 
     Product id: <input type="text" name="productId">

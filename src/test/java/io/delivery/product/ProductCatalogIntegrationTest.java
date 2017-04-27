@@ -398,55 +398,31 @@ public class ProductCatalogIntegrationTest {
 
     @Test
     public void addImage() {
-        class ImageFileResource extends ByteArrayResource {
-            private final String filename;
-
-            private ImageFileResource(final byte[] byteArray, final String filename) {
-                super(byteArray);
-                this.filename = filename;
-            }
-
-            @Override
-            public String getFilename() {
-                return filename;
-            }
-        }
-
         MultiValueMap<String, Object> data = new LinkedMultiValueMap<>();
-        data.add("file", new ImageFileResource(createdImage.getImage(), "upload.jpeg"));
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(data);
-        ResponseEntity<Map<String,String>> response = getRestTemplate().exchange(url, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<Map<String,String>>() {});
+
+        HttpHeaders fileHeaders = new HttpHeaders();
+        fileHeaders.setContentType(MediaType.IMAGE_JPEG);
+        HttpEntity<byte[]> fileEntity = new HttpEntity<>(createdImage.getImage(), fileHeaders);
+        data.add("file", fileEntity);
+
+        HttpHeaders productHeaders = new HttpHeaders();
+        productHeaders.setContentType(MediaType.TEXT_PLAIN);
+        HttpEntity<String> productEntity = new HttpEntity<>(Long.toString(createdProduct.getId()), productHeaders);
+        data.add("productId", Long.toString(createdProduct.getId()));
+
+        HttpHeaders formHeaders = new HttpHeaders();
+        formHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(data, formHeaders);
 
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<byte[]> responseEntity = restTemplate.exchange(
-                ROOT + "/uploadProductImage/" + "{id}",
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(
+                ROOT + "/addImage",
                 HttpMethod.POST,
-                null,
-                new ParameterizedTypeReference<byte[]>() {
-                },
-                createdImage.getId()
+                requestEntity,
+                Long.class
         );
-        byte[] result = responseEntity.getBody();
+        Long result = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertArrayEquals(result, createdImage.getImage());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        ProductImage image = new ProductImage();
-        image.setImage(new byte[] {0, 1, 2, 3, 4});
-        HttpEntity<ProductCatalogSection> httpEntity = new HttpEntity<>(section, headers);
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<ProductCatalogSection> responseEntity = restTemplate.exchange(
-                ROOT + "/addCatalogSection",
-                HttpMethod.POST,
-                httpEntity,
-                ProductCatalogSection.class
-        );
-        ProductCatalogSection addedSection = responseEntity.getBody();
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(addedSection);
-        assertEquals(addedSection.getName(), section.getName());
-
     }
 }
