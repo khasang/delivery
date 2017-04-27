@@ -8,12 +8,13 @@ import javax.xml.soap.SOAPException;
 import javax.xml.ws.Service;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 public class Client {
     private static final String ADDRESS = "http://86.57.245.235/TimeTable/Service.asmx?WSDL";
+    private String pointOfDeparture;
 
     public Client() {
     }
@@ -41,56 +42,82 @@ public class Client {
 
         Service service = Service.create(url, qName);
 
-        OnlineTimeTableSoap hello = service.getPort(OnlineTimeTableSoap.class);
+        OnlineTimeTableSoap timeTableSoap = service.getPort(OnlineTimeTableSoap.class);
 
-        String poingOfDeparture;
+        TimeTableType type = setTimeTabelType(timeTableType);
 
+        XMLGregorianCalendar validatedDate = validateAndSetDate(date);
+
+        TimeTableResponce response = timeTableSoap.getTimeTable(airport, type, validatedDate);
+
+        ArrayOfFlight flights = response.getFlights();
+        List<String> responseList = getListOfFlightsResponse(flights.getFlight());
+
+        if (responseList.size() > 0)
+            return responseList.toString();
+        else
+            return "There is no flights " +
+                    pointOfDeparture +
+                    airport + " " +
+                    validatedDate.toString();
+    }
+
+    private XMLGregorianCalendar validateAndSetDate(String date) throws IllegalArgumentException{
+        XMLGregorianCalendar validatedDate = new XMLGregorianCalendarImpl();
+
+        LocalDate localDate = LocalDate.now();
+        int currentYear = localDate.getYear();
+        int currentMonth = localDate.getMonthValue();
+        int currentDay = localDate.getDayOfMonth();
+
+        String[] splittedDate = date.split("[\\p{Punct}]");
+        int askedYear = Integer.parseInt(splittedDate[0]);
+        int askedMonth = Integer.parseInt(splittedDate[1]);
+        int askedDay = Integer.parseInt(splittedDate[2]);
+
+        if(currentYear != askedYear)
+            throw new IllegalArgumentException("The year incorrect (must be current year)");
+        else if(currentMonth != askedMonth)
+            throw new IllegalArgumentException("The month incorrect (must be current month)");
+        else if(Math.abs(currentDay - askedDay) > 2){
+            throw new IllegalArgumentException("The day must be between +-2 days of current date");
+        }
+        else{
+            validatedDate.setYear(askedYear);
+            validatedDate.setMonth(askedMonth);
+            validatedDate.setDay(askedDay);
+        }
+
+        return validatedDate;
+    }
+
+    private TimeTableType setTimeTabelType(String timeTableType) throws IllegalArgumentException{
         TimeTableType type;
         if(timeTableType.equals("Arrival")) {
             type = TimeTableType.ARRIVAL;
-            poingOfDeparture = " fling to ";
+            pointOfDeparture = " fling to ";
         }
         else if(timeTableType.equals("Departure")) {
             type = TimeTableType.DEPARTURE;
-            poingOfDeparture = " fling from ";
+            pointOfDeparture = " fling from ";
         }
         else throw new IllegalArgumentException("Type must be Arrival or Departure");
 
-        XMLGregorianCalendar calendar = new XMLGregorianCalendarImpl();
-        String[] splittedDate = date.split("-");
-        if(!splittedDate[0].equals("2017"))
-            throw new IllegalArgumentException("Year must be 2017");
-        if(!splittedDate[1].equals("04"))
-            throw new IllegalArgumentException("Month must be 04");
+        return type;
+    }
 
-        int year = Integer.parseInt(splittedDate[0]);
-        int month = Integer.parseInt(splittedDate[1]);
-        int day = Integer.parseInt(splittedDate[2]);
-
-        calendar.setDay(day);
-        calendar.setMonth(month);
-        calendar.setYear(year);
-
-        TimeTableResponce response = hello.getTimeTable(airport, type, calendar);
-        ArrayOfFlight flights = response.getFlights();
-        List<Flight> listOfFlights = flights.getFlight();
+    private List<String> getListOfFlightsResponse(List<Flight> listOfFlights){
         List<String> stringListOfFlights = new ArrayList<>();
         for(Flight f : listOfFlights){
-            stringListOfFlights.add("| Aircraft " + f.getAircraft() + " flight number: " +
-                                    f.getFlightNumber() +
-                                    poingOfDeparture + " airport IATA: " +
-                                    f.getAirport() + " is " +
-                                    f.getStatus() + " |");
+            stringListOfFlights.add("| Aircraft "       + f.getAircraft() +
+                    " flight number: "  + f.getFlightNumber() +
+                    pointOfDeparture    + // "from" or "to"
+                    " airport IATA: "   + f.getAirport() +
+                    " is "              + f.getStatus() +
+                    " actual time: "    + f.getActualTime() +
+                    " expected time: "  + f.getExpectedTime() +
+                    " scheduled time: " + f.getScheduleTime() + " |");
         }
-
-        if (stringListOfFlights.size() > 0)
-            return stringListOfFlights.toString();
-        else
-            return "There is no flights " +
-                    poingOfDeparture +
-                    airport + " " +
-                    calendar.getDay() + "." +
-                    calendar.getMonth() + "." +
-                    calendar.getYear();
+        return stringListOfFlights;
     }
 }
