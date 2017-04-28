@@ -27,7 +27,7 @@ public interface BasicDao<T> {
     T create(T entity);
 
     /**
-     * @param entity - document for updateProduct
+     * @param entity - document for update
      * @return entity
      */
     T update(T entity);

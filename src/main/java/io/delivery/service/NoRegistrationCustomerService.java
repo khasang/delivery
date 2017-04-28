@@ -31,7 +31,7 @@ public interface NoRegistrationCustomerService {
     /**
      * Update noRegistrationCustomer at db
      *
-     * @param noRegistrationCustomer - noRegistrationCustomer for updateProduct
+     * @param noRegistrationCustomer - noRegistrationCustomer for update
      * @return noRegistrationCustomer
      */
     NoRegistrationCustomer update(NoRegistrationCustomer noRegistrationCustomer);
@@ -39,7 +39,7 @@ public interface NoRegistrationCustomerService {
     /**
      * Delete NoRegistrationCustomer from db
      *
-     * @param id - noRegistrationCustomer for deleteProduct
+     * @param id - noRegistrationCustomer for delete
      * @return deleted noRegistrationCustomer
      */
     NoRegistrationCustomer deleteNoRegistrationCustomer(long id);

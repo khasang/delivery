@@ -29,7 +29,7 @@ public interface DocumentService {
     Document create(Document document);
 
     /**
-     * @param document - document for updateProduct
+     * @param document - document for update
      * @return document
      */
     Document updateDocument(Document document);

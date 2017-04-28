@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 public class OfficeIntegrationTest {
     private final String ROOT = "http://localhost:8080/office";
     private final String ADD = "/add";
-    private final String DELETE = "/deleteProduct/{id}";
+    private final String DELETE = "/delete/{id}";
     private final String GET_ALL = "/all";
 
     @Test
