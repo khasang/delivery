@@ -38,7 +38,6 @@ public class ProductCatalogIntegrationTest {
     private Product createdProduct = new Product();
     private ProductImage createdImage = new ProductImage();
 
-
     @Before
     public void createTestEntities() {
         createdSection.setName("PizzaTest");
@@ -401,6 +400,7 @@ public class ProductCatalogIntegrationTest {
         MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
 
         ByteArrayResource imageResource = new ByteArrayResource(createdImage.getImage()) {
+            @Override
             public String getFilename() {
                 return "test.jpeg";
             }

@@ -3,11 +3,11 @@ package io.delivery.service;
 import io.delivery.entity.Product;
 import io.delivery.entity.ProductCatalogSection;
 import io.delivery.entity.ProductImage;
+import io.delivery.service.impl.ProductServiceImpl;
 
 import java.util.List;
 
 public interface ProductService {
-
     /**
      * Receive all goods from the db
      * @return product list

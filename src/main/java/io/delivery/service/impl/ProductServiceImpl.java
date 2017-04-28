@@ -7,13 +7,15 @@ import io.delivery.entity.Product;
 import io.delivery.entity.ProductCatalogSection;
 import io.delivery.entity.ProductImage;
 import io.delivery.service.ProductService;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service("productService")
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
 
