@@ -398,21 +398,26 @@ public class ProductCatalogIntegrationTest {
 
     @Test
     public void addImage() {
-        MultiValueMap<String, Object> data = new LinkedMultiValueMap<>();
+        MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
 
+        ByteArrayResource imageResource = new ByteArrayResource(createdImage.getImage()) {
+            public String getFilename() {
+                return "test.jpeg";
+            }
+        };
         HttpHeaders fileHeaders = new HttpHeaders();
         fileHeaders.setContentType(MediaType.IMAGE_JPEG);
-        HttpEntity<byte[]> fileEntity = new HttpEntity<>(createdImage.getImage(), fileHeaders);
-        data.add("file", fileEntity);
+        HttpEntity<ByteArrayResource> fileEntity = new HttpEntity<>(imageResource, fileHeaders);
+        formData.add("file", fileEntity);
 
         HttpHeaders productHeaders = new HttpHeaders();
         productHeaders.setContentType(MediaType.TEXT_PLAIN);
         HttpEntity<String> productEntity = new HttpEntity<>(Long.toString(createdProduct.getId()), productHeaders);
-        data.add("productId", Long.toString(createdProduct.getId()));
+        formData.add("productId", productEntity);
 
         HttpHeaders formHeaders = new HttpHeaders();
         formHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(data, formHeaders);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(formData, formHeaders);
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -422,7 +427,8 @@ public class ProductCatalogIntegrationTest {
                 requestEntity,
                 Long.class
         );
-        Long result = responseEntity.getBody();
+        long result = responseEntity.getBody();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertNotEquals(result, 0l);
     }
 }
