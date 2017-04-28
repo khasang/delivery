@@ -4,6 +4,11 @@
     <title>Title</title>
 </head>
 <body>
-    ${data}
+    ${timetable}
+    <div align="center" style="color: red">
+        <h3>${timetableIllegalExc}</h3>
+        <h3>${timetableIoExc}</h3>
+        <h3>${timetableSoapExc}</h3>
+    </div>
 </body>
 </html>

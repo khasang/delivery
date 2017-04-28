@@ -19,7 +19,10 @@ public class Client {
     public Client() {
     }
 
-    public String getListOfAirports(String language) throws SOAPException, IOException{
+    public List<String> getListOfAirports(String language) throws SOAPException, IOException{
+        if(!(languageVerification(language)))
+            throw new IllegalArgumentException("Wrong language parameter - must be RU or EN");
+
         URL url = new URL(ADDRESS);
         QName qName = new QName("http://webservices.belavia.by/", "OnlineTimeTable");
 
@@ -33,7 +36,7 @@ public class Client {
         for(Airport a : airportList){
             airportIataAndName.add("| " + a.getIATA() + " - " + a.getName() + " |");
         }
-        return airportIataAndName.toString();
+        return airportIataAndName;
     }
 
     public String getListOfFlights(String airport, String timeTableType, String date) throws SOAPException, IOException{
@@ -76,11 +79,12 @@ public class Client {
         int askedDay = Integer.parseInt(splittedDate[2]);
 
         if(currentYear != askedYear)
-            throw new IllegalArgumentException("The year incorrect (must be current year)");
+            throw new IllegalArgumentException("Wrong year parameter - must be current year");
         else if(currentMonth != askedMonth)
-            throw new IllegalArgumentException("The month incorrect (must be current month)");
+            throw new IllegalArgumentException("Wrong month parameter - must be current month");
         else if(Math.abs(currentDay - askedDay) > 2){
-            throw new IllegalArgumentException("The day must be between +-2 days of current date");
+            throw new IllegalArgumentException("Wrong day parameter - must be " +
+                                                "between +/-2 days of current date");
         }
         else{
             validatedDate.setYear(askedYear);
@@ -101,7 +105,7 @@ public class Client {
             type = TimeTableType.DEPARTURE;
             pointOfDeparture = " fling from ";
         }
-        else throw new IllegalArgumentException("Type must be Arrival or Departure");
+        else throw new IllegalArgumentException("Wrong type parameter - must be Arrival or Departure");
 
         return type;
     }
@@ -119,5 +123,15 @@ public class Client {
                     " scheduled time: " + f.getScheduleTime() + " |");
         }
         return stringListOfFlights;
+    }
+
+    private boolean languageVerification(String language){
+        List<String> verifiedLanguages = new ArrayList<>();
+        verifiedLanguages.add("ru");
+        verifiedLanguages.add("en");
+
+        String testLanguage = language.toLowerCase();
+
+        return verifiedLanguages.contains(testLanguage);
     }
 }

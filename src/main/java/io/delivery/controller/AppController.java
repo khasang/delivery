@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class AppController {
@@ -83,10 +84,18 @@ public class AppController {
     }
 
     @RequestMapping(value = {"/belavia/airports/{language}"}, method = RequestMethod.GET)
-    public ModelAndView getAirportsList(@PathVariable("language") String language) throws IOException, SOAPException {
+    public ModelAndView getAirportsList(@PathVariable("language") String language){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("airports");
-        modelAndView.addObject("info", client.getListOfAirports(language));
+        try {
+            modelAndView.addObject("airports", client.getListOfAirports(language));
+         }catch (IllegalArgumentException e){
+            modelAndView.addObject("airportIllegalExc", e.getMessage());
+        }catch (SOAPException e){
+            modelAndView.addObject("airportSoapExc", e.getMessage());
+        }catch (IOException e){
+            modelAndView.addObject("airportIoExc", e.getMessage());
+        }
         return modelAndView;
     }
 
@@ -96,7 +105,15 @@ public class AppController {
                                          @PathVariable("date") String date) throws IOException, SOAPException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("timetable");
-        modelAndView.addObject("data", client.getListOfFlights(airport, type, date));
+        try {
+            modelAndView.addObject("timetable", client.getListOfFlights(airport, type, date));
+        }catch (IllegalArgumentException e){
+            modelAndView.addObject("timetableIllegalExc", e.getMessage());
+        }catch (SOAPException e){
+            modelAndView.addObject("timetableSoapExc", e.getMessage());
+        }catch (IOException e){
+            modelAndView.addObject("timetableIoExc", e.getMessage());
+        }
         return modelAndView;
     }
 }
