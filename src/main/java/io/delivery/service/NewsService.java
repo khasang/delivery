@@ -29,7 +29,7 @@ public interface NewsService {
     News create(News news);
 
     /**
-     * @param news - news for update
+     * @param news - news for updateProduct
      * @return news
      */
     News updateNews(News news);

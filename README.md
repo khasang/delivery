@@ -73,3 +73,95 @@ ______
 - ***CustomerDao** - интерфейс, унаследованный от BasicDao и расширяющий его функционал дополнительными методами взаимодействия сущности заказчика с базой данных*
 
 #### *To be continued...*
+
+## Feature products
+
+Функционал отвечает за управление сущностями товаров и связанных с ними сущностями изображений товаров и разделов каталога товаров.
+
+*Реализован на уровнях:*
+- [**Entity**](#product_entity)
+- [**Dao**](#product_dao)
+- [**Service**](#product_service)
+- [**Controller**](#product_controller)
+
+### <a name = "product_entity"></a> Product entities 
+
+Включают в себя следующие сущности, представленные одноименными java классами:
+
+* **Product** - товар
+* **ProductCatalogSection** - раздел каталога товаров
+* **ProductImage** - изображение, связанное с товаром
+
+Каждое поле имеет соответсвующие getter и setter.
+##### Product.java
+- `long id`
+- `String name`
+- `int price`
+- `String description`
+- `ProductCatalogSection productCatalogSection` - @ManyToOne
+- `List<ProductImage> images` - @OneToMany
+
+##### ProductCatalogSection.java
+- `long id`
+- `String name`
+- `List<Product> products` - @OneToMany
+
+##### ProductImage
+- `long id`
+- `Product product` - @ManyToOne
+- `byte[] image`
+
+### <a name = "product_dao"></a> Product DAOs
+
+Представлены следующими DAO, каждый из которых является расширением базового **BasicDao**:
+
+* **ProductDao** имеет следующие специфичные методы
+    - `List<Product> findByName(String name)`
+    - `List<Product> findByPriceRange(int min, int max)`
+    - `List<Product> findByCatalogSectionId(long sectionId)`
+
+* **ProductCatalogSectionDao**
+* **ProductImageDao**
+
+### <a name = "product_service"> </a> Product service
+    
+   - `List<Product> getAllProducts()`
+   - `List<Product> getProductsByName(String name)`
+   - `Product addProduct(Product product)`
+   - `Product updateProduct(Product product)`
+   - `Product deleteProduct(long id)`
+   - `Product getProductById(long id)`
+   - `List<Product> getProductsByPriceRange(int min, int max)`
+   - `List<Product> getProductsByCatalogSectionId(long sectionId)`
+   - `List<ProductCatalogSection> getAllCatalogSections()`
+   - `ProductCatalogSection addCatalogSection(ProductCatalogSection section)`
+   - `ProductCatalogSection getCatalogSectionById(long sectionId)`
+   - `ProductCatalogSection updateCatalogSection(ProductCatalogSection section)`
+   - `ProductCatalogSection deleteCatalogSection(long sectionId)`
+   - `List<ProductImage> getImagesByProductId(long id)`
+   - `ProductImage addImage(ProductImage image)`
+   - `ProductImage deleteImage(long imageId)`
+   - `ProductImage getImageById(long imageId)`
+   
+### <a name = "product_controller"> </a> Product controller 
+Mapped to "/products":
+##### Function mappings:
+- `List<Product> getAllProducts()` - "/getAllProducts"
+- `List<Product> getProductsByName(@PathVariable(value = "name") String name)` - "/getProductsByName/{name}"
+- `Product addProduct(@RequestBody Product product)` - "/addProduct"
+- `Product updateProduct(@RequestBody Product product)` - "/updateProduct"
+- `Product deleteProduct(@PathVariable(value = "id") String inputId)` - "/deleteProduct/{id}"
+- `Product getProductById(@PathVariable(value = "id") String id)`- "/getProductById/{id}"
+- `List<Product> getProductsByPriceRange(@PathVariable(value = "min") int min, @PathVariable(value = "max") int max)` - "/getProductsByPriceRange/{min}/{max}"
+- `List<Product> getProductsByCatalogSectionId(@PathVariable(value = "id") String id)` - "/getProductsByCatalogSectionId/{id}"
+- `String showProductImageUploadForm()` - "/images/add"
+- `String showProductImage()` - "/images/show"
+- `Long uploadProductImage(@RequestParam("file") MultipartFile file, @RequestParam("productId") String productId)` - "/images/upload"
+- `Long deleteImage(@PathVariable(value = "id") String inputId)` - "/deleteImage/{id}"
+- `List<Long> getImageIdsByProductId(@PathVariable(value = "id") String productId)` - "/getImageIdsByProductId/{id}"
+- `byte[] getImageById(@PathVariable(value = "id")` - "/getImageById/{id}"
+- `List<ProductCatalogSection> getAllCatalogSections()` - "/getAllCatalogSections"
+- `ProductCatalogSection addCatalogSection(@RequestBody ProductCatalogSection section)` - "/addCatalogSection"
+- `ProductCatalogSection updateCatalogSection(@RequestBody ProductCatalogSection section)` - "/updateCatalogSection"
+- `ProductCatalogSection deleteCatalogSection(@PathVariable(value = "id") String inputId)` - "deleteCatalogSection/{id}"
+- `ProductCatalogSection getCatalogSectionById(@PathVariable(value = "id") String id)` - "/getCatalogSectionById/{id}"
