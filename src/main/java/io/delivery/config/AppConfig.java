@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import t320.nks34.HelloClient;
 
 @Configuration
 @PropertySource(value = {"classpath:util.properties"})
@@ -144,6 +145,11 @@ public class AppConfig {
     @Bean
     public ClientTemp clientTemp() {
         return new ClientTemp();
+    }
+
+    @Bean
+    public HelloClient helloClient() {
+        return new HelloClient();
     }
 }
 

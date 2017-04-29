@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import t320.nks34.HelloClient;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
@@ -50,6 +51,8 @@ public class AppController {
     private ConversionRate conversionRate;
     @Autowired
     private ClientTemp clientTemp;
+    @Autowired
+    private HelloClient helloClient;
 
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
@@ -121,6 +124,14 @@ public class AppController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("temperatur");
         modelAndView.addObject("convertTemp", clientTemp.result(convert));
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"/testSoap/{check}"}, method = RequestMethod.GET)
+    public ModelAndView testSoap(@PathVariable("check") String check) throws IOException, SOAPException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("soap");
+        modelAndView.addObject("test", helloClient.result(check));
         return modelAndView;
     }
 }
