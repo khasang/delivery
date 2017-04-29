@@ -9,6 +9,17 @@
     <title>Отзывы</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <style>
+        table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        td {
+            overflow-x: hidden;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body onload="AllFeedBacks()">
 <script type="text/javascript">
@@ -22,7 +33,7 @@
     thead = document.createElement('thead');
     tr = document.createElement('tr');
     tr.className = "active";
-    tr.innerHTML = '<th>Дата</th><th>Текст</th>';
+    tr.innerHTML = '<th width="20%">Дата</th><th>Текст</th>';
     thead.appendChild(tr);
 
     var service = '/feedback';
@@ -49,6 +60,7 @@
     };
 
     var AllFeedBacks = function () {
+        table.innerHTML='';
         $.ajax({
             type: 'GET',
             url: service + "/all",
@@ -59,9 +71,14 @@
                 if(result.length > 0){
                     tbody = document.createElement('tbody');
                     for(var i = result.length-1; i >= 0; i--){
-                        tbody.innerHTML += '<tr class="info"><td>' + new Date(result[i].date) + '</td><td>' + result[i].feedBackText + '</td></tr>';
+                        tbody.innerHTML += '<tr class="info"><td>' + new Date(result[i].date) +
+                            '</td><td><table width="100%"><tr><th>' +
+                            '<button id ="btnId' + i + '" value="' + i + '" onclick="DelText($(\'#btnId\').val()); AllFeedBacks()" type="button" class="btn btn-primary pull-right btn-sx">' +
+                            '<span class="glyphicon glyphicon-remove">' +
+                            '</span></button>' +
+                            '</th></tr><tr><td width="100%">' + result[i].feedBackText
+                            + '</td></tr></table></td></tr>';
                     }
-
 
                     table.appendChild(thead);
                     table.appendChild(tbody);
@@ -75,10 +92,23 @@
             }
         });
 
-        var printTable = function () {
 
-        }
+    };
+    var DelText = function (id) {
 
+        $.ajax({
+            type: 'DELETE',
+            url: service + "/delete/" + id,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                $('#response').html(JSON.stringify(result));
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#response').html(JSON.stringify(jqXHR));
+            }
+        })
     };
 </script>
 <div class="col-md-3">
@@ -86,9 +116,9 @@
 <div class="col-md-6 table-responsive">
     <textarea rows="4" class="form-control" id="feedBackText" placeholder="Нам важно Ваше мнение.. (нет)"></textarea>
     <button class="btn btn-large btn-primary btn-block" type="button"
-            onclick="AddFeedBack(new Date().toJSON(),$('#feedBackText').val()); table.innerHTML=''; AllFeedBacks();">Оставить отзыв
+            onclick="AddFeedBack(new Date().toJSON(),$('#feedBackText').val()); AllFeedBacks()">Оставить отзыв
     </button>
-    
+
     <br>
     <table width="100%" id ="feedbacks">
     </table>
