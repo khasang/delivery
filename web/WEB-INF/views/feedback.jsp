@@ -12,6 +12,19 @@
 </head>
 <body onload="AllFeedBacks()">
 <script type="text/javascript">
+    var table = '';
+    var thead = '';
+    var tr = '';
+    var tbody = '';
+
+    table = document.createElement('table');
+    table.className = "table table-bordered";
+    thead = document.createElement('thead');
+    tr = document.createElement('tr');
+    tr.className = "active";
+    tr.innerHTML = '<th>Дата</th><th>Текст</th>';
+    thead.appendChild(tr);
+
     var service = '/feedback';
     var AddFeedBack = function (feedback_date, feedback_text) {
         var JSONObject = {
@@ -42,42 +55,42 @@
             dataType: 'json',
             async: false,
             success: function (result) {
-                var JSONobj = JSON.stringify(result);
+                $('#respons').html(JSON.stringify(result));
+                if(result.length > 0){
+                    tbody = document.createElement('tbody');
+                    for(var i = result.length-1; i >= 0; i--){
+                        tbody.innerHTML += '<tr class="info"><td>' + new Date(result[i].date) + '</td><td>' + result[i].feedBackText + '</td></tr>';
+                    }
+
+
+                    table.appendChild(thead);
+                    table.appendChild(tbody);
+                    document.getElementById('feedbacks').appendChild(table);
+                }
+
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#respons').html(JSON.stringify(jqXHR));
             }
-        })
+        });
+
+        var printTable = function () {
+
+        }
+
     };
 </script>
 <div class="col-md-3">
 </div>
 <div class="col-md-6 table-responsive">
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <textarea rows="4" class="form-control" id="feedBackText"
-                      placeholder="Нам важно Ваше мнение.. (нет)"></textarea>
-            <button class="btn btn-large btn-primary btn-block" type="button"
-                    onclick="AddFeedBack(new Date().toJSON(),$('#feedBackText').val()); AllFeedBacks()">Оставить отзыв
-            </button>
-
-        </tr>
-        <br>
-        <tr class="active">
-            <td width="100">Дата</td>
-            <td width="300">
-                Отзыв
-            </td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="info">
-            <td></td>
-            <td>
-            </td>
-        </tr>
-        </tbody>
+    <textarea rows="4" class="form-control" id="feedBackText" placeholder="Нам важно Ваше мнение.. (нет)"></textarea>
+    <button class="btn btn-large btn-primary btn-block" type="button"
+            onclick="AddFeedBack(new Date().toJSON(),$('#feedBackText').val()); table.innerHTML=''; AllFeedBacks();">Оставить отзыв
+    </button>
+    
+    <br>
+    <table width="100%" id ="feedbacks">
     </table>
 </div>
 <div class="col-md-3">
