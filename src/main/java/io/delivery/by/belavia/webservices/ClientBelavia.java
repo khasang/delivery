@@ -12,11 +12,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Client {
+public class ClientBelavia {
     private static final String ADDRESS = "http://86.57.245.235/TimeTable/Service.asmx?WSDL";
     private String pointOfDeparture;
 
-    public Client() {
+    public ClientBelavia() {
     }
 
     public List<String> getListOfAirports(String language) throws SOAPException, IOException{

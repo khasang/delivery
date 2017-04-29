@@ -1,6 +1,6 @@
 package io.delivery.controller;
 
-import io.delivery.by.belavia.webservices.Client;
+import io.delivery.by.belavia.webservices.ClientBelavia;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 public class AppController {
@@ -41,6 +40,8 @@ public class AppController {
     private Test test;
     @Autowired
     private Client client;
+    @Autowired
+    private ClientBelavia clientBelavia;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -89,7 +90,7 @@ public class AppController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("airports");
         try {
-            modelAndView.addObject("airports", client.getListOfAirports(language));
+            modelAndView.addObject("airports", clientBelavia.getListOfAirports(language));
          }catch (IllegalArgumentException e){
             modelAndView.addObject("airportIllegalExc", e.getMessage());
         }catch (SOAPException e){
@@ -107,17 +108,16 @@ public class AppController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("timetable");
         try {
-            modelAndView.addObject("timetable", client.getListOfFlights(airport, type, date));
-        }catch (IllegalArgumentException e){
+            modelAndView.addObject("timetable", clientBelavia.getListOfFlights(airport, type, date));
+        } catch (IllegalArgumentException e) {
             modelAndView.addObject("timetableIllegalExc", e.getMessage());
-        }catch (SOAPException e){
+        } catch (SOAPException e) {
             modelAndView.addObject("timetableSoapExc", e.getMessage());
-        }catch (IOException e){
+        } catch (IOException e) {
             modelAndView.addObject("timetableIoExc", e.getMessage());
         }
 
-    public String getDocumentInfo() {
-        return "document";
+        return modelAndView;
     }
 
     @RequestMapping(value = {"/word/{check}"}, method = RequestMethod.GET)
