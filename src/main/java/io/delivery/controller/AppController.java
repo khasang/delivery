@@ -5,6 +5,7 @@ import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
 import io.delivery.service.*;
+import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -114,6 +115,17 @@ public class AppController {
         }catch (IOException e){
             modelAndView.addObject("timetableIoExc", e.getMessage());
         }
+
+    public String getDocumentInfo() {
+        return "document";
+    }
+
+    @RequestMapping(value = {"/word/{check}"}, method = RequestMethod.GET)
+    public ModelAndView checkWord(@PathVariable("check") String check) throws IOException, SOAPException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("spell");
+        modelAndView.addObject("info", client.result(check));
+
         return modelAndView;
     }
 }
