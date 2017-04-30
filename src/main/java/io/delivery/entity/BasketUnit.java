@@ -51,19 +51,4 @@ public class BasketUnit {
     public void setOrder(Order order) {
         this.order = order;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        BasketUnit that = (BasketUnit) o;
-
-        return itemId.equals(that.itemId);
-    }
-
-    @Override
-    public int hashCode() {
-        return itemId.hashCode();
-    }
 }

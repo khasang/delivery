@@ -99,7 +99,7 @@ public class OrderServiceTest {
         order.addBasketUnit(basketUnitToAdd);
         Order updatedOrder = orderService.updateOrder(order);
 
-        assertTrue(updatedOrder.getBasketUnitList().contains(basketUnitToAdd));
+        assertThat(updatedOrder.getBasketUnitList(), hasItem(hasProperty("id", is(basketUnitToAdd.getId()))));
         orderService.deleteOrder(order.getId());
     }
 
