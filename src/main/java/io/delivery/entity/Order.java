@@ -1,6 +1,7 @@
 package io.delivery.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -10,11 +11,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long id;
+    @Version
+    private long version;
     @Column(name = "delivery_date")
     private Date deliveryDate;
     @Column(name = "delivery_time")

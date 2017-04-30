@@ -11,6 +11,8 @@ public class BasketUnit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "unit_id")
     private Long id;
+    @Version
+    private long version;
     @Column(name = "item_id")
     private Long itemId;
     private int quantity;
