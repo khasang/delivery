@@ -1,5 +1,6 @@
 package io.delivery.controller;
 
+import io.delivery.by.belavia.webservices.ClientBelaviaAirlines;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
@@ -39,6 +40,8 @@ public class AppController {
     private Test test;
     @Autowired
     private Client client;
+    @Autowired
+    private ClientBelaviaAirlines clientBelaviaAirlines;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -78,7 +81,7 @@ public class AppController {
     }
 
     @RequestMapping(value = "/documentApi")
-    public String getDocumentInfo() {
+    public String getDocumentInfo(){
         return "document";
     }
 
@@ -87,6 +90,7 @@ public class AppController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("spell");
         modelAndView.addObject("info", client.result(check));
+
         return modelAndView;
     }
 }

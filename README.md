@@ -29,16 +29,17 @@
 
 ![Добавление офиса](http://image.prntscr.com/image/ddff9b7895fe41f4bb1945306b309c1b.png)
 
+_______
+
 ## Customer feature
 >Данный функционал призван обеспечить управление (создание, получение, изменение, удаление) сущностью заказчика в базе данных.
 
 *Реализован на уровнях:*
 - [**Entity**](#entity)
 - [**Dao**](#dao)
-- **Service**
-- **Controller**
-_____
-
+- [**Service**](#service)
+- [**Controller**](#controller)
+________
 ### <a name="entity">Entity</a>
 >Реализацией Entity является **Customer.java**. Данный класс описывает сущность заказчика, помечен аннотацией @Entity, имеет приватные поля, являющиеся колонками таблицы customers, доступ к которым организован с помощью гетторв и сеттеров.
 ##### Класс *Customer.java* содержит следующие поля:
@@ -63,13 +64,74 @@ _____
 - ***public String getPhoneNumber()** - геттер для поля **PhoneNumber**.*
 - ***public String geteMail()** - геттер для поля **eMail**.*
 >Геттеры возвращают значение соответствующего поля класса.
-
-______
+_____
 
 ### <a name="dao">DAO</a>
-> DAO слой непосредственно взаимодействует с базой данных. 
+> DAO слой создан для непосредственного взаимодействует с базой данных. 
 ###### *Включает в себя интерфейсы:*
-- ***BasicDao** - дженерик интерфейс, описывающий базовые CRUD-операции.*
-- ***CustomerDao** - интерфейс, унаследованный от BasicDao и расширяющий его функционал дополнительными методами взаимодействия сущности заказчика с базой данных*
+- [***BasicDao***](#basicDao)
+- [***CustomerDao***](#customerDao) *extends BasicDao*
+###### *И реализующий их класс [**CustomerDaoImpl.java**](#customerDaoImpl)*
+_____
 
-#### *To be continued...*
+##### <a name="basicDao">*BasicDao interface*</a> 
+>Является дженерик интерфейсом, описывающим базовые CRUD-операции.<Br>Реализацией интерфейса является **CustomerDaoImpl.java** 
+###### Интерфейс BasicDao содержит методы:
+- ***Session getCurrentSession()** - возвращает текущую сессию Хибернейта.*
+- ***List<T> getList()** - возвращает список сущностей из базы данных.*
+- ***T create(T entity)** - создает сущность в базе данных, переданную в метод в качестве параметра.*
+- ***T update(T entity)** - изменяет сущность в базе данных, переданную в метод в качестве параметра.*
+- ***T findById(long id)** - возвращает сущность из базы данных по параметру id.*
+- ***T delete(T entity)** - удаляет сущность в базе данных, переданную в метод в качестве параметра.**
+____
+
+##### <a name="customerDao">*CustomerDao interface*</a> 
+>Является интерфейсом, унаследованным от BasicDao и расширяющим его функционал дополнительными методами взаимодействия сущности заказчика с базой данных.<Br>Реализацией интерфейса является **CustomerDaoImpl.java**
+
+###### Интерфейс CustomerDao содержит методы:
+- ***List\<Customer> findCustomerByName(String name)** - возвращает список заказчиков, имя которых соответстует переданному в метод параметру.*
+- ***List\<Customer> findCustomerByAddress(String address)** - возвращает список заказчиков, адрес которых соответстует переданному в метод параметру.*
+- ***Customer findCustomerByPhoneNumber(String phoneNumber)** - возвращает уникального заказчика, номер телефона которого соответстует переданному в метод параметру.*
+- ***Customer findCustomerByEmail(String eMail)** - возвращает уникального заказчика, адрес электронной почты которого соответстует переданному в метод параметру.*
+_______
+
+##### <a name="customerDaoImpl">*CusomerDaoImpl.java*</a>
+> Класс, реализующий интерфейсы [***BasicDao***](#basicDao) и [***CustomerDao***](#customerDao). Работает с Entity [Customer.java](#entity).
+
+_______
+
+### <a name="service">Service</a>
+> Service слой обеспечивает взаимосвязь между controller и dao слоем.
+###### *Включает в себя интерфейсы:*
+- [***CustomerService***](#customerService)
+###### *Включает в себя классы:*
+- [***CustomerServiceImpl***](#customerServiceImpl) который имплементирует интерфейс *CustomerService*
+_____
+
+##### <a name="customerService">*CustomerService interface*</a> 
+>Является дженерик интерфейсом, описывающим основные операции по получении имени, адреса, почты, телефона заказчика а также id заказчика, получение списка всех заказчиков, создание, обновление и удаление заказчика. <Br>Реализацией интерфейса является **CustomerServiceImpl.java** 
+###### Интерфейс CustomerService содержит методы:
+- ***List\<Customer> getCustomerByName()** - получение списка по имени заказчика*
+- ***List\<Customer> getCustomerByAddress** - получение списка по адресу заказчика*
+- ***getCustomerByPhoneNumber()** - получение номера телефона заказчика*
+- ***getCustomerByEmail()** - получение почты заказчика*
+- ***getCustomerById()** - получение заказчика по id*
+- ***List\<Customer> getAllCustomers()** - получение списка всех заказчиков*
+- ***Customer createCustomer()** - создание заказчика*
+- ***Customer updateCustomer()** - изменение заказчика*
+- ***Customer deleteCustomer()** - удаление заказчика по его id*
+____
+
+##### <a name="customerServiceImpl">*CustomerServiceImpl.java*</a> 
+> Класс описывает методы заказчика, такие как: поиск заказчика по имени, телефону, почте, адресу, по id, выводит список всех заказчиков, а также создание, обновление и удаление заказчика по его id. Класс помечен аннотацией @Service, имеет автосвязку с интерфейсом [***CustomerDao***](#customerDao) и работает через него.
+###### Класс CustomerServiceImpl содержит методы:
+- ***List\<Customer> findCustomerByName(String name)** - возвращает список заказчиков, имя которых соответстует переданному в метод параметру.*
+- ***List\<Customer> findCustomerByAddress(String address)** - возвращает список заказчиков, адрес которых соответстует переданному в метод параметру.*
+- ***Customer findCustomerByPhoneNumber(String phoneNumber)** - возвращает уникального заказчика, номер телефона которого соответстует переданному в метод параметру.*
+- ***Customer findCustomerByEmail(String eMail)** - возвращает уникального заказчика, адрес электронной почты которого соответстует переданному в метод параметру.*
+- ***getCustomerById()** - получение заказчика по id*
+- ***getAllCustomers()** - получение списка всех заказчиков*
+- ***Customer createCustomer()** - создание заказчика*
+- ***Customer updateCustomer()** - изменение заказчика*
+- ***Customer deleteCustomer()** - удаление заказчика по его id*
+____
