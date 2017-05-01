@@ -31,15 +31,6 @@ public class OrderServiceTest {
     private static final String TEST_DELIVERY_ADDRESS = "Nowhere";
     private static final String TEST_DELIVERY_COMMENT = "Notext";
 
-    private static List<BasketUnit> basketUnits = new ArrayList<>();
-
-    static {
-        basketUnits.add(new BasketUnit(20L));
-        basketUnits.add(new BasketUnit(21L));
-        basketUnits.add(new BasketUnit(22L));
-        basketUnits.add(new BasketUnit(23L));
-    }
-
     @Test
     public void updateOrder() {
         Order order = createOrder();
@@ -145,6 +136,11 @@ public class OrderServiceTest {
 
 
     private Order prefillOrder() {
+        List<BasketUnit> basketUnits = new ArrayList<>();
+        basketUnits.add(new BasketUnit(20L));
+        basketUnits.add(new BasketUnit(21L));
+        basketUnits.add(new BasketUnit(22L));
+        basketUnits.add(new BasketUnit(23L));
         Order order = new Order();
         order.setUserId(135L);
         order.setComment("true comment");
