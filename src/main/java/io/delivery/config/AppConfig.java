@@ -1,6 +1,6 @@
 package io.delivery.config;
 
-import io.delivery.by.belavia.webservices.ClientBelavia;
+import io.delivery.by.belavia.webservices.ClientBelaviaAirlines;
 import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
@@ -129,6 +129,6 @@ public class AppConfig {
     }
 
     @Bean
-    public ClientBelavia clientBelavia(){ return new ClientBelavia();}
+    public ClientBelaviaAirlines clientBelavia(){ return new ClientBelaviaAirlines();}
 }
 

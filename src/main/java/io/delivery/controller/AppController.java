@@ -1,6 +1,6 @@
 package io.delivery.controller;
 
-import io.delivery.by.belavia.webservices.ClientBelavia;
+import io.delivery.by.belavia.webservices.ClientBelaviaAirlines;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
@@ -41,7 +41,7 @@ public class AppController {
     @Autowired
     private Client client;
     @Autowired
-    private ClientBelavia clientBelavia;
+    private ClientBelaviaAirlines clientBelaviaAirlines;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -83,41 +83,6 @@ public class AppController {
     @RequestMapping(value = "/documentApi")
     public String getDocumentInfo(){
         return "document";
-    }
-
-    @RequestMapping(value = {"/belavia/airports/{language}"}, method = RequestMethod.GET)
-    public ModelAndView getAirportsList(@PathVariable("language") String language){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("airports");
-        try {
-            modelAndView.addObject("airports", clientBelavia.getListOfAirports(language));
-         }catch (IllegalArgumentException e){
-            modelAndView.addObject("airportIllegalExc", e.getMessage());
-        }catch (SOAPException e){
-            modelAndView.addObject("airportSoapExc", e.getMessage());
-        }catch (IOException e){
-            modelAndView.addObject("airportIoExc", e.getMessage());
-        }
-        return modelAndView;
-    }
-
-    @RequestMapping(value = {"/belavia/timetable/{airport}/{type}/{date}"}, method = RequestMethod.GET)
-    public ModelAndView getListOfFlights(@PathVariable("airport") String airport,
-                                         @PathVariable("type") String type,
-                                         @PathVariable("date") String date) throws IOException, SOAPException {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("timetable");
-        try {
-            modelAndView.addObject("timetable", clientBelavia.getListOfFlights(airport, type, date));
-        } catch (IllegalArgumentException e) {
-            modelAndView.addObject("timetableIllegalExc", e.getMessage());
-        } catch (SOAPException e) {
-            modelAndView.addObject("timetableSoapExc", e.getMessage());
-        } catch (IOException e) {
-            modelAndView.addObject("timetableIoExc", e.getMessage());
-        }
-
-        return modelAndView;
     }
 
     @RequestMapping(value = {"/word/{check}"}, method = RequestMethod.GET)
