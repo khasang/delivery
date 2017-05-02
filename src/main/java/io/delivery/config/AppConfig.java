@@ -8,6 +8,7 @@ import io.delivery.https.www_w3schools_com.xml.ClientDegrees;
 import io.delivery.model.Answer;
 import io.delivery.model.NewsCreator;
 import io.delivery.model.impl.NewsCreatorImpl;
+import io.delivery.net.webservicex.ClientWeather;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
 import net.yandex.speller.services.spellservice.Client;
@@ -134,8 +135,8 @@ public class AppConfig {
         return new ClientBelaviaAirlines();}
 
     @Bean
-    public ClientDegrees clientDegrees() {
-        return new ClientDegrees();
+    public ClientWeather clientWeather() {
+        return new ClientWeather();
     }
 }
 

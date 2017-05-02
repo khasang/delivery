@@ -12,7 +12,7 @@ import javax.xml.soap.SOAPException;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/belavia") // При добавлении дополнительных soap-сервисов тут можно будет указать /soap
+@RequestMapping("/soap") // При добавлении дополнительных soap-сервисов тут можно будет указать /soap
 public class SoapController {
     final private ClientBelaviaAirlines clientBelaviaAirlines;
 
@@ -22,7 +22,7 @@ public class SoapController {
     }
 
             // Соответственно если вверху /soap то тут добавить - /belavia
-    @RequestMapping(value = {"/airports/{language}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/belavia/airports/{language}"}, method = RequestMethod.GET)
     public ModelAndView getAirportsList(@PathVariable("language") String language){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("airports");
@@ -39,7 +39,7 @@ public class SoapController {
     }
 
             // Соответственно если вверху /soap то тут добавить - /belavia
-    @RequestMapping(value = {"/timetable/{airport}/{type}/{date}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/belavia/timetable/{airport}/{type}/{date}"}, method = RequestMethod.GET)
     public ModelAndView getListOfFlights(@PathVariable("airport") String airport,
                                          @PathVariable("type") String type,
                                          @PathVariable("date") String date) throws IOException, SOAPException {

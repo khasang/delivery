@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class GetCitiesByCountry {
 
     @XmlElement(name = "CountryName")
-    protected String countryName;
+    public String countryName;
 
     /**
      * Gets the value of the countryName property.
