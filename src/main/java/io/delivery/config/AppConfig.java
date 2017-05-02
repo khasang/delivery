@@ -4,6 +4,7 @@ import io.delivery.by.belavia.webservices.ClientBelaviaAirlines;
 import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
+import io.delivery.https.www_w3schools_com.xml.ClientDegrees;
 import io.delivery.model.Answer;
 import io.delivery.model.NewsCreator;
 import io.delivery.model.impl.NewsCreatorImpl;
@@ -129,6 +130,12 @@ public class AppConfig {
     }
 
     @Bean
-    public ClientBelaviaAirlines clientBelavia(){ return new ClientBelaviaAirlines();}
+    public ClientBelaviaAirlines clientBelavia(){
+        return new ClientBelaviaAirlines();}
+
+    @Bean
+    public ClientDegrees clientDegrees() {
+        return new ClientDegrees();
+    }
 }
 
