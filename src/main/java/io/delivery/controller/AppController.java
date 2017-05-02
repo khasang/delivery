@@ -43,8 +43,6 @@ public class AppController {
     @Autowired
     private Client client;
     @Autowired
-    private ClientBelaviaAirlines clientBelaviaAirlines;
-    @Autowired
     private ClientWeather clientWeather;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
