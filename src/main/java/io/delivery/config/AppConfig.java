@@ -1,5 +1,6 @@
 package io.delivery.config;
 
+import cbr.client.CbrClient;
 import io.delivery.dao.DocumentDao;
 import io.delivery.dao.ProductCatalogSectionDao;
 import io.delivery.dao.ProductDao;
@@ -17,9 +18,7 @@ import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
 import io.delivery.model.Answer;
 import io.delivery.model.NewsCreator;
-import io.delivery.model.TableCreator;
 import io.delivery.model.impl.NewsCreatorImpl;
-import io.delivery.model.impl.TableCreatorImpl;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
 import net.yandex.speller.services.spellservice.Client;
@@ -156,6 +155,11 @@ public class AppConfig {
     @Bean
     public Client client() {
         return new Client();
+    }
+
+    @Bean
+    public CbrClient cbrClient() {
+        return new CbrClient();
     }
 }
 
