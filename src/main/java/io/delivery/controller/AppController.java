@@ -3,7 +3,7 @@ package io.delivery.controller;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
-import cbr.client.CbrClient;
+import io.delivery.wsclient.WSClient;
 import io.delivery.service.*;
 import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
 
@@ -42,7 +43,7 @@ public class AppController {
     @Autowired
     private Client client;
     @Autowired
-    private CbrClient cbrClient;
+    private WSClient wsClient;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -94,11 +95,11 @@ public class AppController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/cbr/enumValutes"}, method = RequestMethod.GET)
-    public ModelAndView cbrEnumValutes() throws IOException, SOAPException {
+    @RequestMapping(value = {"wsClient/cbr/enumValutes"}, method = RequestMethod.GET)
+    public ModelAndView cbrEnumValutes() throws IOException, SOAPException, DatatypeConfigurationException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("cbrEnumValutes");
-        modelAndView.addObject("valutes", cbrClient.enumValutes());
+        modelAndView.addObject("valutes", wsClient.getCursDynamicXML());
         return modelAndView;
     }
 }

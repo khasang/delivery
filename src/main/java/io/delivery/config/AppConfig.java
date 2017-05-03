@@ -1,6 +1,6 @@
 package io.delivery.config;
 
-import cbr.client.CbrClient;
+import io.delivery.wsclient.WSClient;
 import io.delivery.dao.DocumentDao;
 import io.delivery.dao.ProductCatalogSectionDao;
 import io.delivery.dao.ProductDao;
@@ -142,7 +142,7 @@ public class AppConfig {
         return new NoRegistrationCustomerDaoImpl(NoRegistrationCustomer.class);
     }
 
-   @Bean
+    @Bean
     public OfficeDao officeDao(){
         return new OfficeDaoImpl(Office.class);
     }
@@ -158,8 +158,8 @@ public class AppConfig {
     }
 
     @Bean
-    public CbrClient cbrClient() {
-        return new CbrClient();
+    public WSClient wsClient() {
+        return new WSClient();
     }
 }
 
