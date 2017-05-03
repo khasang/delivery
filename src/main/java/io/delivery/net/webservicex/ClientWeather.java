@@ -1,7 +1,5 @@
 package io.delivery.net.webservicex;
 
-import io.delivery.https.www_w3schools_com.xml.CelsiusToFahrenheit;
-import io.delivery.https.www_w3schools_com.xml.TempConvertSoap;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.MalformedURLException;
@@ -17,7 +15,7 @@ public class ClientWeather {
     }
 
     // метод получение городов по стране
-    public String citiesByCountry(String countryName) throws MalformedURLException {
+    public String CitiesByCountry(String countryName) throws MalformedURLException {
         URL url = new URL(ADDRESS);
 
         QName qName = new QName("http://www.webservicex.net/globalweather.asmx?WSDL", "GlobalWeather");
@@ -28,14 +26,12 @@ public class ClientWeather {
 
         String resultCitiesByCountry = hello.getCitiesByCountry(countryName);
 
-//        List<String> list = new ArrayList<>();
-//        list.add(hello.
-//        );
+
         return resultCitiesByCountry;
     }
 
     // метод получение погоды по стране и городу
-    public String weather(String cityName, String countryName) throws MalformedURLException {
+    public String Weather(String countryName, String cityName) throws MalformedURLException {
         URL url = new URL(ADDRESS);
 
         QName qName = new QName("http://www.webservicex.net/globalweather.asmx?WSDL", "GlobalWeather");
@@ -44,7 +40,7 @@ public class ClientWeather {
 
         GlobalWeatherSoap hello = service.getPort(GlobalWeatherSoap.class);
 
-        String resultWeather = hello.getWeather(cityName, countryName);
+        String resultWeather = hello.getWeather(countryName, cityName);
 
         return resultWeather;
     }

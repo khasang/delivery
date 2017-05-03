@@ -1,7 +1,5 @@
 package io.delivery.controller;
 
-import io.delivery.by.belavia.webservices.ClientBelaviaAirlines;
-import io.delivery.https.www_w3schools_com.xml.ClientDegrees;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
@@ -42,8 +40,6 @@ public class AppController {
     private Test test;
     @Autowired
     private Client client;
-    @Autowired
-    private ClientWeather clientWeather;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -96,11 +92,4 @@ public class AppController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = {"/degrees/{degrees}"}, method = RequestMethod.GET)
-//    public ModelAndView checkDegrees(@PathVariable("degrees") String degrees) throws IOException, SOAPException {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("convert");
-//        modelAndView.addObject("info", clientDegrees.result(degrees));
-//        return modelAndView;
-//    }
 }
