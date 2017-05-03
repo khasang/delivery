@@ -9,15 +9,16 @@
 <body>
 <p>${info}</p>
 <p>${answ}</p>
+<jsp:include page="header.jsp"/>
 <jsp:include page="news.jsp"/>
 <center>
     <%--<form name="FormEnter"--%>
           <%--method="post"--%>
           <%--action="/registration">--%>
         <p></p>
-        <h2>Регистрация</h2>
+        <p><strong>Регистрация</strong></p>
         <hr>
-        <h3>Телефон/Электронная почта</h3>
+        <p>Телефон/Электронная почта</p>
         <p>
         <p><input type=textbox name="p" size="25" value=""></p>
         <p><input type=submit value="Вход"></p>
@@ -32,5 +33,6 @@
         <p><a href="/noregistration">Без регистрации</a></p>
     <%--</form>--%>
 </center>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

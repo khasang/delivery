@@ -1,7 +1,5 @@
 package io.delivery.entity;
 
-import io.delivery.entity.Document;
-import io.delivery.entity.NoRegistrationCustomer;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;

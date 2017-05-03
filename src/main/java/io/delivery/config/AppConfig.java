@@ -1,5 +1,6 @@
 package io.delivery.config;
 
+import https.www_w3schools_com.xml.ClientTemp;
 import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
@@ -9,6 +10,8 @@ import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
 import net.yandex.speller.services.spellservice.Client;
+import net.webservicex.ConversionRate;
+import net.webservicex.CurrencyClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import t320.nks34.HelloClient;
 
 @Configuration
 @PropertySource(value = {"classpath:util.properties"})
@@ -123,8 +127,29 @@ public class AppConfig {
     }
 
     @Bean
+
     public Client client() {
         return new Client();
+    }
+
+    @Bean
+    public CurrencyClient currencyClient() {
+        return new CurrencyClient();
+    }
+
+    @Bean
+    public ConversionRate conversionRate() {
+        return new ConversionRate();
+    }
+
+    @Bean
+    public ClientTemp clientTemp() {
+        return new ClientTemp();
+    }
+
+    @Bean
+    public HelloClient helloClient() {
+        return new HelloClient();
     }
 }
 
