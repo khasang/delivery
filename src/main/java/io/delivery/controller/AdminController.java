@@ -67,6 +67,13 @@ public class AdminController {
 
     @RequestMapping(value = "/adduser", method = RequestMethod.GET)
     public String getUserForm(Model model){
+        model.addAttribute("id", "-1");
+        return "/admin/user";
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public String getUserFormUpdate(@PathVariable(value = "id") String id, Model model){
+        model.addAttribute("id", id);
         return "/admin/user";
     }
 

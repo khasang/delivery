@@ -1,39 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<spring:url value="/js/jquery.min.js" var="jquery"/>
+<spring:url value="/js/admin/user.js" var="jusers"/>
+<spring:url value="/css/bootstrap.css" var="bootstrap"/>
+
 <html>
 <head>
     <title>Пользователь</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-
-    <script type="text/javascript">
-        var service = '/admin/users';
-        var RestPostAddUser = function () {
-            var JSONObject = {
-                'login': $('#login').val(),
-                'role': $('#role').val(),
-                'password': $('#password').val(),
-                'active': $('#active').prop('checked')
-            }
-            $.ajax({
-                type: 'POST',
-                url: service + "/add",
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(JSONObject),
-                dataType: 'json',
-                async: false,
-                success: function (result) {
-                    window.location.replace('/admin/users');
-                },
-                error: function (jqXHR, textStatus, errorThrpwn) {
-                    $('#response').html(JSON.stringify(jqXHR));
-                }
-            });
-        };
-    </script>
+    <script src="${jquery}" type="text/javascript"></script>
+    <script src="${jusers}" type="text/javascript"></script>
+    <link href="${bootstrap}" rel="stylesheet"/>
 </head>
 <body>
     <fieldset>
         <legend>Пользователь</legend>
+        <input type="hidden" name="id" value="${id}" id="id">
         <div class="form-group">
             <label for="login" class="col-sm-2 control-label">Логин</label>
             <div class="col-sm-10">
@@ -65,7 +47,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" onclick="RestPostAddUser()" class="btn btn-default">Сохранить</button>
+                <button type="submit" onclick="SaveUser()" class="btn btn-default">Сохранить</button>
             </div>
         </div>
     </fieldset>
