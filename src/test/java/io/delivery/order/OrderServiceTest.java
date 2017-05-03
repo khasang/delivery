@@ -6,6 +6,8 @@ import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
 import io.delivery.service.OrderService;
 import io.delivery.service.impl.OrderServiceImpl;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,117 +28,29 @@ import static org.junit.Assert.*;
 public class OrderServiceTest {
     @Autowired
     private OrderService orderService;
+    private Order order;
+    private List<BasketUnit> basketUnits;
 
     private static final int TEST_QUANTITY = 42;
     private static final String TEST_DELIVERY_ADDRESS = "Nowhere";
     private static final String TEST_DELIVERY_COMMENT = "Notext";
 
-    @Test
-    public void updateOrder() {
-        Order order = createOrder();
+    @Before
+    public void createOrder() {
+        order = prefillOrder();
+        orderService.create(order);
         assertNotNull(order);
-
-        order.setDeliveryAddress(TEST_DELIVERY_ADDRESS);
-        order.setComment(TEST_DELIVERY_COMMENT);
-
-        Order updatedOrder = orderService.updateOrder(order);
-
-        assertNotNull(updatedOrder);
-        assertEquals(TEST_DELIVERY_ADDRESS, updatedOrder.getDeliveryAddress());
-        assertEquals(TEST_DELIVERY_COMMENT, updatedOrder.getComment());
-        orderService.deleteOrder(order.getId());
     }
 
-    @Test
-    public void updateBasketUnit() {
-
-        Order order = createOrder();
-        assertNotNull(order);
-        assertNotNull(order.getBasketUnitList().get(0));
-
-        order.getBasketUnitList().get(0).setQuantity(TEST_QUANTITY);
-        Order updatedOrder = orderService.updateOrder(order);
-
-        assertNotNull(updatedOrder);
-        assertNotNull(updatedOrder.getId());
-        assertEquals(TEST_QUANTITY, updatedOrder.getBasketUnitList().get(0).getQuantity());
-        orderService.deleteOrder(order.getId());
-    }
-
-    @Test
-    public void deleteBasketUnit() {
-
-        Order order = createOrder();
-        assertNotNull(order);
-
-        List<BasketUnit> basket = order.getBasketUnitList();
-        assertNotNull(basket);
-        assertNotNull(basket.get(0));
-        long id = basket.get(0).getId();
-
-        orderService.deleteBasketUnitById(id);
-
-        assertNull(orderService.findBasketUnitById(id));
-        orderService.deleteOrder(order.getId());
-    }
-
-    @Test
-    public void addBasketUnit() {
-
-        Order order = createOrder();
-        assertNotNull(order);
-
-        BasketUnit basketUnitToAdd = new BasketUnit(19L);
-        order.addBasketUnit(basketUnitToAdd);
-        Order updatedOrder = orderService.updateOrder(order);
-
-        assertThat(updatedOrder.getBasketUnitList(), hasItem(hasProperty("id", is(basketUnitToAdd.getId()))));
-        orderService.deleteOrder(order.getId());
-    }
-
-    @Test
-    public void GetByUserId() {
-
-        Order order = createOrder();
-        List<Order> ordersByUserId = orderService.findByUserId(order.getUserId());
-
-        assertThat(ordersByUserId, hasItem(hasProperty("id", is(order.getId()))));
-
-        assertNotNull(ordersByUserId);
-        orderService.deleteOrder(order.getId());
-    }
-
-    @Test
-    public void deleteOrder() {
-        Order order = createOrder();
-        assertNotNull(order);
-
+    @After
+    public void cleanOrder() {
+        // clean and correct deletion test
         Order responceOrder = orderService.deleteOrder(order.getId());
         assertNull(orderService.findById(responceOrder.getId()));
     }
 
-    @Test
-    public void GetOrderById() {
-        Order order = createOrder();
-
-        Order responceOrder = orderService.findById(order.getId());
-
-        assertEquals(order.getId(), responceOrder.getId());
-        assertNotNull(responceOrder);
-        orderService.deleteOrder(order.getId());
-    }
-
-    private Order createOrder() {
-        Order order = prefillOrder();
-        orderService.create(order);
-
-        assertNotNull(order);
-        return order;
-    }
-
-
     private Order prefillOrder() {
-        List<BasketUnit> basketUnits = new ArrayList<>();
+        basketUnits = new ArrayList<>();
         basketUnits.add(new BasketUnit(20L));
         basketUnits.add(new BasketUnit(21L));
         basketUnits.add(new BasketUnit(22L));
@@ -150,5 +64,58 @@ public class OrderServiceTest {
         order.setExecutorId(350L);
         order.setBasketUnitList(basketUnits);
         return order;
+    }
+
+    @Test
+    public void updateOrder() {
+        order.setDeliveryAddress(TEST_DELIVERY_ADDRESS);
+        order.setComment(TEST_DELIVERY_COMMENT);
+        Order updatedOrder = orderService.updateOrder(order);
+        assertNotNull(updatedOrder);
+        assertEquals(TEST_DELIVERY_ADDRESS, updatedOrder.getDeliveryAddress());
+        assertEquals(TEST_DELIVERY_COMMENT, updatedOrder.getComment());
+    }
+
+    @Test
+    public void updateBasketUnit() {
+        assertNotNull(order.getBasketUnitList().get(0));
+        order.getBasketUnitList().get(0).setQuantity(TEST_QUANTITY);
+        Order updatedOrder = orderService.updateOrder(order);
+        assertNotNull(updatedOrder);
+        assertNotNull(updatedOrder.getId());
+        assertEquals(TEST_QUANTITY, updatedOrder.getBasketUnitList().get(0).getQuantity());
+    }
+
+    @Test
+    public void deleteBasketUnit() {
+        List<BasketUnit> basket = order.getBasketUnitList();
+        assertNotNull(basket);
+        assertNotNull(basket.get(0));
+        long id = basket.get(0).getId();
+        orderService.deleteBasketUnitById(id);
+        assertNull(orderService.findBasketUnitById(id));
+    }
+
+    @Test
+    public void addBasketUnit() {
+        BasketUnit basketUnitToAdd = new BasketUnit(19L);
+        order.addBasketUnit(basketUnitToAdd);
+        Order updatedOrder = orderService.updateOrder(order);
+        assertThat(updatedOrder.getBasketUnitList(), hasItem(hasProperty("id", is(basketUnitToAdd.getId()))));
+    }
+
+    @Test
+    public void GetByUserId() {
+        List<Order> ordersByUserId = orderService.findByUserId(order.getUserId());
+        assertThat(ordersByUserId, hasItem(hasProperty("id", is(order.getId()))));
+        assertNotNull(ordersByUserId);
+    }
+
+
+    @Test
+    public void GetOrderById() {
+        Order responceOrder = orderService.findById(order.getId());
+        assertEquals(order.getId(), responceOrder.getId());
+        assertNotNull(responceOrder);
     }
 }
