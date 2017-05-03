@@ -60,7 +60,7 @@ public class SoapController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/global/cities/{countryName}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/globalweather/cities/{countryName}"}, method = RequestMethod.GET)
     public ModelAndView findCitiesByCountry(@PathVariable("countryName") String countryName) throws IOException, SOAPException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("cities");
@@ -69,7 +69,7 @@ public class SoapController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/global/weather/{countryName}/{cityName}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/globalweather/weather/{countryName}/{cityName}"}, method = RequestMethod.GET)
     public ModelAndView findWeather(@PathVariable("countryName") String countryName,
                                     @PathVariable("cityName") String cityName) throws IOException, SOAPException {
         ModelAndView modelAndView = new ModelAndView();

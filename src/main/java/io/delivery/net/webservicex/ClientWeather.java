@@ -18,7 +18,7 @@ public class ClientWeather {
     public String CitiesByCountry(String countryName) throws MalformedURLException {
         URL url = new URL(ADDRESS);
 
-        QName qName = new QName("http://www.webservicex.net/globalweather.asmx?WSDL", "GlobalWeather");
+        QName qName = new QName("http://www.webserviceX.NET", "GlobalWeather");
 
         Service service = Service.create(url, qName);
 
@@ -34,7 +34,7 @@ public class ClientWeather {
     public String Weather(String countryName, String cityName) throws MalformedURLException {
         URL url = new URL(ADDRESS);
 
-        QName qName = new QName("http://www.webservicex.net/globalweather.asmx?WSDL", "GlobalWeather");
+        QName qName = new QName("http://www.webserviceX.NET", "GlobalWeather");
 
         Service service = Service.create(url, qName);
 
