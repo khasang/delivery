@@ -88,6 +88,9 @@ public class ClientBelaviaAirlines {
 
                     // Переданная в метод дата по параметру запроса
         String[] splittedDate = date.split("[\\p{Punct}]");  // делим на массив по любой пунктуации
+        if(splittedDate.length < 3) // Если дата не содержит год, месяц и день
+            throw new IllegalArgumentException("Wrong date parameter - date must have " +
+                    "\"YYYY-MM-DD\" format. Date separator can be eny type");
         int askedYear = Integer.parseInt(splittedDate[0]);         // Запрашиваемый год
         int askedMonth = Integer.parseInt(splittedDate[1]);        // Запрашиваемый месяц
         int askedDay = Integer.parseInt(splittedDate[2]);          // Запрашивемый день
