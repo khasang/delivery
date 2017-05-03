@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/noregcustomer")
+@RequestMapping("/noregistration")
 public class NoRegistrationCustomerController {
     final private NoRegistrationCustomerService noRegistrationCustomerService;
 
