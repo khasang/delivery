@@ -14,12 +14,11 @@ import java.util.List;
 
 public class ClientBelaviaAirlines {
     private static final String ADDRESS = "http://86.57.245.235/TimeTable/Service.asmx?WSDL";
-    private String pointOfDeparture;
 
     public ClientBelaviaAirlines() {
     }
 
-    public List<String> getListOfAirports(String language) throws SOAPException, IOException{
+    public List<Airport> getListOfAirports(String language) throws SOAPException, IOException{
         if(!(languageVerification(language)))
             throw new IllegalArgumentException("Wrong language parameter - must be RU or EN");
 
@@ -34,12 +33,12 @@ public class ClientBelaviaAirlines {
         List<Airport> airportList = response.getAirport();
         List<String> airportIataAndName = new ArrayList<>();
         for(Airport a : airportList){
-            airportIataAndName.add("| " + a.getIATA() + " - " + a.getName() + " |");
+            airportIataAndName.add(a.getIATA() + " - " + a.getName());
         }
-        return airportIataAndName;
+        return airportList;
     }
 
-    public String getListOfFlights(String airport, String timeTableType, String date) throws SOAPException, IOException{
+    public List<Flight> getListOfFlights(String airport, String timeTableType, String date) throws SOAPException, IOException{
         URL url = new URL(ADDRESS);
         QName qName = new QName("http://webservices.belavia.by/", "OnlineTimeTable");
 
@@ -51,18 +50,11 @@ public class ClientBelaviaAirlines {
 
         XMLGregorianCalendar validatedDate = validateAndSetDate(date);
 
-        TimeTableResponce response = timeTableSoap.getTimeTable(airport, type, validatedDate);
+        TimeTableResponce response = timeTableSoap.getTimeTable(airport.toUpperCase(), type, validatedDate);
 
         ArrayOfFlight flights = response.getFlights();
-        List<String> responseList = getListOfFlightsResponse(flights.getFlight());
 
-        if (responseList.size() > 0)
-            return responseList.toString();
-        else
-            return "There is no flights " +
-                    pointOfDeparture +
-                    airport + " " +
-                    validatedDate.toString();
+        return flights.getFlight();
     }
 
     private XMLGregorianCalendar validateAndSetDate(String date) throws IllegalArgumentException{
@@ -196,30 +188,13 @@ public class ClientBelaviaAirlines {
         TimeTableType type;
         if(timeTableType.equals("Arrival")) {
             type = TimeTableType.ARRIVAL;
-            pointOfDeparture = " flying to ";
         }
         else if(timeTableType.equals("Departure")) {
             type = TimeTableType.DEPARTURE;
-            pointOfDeparture = " flying from ";
         }
         else throw new IllegalArgumentException("Wrong type parameter - must be Arrival or Departure");
 
         return type;
-    }
-
-    private List<String> getListOfFlightsResponse(List<Flight> listOfFlights){
-        List<String> stringListOfFlights = new ArrayList<>();
-        for(Flight f : listOfFlights){
-            stringListOfFlights.add("| Aircraft "       + f.getAircraft() +
-                    " flight number: "  + f.getFlightNumber() +
-                    pointOfDeparture    + // "from" or "to"
-                    " airport IATA: "   + f.getAirport() +
-                    " is "              + f.getStatus() +
-                    " actual time: "    + f.getActualTime() +
-                    " expected time: "  + f.getExpectedTime() +
-                    " scheduled time: " + f.getScheduleTime() + " |");
-        }
-        return stringListOfFlights;
     }
 
     private boolean languageVerification(String language){
