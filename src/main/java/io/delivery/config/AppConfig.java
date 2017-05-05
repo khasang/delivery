@@ -1,5 +1,18 @@
 package io.delivery.config;
 
+import io.delivery.wsclient.WSClient;
+import io.delivery.dao.DocumentDao;
+import io.delivery.dao.ProductCatalogSectionDao;
+import io.delivery.dao.ProductDao;
+import io.delivery.dao.ProductImageDao;
+import io.delivery.dao.impl.DocumentDaoImpl;
+import io.delivery.dao.impl.ProductCatalogSectionDaoImpl;
+import io.delivery.dao.impl.ProductDaoImpl;
+import io.delivery.dao.impl.ProductImageDaoImpl;
+import io.delivery.entity.Document;
+import io.delivery.entity.Product;
+import io.delivery.entity.ProductCatalogSection;
+import io.delivery.entity.ProductImage;
 import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
@@ -18,6 +31,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
 @PropertySource(value = {"classpath:util.properties"})
@@ -98,6 +112,22 @@ public class AppConfig {
     }
 
     @Bean
+    ProductDao productDao() {
+        return  new ProductDaoImpl(Product.class);
+    }
+
+    @Bean
+    ProductCatalogSectionDao productCatalogSectionDao() {
+        return new ProductCatalogSectionDaoImpl(ProductCatalogSection.class);
+    }
+
+    @Bean
+    ProductImageDao productImageDao() { return new ProductImageDaoImpl(ProductImage.class);}
+
+    @Bean
+    CommonsMultipartResolver multipartResolver() {return new CommonsMultipartResolver();}
+
+    @Bean
     public NewsCreator newsCreator() {
         return new NewsCreatorImpl(jdbcTemplate());
     }
@@ -113,18 +143,23 @@ public class AppConfig {
     }
 
     @Bean
-    public OfficeDao officeDao() {
+    public OfficeDao officeDao(){
         return new OfficeDaoImpl(Office.class);
     }
 
     @Bean
-    public CustomerDao customerDao() {
+    CustomerDao customerDao() {
         return new CustomerDaoImpl(Customer.class);
     }
 
     @Bean
     public Client client() {
         return new Client();
+    }
+
+    @Bean
+    public WSClient wsClient() {
+        return new WSClient();
     }
 }
 

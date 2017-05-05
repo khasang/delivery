@@ -5,15 +5,11 @@ import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
-/**
- * Created by NortT on 15.04.2017.
- */
 public class DocumentIntegrationTest {
     private final String ROOT = "http://localhost:8080/document";
     private final String GET_ID = "/get/id/";
@@ -24,11 +20,13 @@ public class DocumentIntegrationTest {
     private final String GET_NAME = "/get/name/";
 
     @Test
-    public void addDocument() {
+    public void addDocumentAndGet() {
         Document document = createDocument();
+
         RestTemplate restTemplate = new RestTemplate();
+
         ResponseEntity<Document> responseEntity = restTemplate.exchange(
-                ROOT+GET_ID+"{id}",
+                ROOT + GET_ID + "{id}",
                 HttpMethod.GET,
                 null,
                 Document.class,
@@ -41,11 +39,11 @@ public class DocumentIntegrationTest {
     }
 
     private Document createDocument() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         Document document = prefillDocument();
-        HttpEntity<Document> httpEntity = new HttpEntity<>(document, httpHeaders);
+        HttpEntity<Document> httpEntity = new HttpEntity<>(document, headers);
         RestTemplate restTemplate = new RestTemplate();
         Document createdDocument = restTemplate.exchange(
                 ROOT + ADD,
@@ -53,10 +51,8 @@ public class DocumentIntegrationTest {
                 httpEntity,
                 Document.class
                 ).getBody();
-
         assertNotNull(createdDocument);
         assertEquals(document.getName(), createdDocument.getName());
-
         return createdDocument;
     }
 
@@ -68,7 +64,7 @@ public class DocumentIntegrationTest {
     }
 
     @Test
-    public void getAllDocuments() {
+    public void getAllDocuments(){
         RestTemplate restTemplate = new RestTemplate();
         createDocument();
         createDocument();
@@ -82,35 +78,36 @@ public class DocumentIntegrationTest {
         );
         assertEquals(HttpStatus.OK, result.getStatusCode());
         assertNotNull(result.getBody());
-        List<Document> documentList = result.getBody();
-        assertNotNull(documentList.get(0));
+        List<Document> list = result.getBody();
+        assertNotNull(list.get(0));
     }
 
     @Test
-    public void deleteDocument() {
-        RestTemplate restTemplate = new RestTemplate();
+    public void deleteDocument(){
         Document document = createDocument();
         assertNotNull(document);
 
+        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.exchange(
-                ROOT+DELETE+"{id}",
+                ROOT + DELETE + "{id}",
                 HttpMethod.DELETE,
                 null,
                 String.class,
                 document.getId()
         );
+
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
-        ResponseEntity<Document> deletedDocument = restTemplate.exchange(
-                ROOT+GET_ID+"{id}",
+        ResponseEntity<Document> checkDocumentById = restTemplate.exchange(
+                ROOT + GET_ID + "{id}",
                 HttpMethod.GET,
                 null,
                 Document.class,
                 document.getId()
         );
 
-        assertEquals(HttpStatus.OK, deletedDocument.getStatusCode());
-        assertNull(deletedDocument.getBody());
+        assertEquals(HttpStatus.OK, checkDocumentById.getStatusCode());
+        assertNull(checkDocumentById.getBody());
     }
 
     @Test
@@ -135,5 +132,24 @@ public class DocumentIntegrationTest {
         assertNotNull(resultUpdate);
         assertNotNull(resultUpdate.getId());
         assertEquals("Sword", resultUpdate.getName());
+    }
+
+    @Test
+    public void addDocumentByName() {
+        Document document = createDocument();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                ROOT + GET_NAME + "{name}",
+                HttpMethod.GET,
+                null,
+                String.class,
+                document.getName()
+        );
+
+//        Document resultDocument = responseEntity.getBody();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+//        assertNotNull(resultDocument);
     }
 }
