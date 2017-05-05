@@ -13,36 +13,46 @@
 
 <body>
     <script type="text/javascript">
-        var service = '/document';
+        var productCatalogSectionStore = new DevExpress.data.CustomStore({
+
+            load: function(loadOptions) {
+                return $.getJSON("/products/getAllCatalogSections");
+            },
+
+            byKey: function(key) {
+                return $.getJSON("/products/getCatalogSectionById/" + encodeURIComponent(key));
+            },
+
+            insert: function(values) {
+                return $.post("/products/addCatalogSection", values);
+            },
+
+            update: function(key, values) {
+                return $.ajax({
+                    url: "/products/updateCatalogSection",
+                    method: "PUT",
+                    data: values
+                });
+            },
+
+            remove: function(key) {
+                return $.ajax({
+                    url: "/products/deleteCatalogSection/" + encodeURIComponent(key),
+                    method: "DELETE"
+                });
+            }
+
+        });
+
+        var productCatalogSectionDataSource = new DevExpress.data.DataSource(productCatalogSectionStore);
+
         $(document).ready(function() {
-            var table = $('#result').dataTable( {
-                "ajax": {
-                    url: service + "/all/",
-                    type: "GET",
-                    "dataSrc": ""
-                },
-                "columns": [
-                    { "data" : "id", "visible" : false, "searchable" : false },
-                    { "data" : "name", "title": "Документ"},
-                    { "data" : "specificInnerInfo", "visible" : false, "searchable" : false }
-                ]
-            } );
-
-
-            $('#result tbody').on( 'click', 'tr', function () {
-                if ( $(this).hasClass('selected') ) {
-                    $(this).removeClass('selected');
-                }
-                else {
-                    table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
-            } );
-
-            $('#button').click( function () {
-                table.row('.selected').remove().draw( true );
-            } );
-        } );
+            productCatalogSectionDataSource.load();
+            $("#productCatalogSections").dxMenu({
+                dataSource: productCatalogSectionDataSource,
+                orientation: "vertical"
+            });
+        })
     </script>
 
     <div class="panel panel-default">
@@ -50,6 +60,7 @@
             <strong>Documents</strong>
             <button id="button">Del</button>
         </div>
+        <div id="productCatalogSections"></div>
         <div class="panel-body">
             <table class="table" id="result">
                 <thead>
