@@ -76,61 +76,122 @@ ______
 
 ## Order feature
 ## Заказ
-Реализованы сущности ***Заказ*** и связанная с ним сущность ***Корзина***
 
-Заказ реализован классом **Order.java** и таблицей **orders** в базе **delivery**
+- [**Структура Order**](#структура-полей-класса-order)
+- [**Методы класса Order**](#доступные-публичные-методы-класса-order)
+- [**Структура BasketUnit**](#структура-полей-класса-basketunit)
+- [**Методы класса BasketUnit**](#доступные-публичные-методы-класса-basketunit)
+- [**Методы интерфейса сервиса OrderService**](#доступные-публичные-методы-интерфейса-сервиса-orderservice)
+- [**REST запросы**](#rest-запросы)
+
+Реализованы сущности ***Заказ*** и связанная с ним сущность ***Элемент корзины***
+
+>Заказ реализован классом **Order.java** и таблицей **orders** в базе
 
 ### Структура полей класса Order:
 
 | Назначение      | Тип              | Имя в классе     | Имя в таблице   |
 | --------------- | ---------------- | ---------------- | --------------- |
-| Ид заказа       | Long	           | id               | id              |
+| Ид заказа       | Long	         | id               | id              |
 | Дата доставки	  | Date             | deliveryDate	    | delivery_date   |
 | Время доставки  | Time             | deliveryTime	    | delivery_time   |
-| Ид клиента			| Long             | userId		        | user_id         |
+| Ид клиента	  | Long             | userId		    | user_id         |
 | Адрес доставки  | String           | deliveryAddress  | delivery_address|
-| Ид исполнителя  | Long             | executorId	      | executor_id     |
-| Комментарий		  | String           | comment		      | comment         |
-| Корзина  			  | List<BasketUnit> | basketUnitList   |                 |
+| Ид исполнителя  | Long             | executorId	    | executor_id     |
+| Комментарий     | String           | comment		    | comment         |
+| Корзина  		  | List<BasketUnit> | basketUnitList   |                 |
 
-Корзина реализована классом **BasketUnit.java** и таблицей **basket** в базе **delivery**
+##### Доступные публичные методы класса Order:
+
+###### *Сеттеры:*
+
+- ***void setDeliveryDate(Date deliveryDate)*** - установить дату доставки
+- ***void setDeliveryTime(Time deliveryTime)*** - установить время доставки
+- ***void setUserId(Long userId)*** - уставновить ID пользователя
+- ***void setDeliveryAddress(String deliveryAdress)*** - установить адрес доставки
+- ***void setExecutorId(Long executorId)*** - установить ID исполнителя доставки
+- ***void setComment(String comment)*** - установить комментарий
+- ***void setBasketUnitList(List<BasketUnit> basketUnitList)*** - задать список юнитов/элементов*
+
+###### *Геттеры:*
+
+- ***Long getId()*** - получить ID заказа
+- ***Date getDeliveryDate()*** - получить дату доставки
+- ***Time getDeliveryTime()*** - получить время доставки
+- ***Long getUserId()*** - получить ID пользователя
+- ***String getDeliveryAddress()*** - получить адрес доставки
+- ***Long getExecutorId()*** - получить ID исполнителя
+- ***String getComment()*** - получить комментарий к заказу
+- ***List<BasketUnit> getBasketUnitList()*** - получить список юнитов/элементов* в заказе
+
+###### *Другие:*
+
+- ***void addBasketUnit(BasketUnit basketUnit)*** - добавить юнит/элемент* в корзину заказа
+- ***void removeBasketUnit(BasketUnit basketUnit)*** - удалить юнит/элемент* из корзины заказа
+___
+>Элемент корзины реализован классом **BasketUnit.java**, хранение элементов заказа в таблице **basket** в базе
+*Юнит - элемент корзины, содержащий в себе ID товара, его количество и ID заказа
 
 ### Структура полей класса BasketUnit:
-| Назначение	       | Тип	    | Имя в классе	| Имя в таблице |
+| Назначение	     | Тип	    | Имя в классе	| Имя в таблице |
 | ------------------ | -------- | ------------- | ------------  |
-| Ид заказа          |Long	    | Order			    | order_id      |
-| Ид единицы корзины |Long      | id		        | id            |
-| Ид товара          |Long	    | itemId		    | item_id       |
-| Количество	       |quantity  | quantity      |               |
+| Ид заказа          |Long	    | Order			| order_id      |
+| Ид единицы корзины |Long      | id		    | id            |
+| Ид товара          |Long	    | itemId		| item_id       |
+| Количество	     |quantity  | quantity      |               |
 
-Таблицы связаны двусторонней связью ОдинКоМногим по ключу order_id  
+>Таблицы связаны двусторонней связью ОдинКоМногим по ключу order_id
 
-### REST сервис
+##### Доступные публичные методы класса BasketUnit:
+
+###### *Конструкторы:*
+
+- ***BasketUnit()*** - создать юнит
+- ***BasketUnit(Long itemId)*** - создать юнит с ID товара
+
+###### *Сеттеры:*
+
+- ***void setQuantity(int quantity)*** - указать количество единиц товара
+- ***void setOrder(Order order)*** - указать заказ
+
+###### *Геттеры:*
+
+- ***Long getId()*** - получить ID юнита
+- ***Order getOrder()*** - получить заказ
+- ***Long getItemId()*** - получить ID товара
+- ***int getQuantity()*** - получить количество единиц товара
+___
+
+### Доступные публичные методы интерфейса сервиса OrderService:
+
+- ***Order create(Order order)*** - создать заказ
+- ***Order findById(long id)*** - получить заказ по ID
+- ***Order deleteOrder(long id)*** - удалить заказ по ID
+- ***Order updateOrder(Order order)*** - обновить заказ
+- ***List<Order> getOrderList()*** - получить список заказов
+- ***List<Order> findByUserId(long uid)*** - получить список заказов по ID пользователя
+- ***BasketUnit findBasketUnitById(long id)*** - получить юнит из корзины по ID
+- ***BasketUnit deleteBasketUnitById(long id)*** - удалить юнит из корзины по ID
+
+### REST запросы
+
 * /order/add - добавить заказ
-```web
-http://localhost.com/order/add
-```
+`http://localhost.com/order/add`
+
 * /order/get/id/ - получить заказ по ID
-```web
-http://localhost.com/order/get/id/35
-```
+`http://localhost.com/order/get/id/35`
+
 * /order/get/uid/ - получить заказ по  ID пользователя
-```web
-http://localhost.com/order/order/get/uid/100
-```
+`http://localhost.com/order/order/get/uid/100`
+
 * /order/update - обновить заказ
-```web
-http://localhost.com/order/update
-```
+`http://localhost.com/order/update`
+
 * /order/delete/ - удалить заказ по ID
-```web
-http://localhost.com/order/delete/35
-```
+`http://localhost.com/order/delete/35`
+
 * /order/basket/delete/id/ - удалить единицу корзины по ID
-```web
-http://localhost.com/order/basket/delete/id/35
-```
+`http://localhost.com/order/basket/delete/id/35`
+
 * /order/basket/get/id/ - получить единицу корзины по ID
-```web
-http://localhost.com/order/basket/get/id/72
-```
+`http://localhost.com/order/basket/get/id/72`
