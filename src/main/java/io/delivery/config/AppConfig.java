@@ -1,11 +1,13 @@
 package io.delivery.config;
 
+import io.delivery.by.belavia.webservices.ClientBelaviaAirlines;
 import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
 import io.delivery.model.Answer;
 import io.delivery.model.NewsCreator;
 import io.delivery.model.impl.NewsCreatorImpl;
+import io.delivery.net.webservicex.ClientWeather;
 import io.delivery.service.*;
 import io.delivery.service.impl.*;
 import net.yandex.speller.services.spellservice.Client;
@@ -125,6 +127,15 @@ public class AppConfig {
     @Bean
     public Client client() {
         return new Client();
+    }
+
+    @Bean
+    public ClientBelaviaAirlines clientBelavia(){
+        return new ClientBelaviaAirlines();}
+
+    @Bean
+    public ClientWeather clientWeather() {
+        return new ClientWeather();
     }
 }
 

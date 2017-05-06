@@ -3,6 +3,7 @@ package io.delivery.controller;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
+import io.delivery.net.webservicex.ClientWeather;
 import io.delivery.service.*;
 import net.yandex.speller.services.spellservice.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class AppController {
     }
 
     @RequestMapping(value = "/documentApi")
-    public String getDocumentInfo() {
+    public String getDocumentInfo(){
         return "document";
     }
 
@@ -87,6 +88,8 @@ public class AppController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("spell");
         modelAndView.addObject("info", client.result(check));
+
         return modelAndView;
     }
+
 }
