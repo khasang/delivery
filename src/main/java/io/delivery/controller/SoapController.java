@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.soap.SOAPException;
@@ -41,10 +42,10 @@ public class SoapController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/belavia/timetable/{airport}/{type}/{date}"}, method = RequestMethod.GET)
-    public ModelAndView getListOfFlights(@PathVariable("airport") String airport,
-                                         @PathVariable("type") String type,
-                                         @PathVariable("date") String date) throws IOException, SOAPException {
+    @RequestMapping(value = {"/belavia/timetable"}, method = RequestMethod.GET)
+    public ModelAndView getListOfFlights(@RequestParam("airport") String airport,
+                                         @RequestParam("type") String type,
+                                         @RequestParam("date") String date) throws IOException, SOAPException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("timetable");
         try {

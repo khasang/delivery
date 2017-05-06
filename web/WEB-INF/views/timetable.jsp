@@ -22,7 +22,7 @@
                         <th width="110">Aircraft</th>
                         <th width="70">Flight №</th>
                         <th width="100">Airport IATA</th>
-                        <th width="60">Status</th>
+                        <th width="70">Status</th>
                         <th width="150">Actual time</th>
                         <th width="150">Expected time</th>
                         <th width="150">Scheduled time</th>
