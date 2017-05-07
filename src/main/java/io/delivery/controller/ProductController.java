@@ -149,7 +149,7 @@ public class ProductController {
         return section;
     }
 
-    @RequestMapping(value = "deleteCatalogSection/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/deleteCatalogSection/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public ProductCatalogSection deleteCatalogSection(@PathVariable(value = "id") String inputId){
         return productService.deleteCatalogSection(Long.parseLong(inputId));

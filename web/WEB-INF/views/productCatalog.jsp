@@ -41,37 +41,24 @@
                     method: "DELETE"
                 });
             }
-
         });
 
         var productCatalogSectionDataSource = new DevExpress.data.DataSource(productCatalogSectionStore);
 
         $(document).ready(function() {
-            productCatalogSectionDataSource.load();
-            $("#productCatalogSections").dxMenu({
-                dataSource: productCatalogSectionDataSource,
-                orientation: "vertical"
-            });
+            $("#button").click(function () {
+                $("#productCatalogSections").dxMenu({
+                    dataSource: productCatalogSectionDataSource,
+                    orientation: "vertical",
+                    displayExpr: "name"
+                })
+            })
         })
     </script>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <strong>Documents</strong>
-            <button id="button">Del</button>
-        </div>
+    <div>
+        <button id="button">Каталог товаров</button>
         <div id="productCatalogSections"></div>
-        <div class="panel-body">
-            <table class="table" id="result">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th>specificInnerInfo</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
     </div>
 </body>
 </html>

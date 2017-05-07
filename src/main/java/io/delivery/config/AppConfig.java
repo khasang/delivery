@@ -1,18 +1,5 @@
 package io.delivery.config;
 
-import io.delivery.wsclient.WSClient;
-import io.delivery.dao.DocumentDao;
-import io.delivery.dao.ProductCatalogSectionDao;
-import io.delivery.dao.ProductDao;
-import io.delivery.dao.ProductImageDao;
-import io.delivery.dao.impl.DocumentDaoImpl;
-import io.delivery.dao.impl.ProductCatalogSectionDaoImpl;
-import io.delivery.dao.impl.ProductDaoImpl;
-import io.delivery.dao.impl.ProductImageDaoImpl;
-import io.delivery.entity.Document;
-import io.delivery.entity.Product;
-import io.delivery.entity.ProductCatalogSection;
-import io.delivery.entity.ProductImage;
 import io.delivery.dao.*;
 import io.delivery.dao.impl.*;
 import io.delivery.entity.*;
@@ -155,11 +142,6 @@ public class AppConfig {
     @Bean
     public Client client() {
         return new Client();
-    }
-
-    @Bean
-    public WSClient wsClient() {
-        return new WSClient();
     }
 }
 
