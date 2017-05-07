@@ -1,11 +1,13 @@
 package io.delivery.controller;
 
 import io.delivery.model.Answer;
+import io.delivery.model.BackupCreator;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
 import io.delivery.net.webservicex.ClientWeather;
 import io.delivery.service.*;
 import net.yandex.speller.services.spellservice.Client;
+import org.russianpost.ClientRussianPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.soap.SOAPException;
+import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
 @Controller
@@ -40,6 +43,8 @@ public class AppController {
     private Test test;
     @Autowired
     private Client client;
+    @Autowired
+    private ClientRussianPost clientRussianPost;
 
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
@@ -92,4 +97,11 @@ public class AppController {
         return modelAndView;
     }
 
+    @RequestMapping(value = {"/russianpost/{barcode}"}, method = RequestMethod.GET)
+    public ModelAndView getOperationHistory(@PathVariable("barcode") String barcode) throws IOException, SOAPException, TransformerException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("russianpost");
+        modelAndView.addObject("info", clientRussianPost.result(barcode));
+        return modelAndView;
+    }
 }
