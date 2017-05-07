@@ -1,10 +1,8 @@
 package io.delivery.controller;
 
 import io.delivery.model.Answer;
-import io.delivery.model.BackupCreator;
 import io.delivery.model.Message;
 import io.delivery.model.TableCreator;
-import io.delivery.net.webservicex.ClientWeather;
 import io.delivery.service.*;
 import net.yandex.speller.services.spellservice.Client;
 import org.russianpost.ClientRussianPost;
@@ -46,6 +44,16 @@ public class AppController {
     @Autowired
     private ClientRussianPost clientRussianPost;
 
+    @RequestMapping(value = "/order")
+    public String getOrderInfo() {
+        return "order";
+    }
+
+    @RequestMapping(value = "/country")
+    public String getCountryInfo() {
+        return "country";
+    }
+
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public ModelAndView passwordEncode(@PathVariable("password") String password) {
         ModelAndView modelAndView = new ModelAndView();
@@ -84,7 +92,7 @@ public class AppController {
     }
 
     @RequestMapping(value = "/documentApi")
-    public String getDocumentInfo(){
+    public String getDocumentInfo() {
         return "document";
     }
 

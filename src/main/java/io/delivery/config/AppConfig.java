@@ -15,6 +15,7 @@ import io.delivery.service.*;
 import io.delivery.service.impl.*;
 import net.yandex.speller.services.spellservice.Client;
 import org.russianpost.ClientRussianPost;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -110,12 +111,12 @@ public class AppConfig {
     }
 
     @Bean
-    NewsDao newsDao() {
+    public NewsDao newsDao() {
         return new NewsDaoImpl(News.class);
     }
 
     @Bean
-    NoRegistrationCustomerDao noRegistrationCustomerDao() {
+    public NoRegistrationCustomerDao noRegistrationCustomerDao() {
         return new NoRegistrationCustomerDaoImpl(NoRegistrationCustomer.class);
     }
 
@@ -142,6 +143,17 @@ public class AppConfig {
     @Bean
     public Client client() {
         return new Client();
+}
+
+     @Bean       
+    public OrderDao orderDao() {
+        return new OrderDaoImpl(Order.class);
+    }
+
+    @Bean
+    public CountryClient countryClient() {
+        return new CountryClient();
+
     }
 
     @Bean
