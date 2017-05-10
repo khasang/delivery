@@ -82,9 +82,9 @@ public class AppController {
         return "/secure";
     }
 
-    @RequestMapping(value = "/registration")
-    public String registration() {
-        return "/registration";
+    @RequestMapping(value = "/customer")
+    public String customer() {
+        return "/customer";
     }
 
     @RequestMapping(value = "/noregistration")
