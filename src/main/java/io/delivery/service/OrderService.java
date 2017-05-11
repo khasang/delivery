@@ -62,10 +62,16 @@ public interface OrderService {
      */
     BasketUnit deleteBasketUnitById(long id);
 
-    /**
+     /**
      * Receive orders from db
      *
      * @return list of orders
      */
     List<Order> getOrderList();
+
+     /**
+     * Send order throw JMS
+     *
+     */
+    void sendOrder(Order order);
 }

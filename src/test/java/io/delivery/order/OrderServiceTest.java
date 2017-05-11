@@ -2,6 +2,7 @@ package io.delivery.order;
 
 import io.delivery.config.AppConfig;
 import io.delivery.config.HibernateConfig;
+import io.delivery.config.MessagingConfig;
 import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
 import io.delivery.service.OrderService;
@@ -24,7 +25,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class, OrderServiceImpl.class, HibernateConfig.class})
+@ContextConfiguration(classes = {AppConfig.class, OrderServiceImpl.class, HibernateConfig.class, MessagingConfig.class})
 public class OrderServiceTest {
     @Autowired
     private OrderService orderService;
@@ -39,6 +40,7 @@ public class OrderServiceTest {
     public void createOrder() {
         order = prefillOrder();
         orderService.create(order);
+        orderService.sendOrder(order);
         assertNotNull(order);
     }
 

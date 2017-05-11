@@ -36,6 +36,7 @@ public class OrderController {
     @ResponseBody
     public Order addOrder(@RequestBody Order order) {
         orderService.create(order);
+        orderService.sendOrder(order);  // send to JMS queue
         return order;
     }
 
