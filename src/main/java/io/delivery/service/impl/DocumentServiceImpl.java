@@ -1,6 +1,9 @@
 package io.delivery.service.impl;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/feedback
 import io.delivery.dao.DocumentDao;
 import io.delivery.entity.Document;
 import io.delivery.service.DocumentService;
@@ -8,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/feedback
 @Service("documentService")
 public class DocumentServiceImpl implements DocumentService {
     @Autowired
@@ -24,6 +31,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+<<<<<<< HEAD
     public Document create(Document document) {
       return documentDao.create(document);
     }
@@ -44,4 +52,24 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
 
+=======
+    public Document deleteDocument(long id) {
+        return documentDao.delete(findById(id));
+    }
+
+    @Override
+    public Document findById(long id) {
+        return documentDao.findById(id);
+    }
+
+    @Override
+    public Document updateDocument(Document document) {
+        return documentDao.update(document);
+    }
+
+    @Override
+    public Document create(Document document) {
+        return documentDao.create(document);
+    }
+>>>>>>> origin/feedback
 }

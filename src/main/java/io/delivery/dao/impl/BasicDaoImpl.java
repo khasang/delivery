@@ -10,18 +10,29 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/feedback
 @Transactional
 public abstract class BasicDaoImpl<T> implements BasicDao<T> {
     @Autowired
     protected SessionFactory sessionFactory;
+<<<<<<< HEAD
+=======
+    private Class<T> entityClass;
+>>>>>>> origin/feedback
 
     public BasicDaoImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
+<<<<<<< HEAD
     private Class<T> entityClass;
 
 
+=======
+>>>>>>> origin/feedback
     @Override
     public Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
@@ -57,6 +68,9 @@ public abstract class BasicDaoImpl<T> implements BasicDao<T> {
     public T delete(T entity) {
         getCurrentSession().delete(entity);
         return entity;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/feedback
     }
 }
