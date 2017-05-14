@@ -169,5 +169,9 @@ public class AppConfig {
     public ClientRussianPost clientRussianPost() {
         return new ClientRussianPost();
     }
+    
+    @Bean
+    FeedBackDao feedbackDao() {
+        return new FeedBackDaoImpl(FeedBack.class);
+    }
 }
-

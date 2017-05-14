@@ -86,7 +86,8 @@ public class DocumentIntegrationTest {
         return createdDocument;
     }
 
-    private Document prefillDocument() {
+    private Document
+    prefillDocument() {
         Document document = new Document();
         document.setName("Magic");
         document.setSpecificInnerInfo("fire");

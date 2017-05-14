@@ -112,4 +112,9 @@ public class AppController {
         modelAndView.addObject("info", clientRussianPost.result(barcode));
         return modelAndView;
     }
+
+    @RequestMapping(value = "/feedback")
+    public String feedBack() {
+        return "feedback";
+    }
 }
