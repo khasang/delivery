@@ -73,7 +73,9 @@
                     for(var i = result.length-1; i >= 0; i--){
                         tbody.innerHTML += '<tr class="info"><td>' + new Date(result[i].date) +
                             '</td><td><table width="100%"><tr><th>' +
-                            '<button id ="btnId' + i + '" value="' + i + '" onclick="DelText($(\'#btnId\').val()); AllFeedBacks()" type="button" class="btn btn-primary pull-right btn-sx">' +
+                            '<button id ="btnId' + i.val() + '" value="' + i.val() + '" ' +
+                            'onclick="DelText($(\'#btnId\').val()); AllFeedBacks()" ' +
+                            'type="button" class="btn btn-primary pull-right btn-sx">' +
                             '<span class="glyphicon glyphicon-remove">' +
                             '</span></button>' +
                             '</th></tr><tr><td width="100%">' + result[i].feedBackText

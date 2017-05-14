@@ -24,6 +24,32 @@ public class DocumentIntegrationTest {
     private final String GET_NAME = "/get/name/";
 
     @Test
+    public void getDocumentById() {
+        addDocumentAndGet();
+    }
+
+    @Test
+    public void getDocumentByName() {
+        Document document = createDocument();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<List<Document>> result = restTemplate.exchange(
+                ROOT + GET_NAME + "{name}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Document>>() {
+                },
+                document.getName()
+        );
+
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertNotNull(result.getBody());
+        List<Document> list = result.getBody();
+        assertNotNull(list.get(0));
+    }
+
+    @Test
     public void addDocumentAndGet() {
         Document document = createDocument();
 
@@ -83,7 +109,7 @@ public class DocumentIntegrationTest {
     }
 
     @Test
-    public void getAllDocuments(){
+    public void getAllDocuments() {
         RestTemplate restTemplate = new RestTemplate();
         createDocument();
         createDocument();
@@ -102,7 +128,7 @@ public class DocumentIntegrationTest {
     }
 
     @Test
-    public void deleteDocument(){
+    public void deleteDocument() {
         Document document = createDocument();
         assertNotNull(document);
 
@@ -130,7 +156,7 @@ public class DocumentIntegrationTest {
     }
 
     @Test
-    public void updateDocument(){
+    public void updateDocument() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
