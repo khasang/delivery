@@ -1,5 +1,6 @@
 package io.delivery.controller;
 
+import io.delivery.messaging.MessageReceiver;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
 import io.delivery.dao.CompanyDAO;
@@ -74,6 +75,12 @@ public class AppController {
         modelAndView.setViewName("password");
         modelAndView.addObject("crypt", new BCryptPasswordEncoder().encode(password));
         return modelAndView;
+    }
+
+    @RequestMapping("/response")
+    public String response(Model model) {
+        model.addAttribute("orderList", messageReceiver.orderReceiver("ORDER_QUEUE"));
+        return "response";
     }
 }
 
