@@ -40,6 +40,7 @@ public class OrderServiceTest {
     public void createOrder() {
         order = prefillOrder();
         orderService.create(order);
+        orderService.sendOrder(order);
         assertNotNull(order);
     }
 

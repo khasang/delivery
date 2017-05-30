@@ -1,11 +1,15 @@
 package io.khasang.document;
 
 import io.delivery.entity.Document;
+import io.delivery.entity.DocumentItem;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -18,6 +22,32 @@ public class DocumentIntegrationTest {
     private final String DELETE = "/delete/";
     private final String ALL = "/all";
     private final String GET_NAME = "/get/name/";
+
+    @Test
+    public void getDocumentById() {
+        addDocumentAndGet();
+    }
+
+    @Test
+    public void getDocumentByName() {
+        Document document = createDocument();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<List<Document>> result = restTemplate.exchange(
+                ROOT + GET_NAME + "{name}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Document>>() {
+                },
+                document.getName()
+        );
+
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertNotNull(result.getBody());
+        List<Document> list = result.getBody();
+        assertNotNull(list.get(0));
+    }
 
     @Test
     public void addDocumentAndGet() {
@@ -60,11 +90,25 @@ public class DocumentIntegrationTest {
         Document document = new Document();
         document.setName("Magic");
         document.setSpecificInnerInfo("fire");
+
+        DocumentItem documentItem = new DocumentItem();
+        documentItem.setName("fireball");
+        documentItem.setPrice(new BigDecimal(BigInteger.valueOf(10)));
+        DocumentItem documentItem2 = new DocumentItem();
+        documentItem2.setName("iceball");
+        documentItem2.setPrice(new BigDecimal(BigInteger.valueOf(8)));
+
+        List<DocumentItem> documentItemList = new ArrayList<>();
+        documentItemList.add(documentItem);
+        documentItemList.add(documentItem2);
+
+        document.setDocumentItems(documentItemList);
+
         return document;
     }
 
     @Test
-    public void getAllDocuments(){
+    public void getAllDocuments() {
         RestTemplate restTemplate = new RestTemplate();
         createDocument();
         createDocument();
@@ -83,7 +127,7 @@ public class DocumentIntegrationTest {
     }
 
     @Test
-    public void deleteDocument(){
+    public void deleteDocument() {
         Document document = createDocument();
         assertNotNull(document);
 
@@ -111,7 +155,7 @@ public class DocumentIntegrationTest {
     }
 
     @Test
-    public void updateDocument(){
+    public void updateDocument() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
@@ -133,22 +177,23 @@ public class DocumentIntegrationTest {
         assertNotNull(resultUpdate.getId());
         assertEquals("Sword", resultUpdate.getName());
     }
-    @Test
-    public void getDocumentByName() {
-        RestTemplate restTemplate = new RestTemplate();
-        Document document = createDocument();
-        assertNotNull(document);
 
-        ResponseEntity<List<Document>> checkDocumentByName = restTemplate.exchange(
+    @Test
+    public void addDocumentByName() {
+        Document document = createDocument();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
                 ROOT + GET_NAME + "{name}",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Document>>() {
-                },
+                String.class,
                 document.getName()
         );
-        assertEquals(HttpStatus.OK, checkDocumentByName.getStatusCode());
-        assertNotNull(checkDocumentByName.getBody());
 
+//        Document resultDocument = responseEntity.getBody();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+//        assertNotNull(resultDocument);
     }
 }

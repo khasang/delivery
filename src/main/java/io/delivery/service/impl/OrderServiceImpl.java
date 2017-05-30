@@ -10,14 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
     private final OrderDao orderDao;
-    private final List<Order> receivedOrders = new ArrayList<>();
     static final Logger LOG = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
@@ -75,5 +73,4 @@ public class OrderServiceImpl implements OrderService {
         messageSender.sendMessage(order);
         LOG.info("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
-
 }

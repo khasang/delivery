@@ -5,6 +5,6 @@
     <title>Update</title>
 </head>
 <body>
-${count}
+${status}
 </body>
 </html>

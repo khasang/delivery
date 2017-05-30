@@ -4,7 +4,6 @@ import io.delivery.entity.BasketUnit;
 import io.delivery.entity.Order;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface OrderService {
 
@@ -22,7 +21,18 @@ public interface OrderService {
      * @param id of order
      * @return order
      */
+    Order findById(long id);
 
+    /**
+     * Delete order from database
+     *
+     * @param id of order
+     * @return order
+     */
+    Order deleteOrder(long id);
+
+    /**
+     * Update order
      *
      * @param order - order for updating
      * @return updated order
@@ -52,16 +62,16 @@ public interface OrderService {
      */
     BasketUnit deleteBasketUnitById(long id);
 
-    /**
+     /**
      * Receive orders from db
      *
      * @return list of orders
      */
     List<Order> getOrderList();
 
-    /**
+     /**
      * Send order throw JMS
+     *
      */
     void sendOrder(Order order);
-
 }

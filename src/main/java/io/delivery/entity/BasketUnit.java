@@ -1,18 +1,21 @@
 package io.delivery.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "basket")
-public class BasketUnit {
-
+public class BasketUnit implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "unit_id")
     private Long id;
+    @Version
+    private long version;
     @Column(name = "item_id")
     private Long itemId;
-    @Column(name = "quantity")
     private int quantity;
     @ManyToOne
     @JsonBackReference
@@ -22,6 +25,9 @@ public class BasketUnit {
     public BasketUnit() {
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public BasketUnit(Long itemId) {
         this.itemId = itemId;
@@ -46,5 +52,4 @@ public class BasketUnit {
     public void setOrder(Order order) {
         this.order = order;
     }
-
 }
