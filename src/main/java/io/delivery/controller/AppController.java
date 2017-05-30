@@ -1,8 +1,8 @@
 package io.delivery.controller;
 
+import io.delivery.messaging.MessageReceiver;
 import io.delivery.model.Answer;
 import io.delivery.model.Message;
-import io.delivery.model.TableCreator;
 import io.delivery.service.*;
 import net.yandex.speller.services.spellservice.Client;
 import org.russianpost.ClientRussianPost;
@@ -26,8 +26,6 @@ public class AppController {
     @Autowired
     private Message message;
     @Autowired
-    private CreateTable createTable;
-    @Autowired
     private InsertUser insertUser;
     @Autowired
     private UpdateTable updateTable;
@@ -36,13 +34,13 @@ public class AppController {
     @Autowired
     private PreparedSQL preparedSQL;
     @Autowired
-    private TableCreator tableCreator;
-    @Autowired
     private Test test;
     @Autowired
     private Client client;
     @Autowired
     private ClientRussianPost clientRussianPost;
+    @Autowired
+    private MessageReceiver messageReceiver;
 
     @RequestMapping(value = "/order")
     public String getOrderInfo() {
@@ -67,12 +65,6 @@ public class AppController {
         model.addAttribute("info", message.getInfoMessage());
         model.addAttribute("answ", answer.getInfoAnswer());
         return "hello";
-    }
-
-    @RequestMapping(value = "/create")
-    public String create(Model model) {
-        model.addAttribute("status", tableCreator.createCompany());
-        return "create";
     }
 
     @RequestMapping(value = "/secure")
@@ -110,6 +102,12 @@ public class AppController {
         modelAndView.setViewName("russianpost");
         modelAndView.addObject("info", clientRussianPost.result(barcode));
         return modelAndView;
+    }
+
+    @RequestMapping("/response")
+    public String response(Model model) {
+        model.addAttribute("orderList", messageReceiver.orderReceiver("ORDER_QUEUE"));
+        return "response";
     }
 }
 

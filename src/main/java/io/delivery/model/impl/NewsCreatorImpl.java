@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class NewsCreatorImpl implements NewsCreator{
-    private static final Logger LOG = Logger.getLogger(TableCreatorImpl.class);
+    private static final Logger LOG = Logger.getLogger(NewsCreatorImpl.class);
     private JdbcTemplate jdbcTemplate;
 
     public NewsCreatorImpl() {
