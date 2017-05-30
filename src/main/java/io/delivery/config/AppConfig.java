@@ -7,7 +7,6 @@ import io.delivery.entity.*;
 import io.delivery.model.Answer;
 import io.delivery.model.BackupCreator;
 import io.delivery.model.NewsCreator;
-import io.delivery.model.TableCreator;
 import io.delivery.model.impl.BackupCreatorIml;
 import io.delivery.model.impl.NewsCreatorImpl;
 import io.delivery.net.webservicex.ClientWeather;
@@ -58,11 +57,6 @@ public class AppConfig {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource());
         return jdbcTemplate;
-    }
-
-    @Bean
-    public CreateTable createTable() {
-        return new CreateTableImpl(jdbcTemplate());
     }
 
     @Bean
