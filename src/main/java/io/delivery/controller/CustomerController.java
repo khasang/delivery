@@ -76,4 +76,9 @@ public class CustomerController {
         return customerService.deleteCustomer(Long.parseLong(id));
     }
 
+    @RequestMapping(value = "/send/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public void sendCustomer(@PathVariable(value = "id") String id){
+        customerService.sendCustomer(customerService.getCustomerById(Long.parseLong(id)));
+    }
 }

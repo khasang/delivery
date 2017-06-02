@@ -3,6 +3,7 @@ package io.delivery.service;
 
 import io.delivery.entity.Customer;
 
+import javax.jms.Message;
 import java.util.List;
 
 public interface CustomerService {
@@ -67,5 +68,11 @@ public interface CustomerService {
      * @return - deleted customer
      */
     Customer deleteCustomer(long id);
+
+    /**
+     * Send customer information by JMS
+     * @param customer - current customer
+     */
+    void sendCustomer (Customer customer);
 
 }
