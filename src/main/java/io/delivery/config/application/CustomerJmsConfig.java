@@ -1,6 +1,6 @@
 package io.delivery.config.application;
 
-import io.delivery.message.CustomerJmsSender;
+import io.delivery.message.JmsMessageSender;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ public class CustomerJmsConfig {
     }
 
     @Bean
-    public CustomerJmsSender customerJmsSender(){
-        return new CustomerJmsSender();
+    public JmsMessageSender customerJmsSender(){
+        return new JmsMessageSender();
     }
 }

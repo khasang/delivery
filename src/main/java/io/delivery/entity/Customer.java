@@ -58,6 +58,10 @@ public class Customer implements Serializable{
     public void seteMail(String eMail) {
         this.eMail = eMail;
     }
+
+    public String toString(){
+        return getId() + " " + getName() + " " + getAddress() + " " + getPhoneNumber() + " " + geteMail();
+    }
 }
 
 

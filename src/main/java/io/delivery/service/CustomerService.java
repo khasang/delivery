@@ -73,6 +73,6 @@ public interface CustomerService {
      * Send customer information by JMS
      * @param customer - current customer
      */
-    void sendCustomer (Customer customer);
+    void sendCustomerInfo (Customer customer);
 
 }

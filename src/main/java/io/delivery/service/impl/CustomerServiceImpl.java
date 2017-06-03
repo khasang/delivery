@@ -2,12 +2,11 @@ package io.delivery.service.impl;
 
 import io.delivery.dao.CustomerDao;
 import io.delivery.entity.Customer;
-import io.delivery.message.CustomerJmsSender;
+import io.delivery.message.JmsMessageSender;
 import io.delivery.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.jms.Message;
 import java.util.List;
 
 @Service("customerService")
@@ -15,7 +14,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Autowired
     CustomerDao customerDao;
     @Autowired
-    CustomerJmsSender customerJmsSender;
+    JmsMessageSender customerJmsSender;
 
     @Override
     public List<Customer> getCustomerByName(String name) {
@@ -49,6 +48,7 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public Customer createCustomer(Customer customer) {
+        customerJmsSender.sendMessage("Created new Customer: " + customer.toString());
         return customerDao.create(customer);
     }
 
@@ -63,7 +63,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public void sendCustomer(Customer customer) {
-        customerJmsSender.sendMessage(customer);
+    public void sendCustomerInfo(Customer customer) {
+        customerJmsSender.sendMessage(customer.toString());
     }
 }
