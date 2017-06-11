@@ -48,6 +48,7 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public Customer createCustomer(Customer customer) {
+        // Выпилить отсюда, иначе если не будет запущен брокер - невозможно создать Кастомера
         customerJmsSender.sendMessage("Created new Customer: " + customer.toString());
         return customerDao.create(customer);
     }

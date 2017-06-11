@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -78,7 +79,10 @@ public class CustomerController {
 
     @RequestMapping(value = "/send/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public void sendCustomer(@PathVariable(value = "id") String id){
+    public ModelAndView sendCustomer(@PathVariable(value = "id") String id){
         customerService.sendCustomerInfo(customerService.getCustomerById(Long.parseLong(id)));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("customerSend");
+        return modelAndView;
     }
 }
