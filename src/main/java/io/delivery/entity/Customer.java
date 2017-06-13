@@ -59,6 +59,7 @@ public class Customer implements Serializable{
         this.eMail = eMail;
     }
 
+    @Override
     public String toString(){
         return getId() + " " + getName() + " " + getAddress() + " " + getPhoneNumber() + " " + geteMail();
     }
