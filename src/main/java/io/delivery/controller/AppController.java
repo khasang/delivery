@@ -63,7 +63,7 @@ public class AppController {
     }
 
     // localhost:8080
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     public String hello(Model model) {
         model.addAttribute("info", message.getInfoMessage());
         model.addAttribute("answ", answer.getInfoAnswer());
@@ -111,5 +111,10 @@ public class AppController {
         modelAndView.setViewName("russianpost");
         modelAndView.addObject("info", clientRussianPost.result(barcode));
         return modelAndView;
+    }
+
+    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
+    public String prepareProduct(Model model) {
+        return "index";
     }
 }

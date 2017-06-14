@@ -5,6 +5,7 @@ import io.delivery.entity.Order;
 import io.delivery.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -68,5 +69,12 @@ public class OrderController {
     @ResponseBody
     public List<Order> getOrderList() {
         return orderService.getOrderList();
+    }
+
+    @RequestMapping(value = { "/newOrder" }, method = RequestMethod.GET)
+    public String prepareOrder(ModelMap model) {
+        Order order = new Order();
+        model.addAttribute("order", order);
+        return "order";
     }
 }

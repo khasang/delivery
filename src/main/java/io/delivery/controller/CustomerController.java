@@ -4,6 +4,7 @@ import io.delivery.entity.Customer;
 import io.delivery.service.CustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -84,5 +85,12 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("customerSend");
         return modelAndView;
+    }
+
+    @RequestMapping(value = { "/newCustomer" }, method = RequestMethod.GET)
+    public String prepareOrder(ModelMap model) {
+        Customer customer = new Customer();
+        model.addAttribute("customer", customer);
+        return "customer";
     }
 }

@@ -25,12 +25,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @PropertySource(value = {"classpath:util.properties"})
 @PropertySource(value = {"classpath:auth.properties"})
 @PropertySource(value = {"classpath:backup.properties"})
-public class AppConfig {
+public class AppConfig extends WebMvcConfigurerAdapter{
     @Autowired
     private Environment environment;
 
@@ -168,6 +170,11 @@ public class AppConfig {
 	@Bean
     public ClientRussianPost clientRussianPost() {
         return new ClientRussianPost();
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
     }
 }
 
