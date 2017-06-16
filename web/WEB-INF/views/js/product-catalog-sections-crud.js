@@ -1,13 +1,15 @@
 $(document).ready(function () {
     $.getJSON("/products/getAllCatalogSections", function (resp, status) {
-        var sections = "";
+        var sectionsHtml = "";
         $.each( resp, function( key, value ) {
-            sections += "<tr>";
-            sections += "<td>";
-            sections += value.name;
-            sections += "</td>";
-            sections += "</tr>";
+            sectionsHtml += "<tr>";
+            sectionsHtml += "<td>";
+            sectionsHtml += value.name;
+            sectionsHtml += "</td>";
+            sectionsHtml += "</tr>";
         });
-        $("#sections").add(sections);
+        var sectionsElement = $("tbody#sections");
+        sectionsElement.empty();
+        sectionsElement.html(sectionsHtml);
     })
 })

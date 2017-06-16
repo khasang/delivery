@@ -18,17 +18,26 @@
 
     <body class="dx-viewport">
 
-        <aside id="productCatalogSections"></aside>
-        <div class="catalog-section-products">
-            <table>
-                <thead>
-                    <tr>
-                        <td>Разделы</td>
-                    </tr>
-                </thead>
+        <div class="panel panel-default">
+            <div class="panel-heading">Разделы каталога продуктов</div>
+            <table class="table table-hover table-condensed">
                 <tbody id="sections">
                 </tbody>
             </table>
+            <div class="btn-group btn-group-xs">
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Добавить
+                </button>
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Переименовать
+                </button>
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Удалить
+                </button>
+            </div>
         </div>
 
     </body>
