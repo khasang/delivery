@@ -3,42 +3,52 @@
 <html>
     <head>
         <title>Delivery - Разделы каталога продуктов</title>
-        <!-- DevExtreme dependencies -->
-        <%--<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>--%>
-        <!-- DevExtreme themes -->
-        <%--<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/16.2.6/css/dx.common.css" />--%>
-        <%--<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/16.2.6/css/dx.light.css" />--%>
-        <!-- A DevExtreme library -->
-        <%--<script type="text/javascript" src="https://cdn3.devexpress.com/jslib/16.2.6/js/dx.all.js"></script>--%>
         <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/product-catalog-sections-crud.js"></script>
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.css" />
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="/css/delivery.css" />
+
     </head>
 
-    <body class="dx-viewport">
+    <body>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">Разделы каталога продуктов</div>
-            <table class="table table-hover table-condensed">
-                <tbody id="sections">
-                </tbody>
-            </table>
-            <div class="btn-group btn-group-xs">
-                <button type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    Добавить
-                </button>
-                <button type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    Переименовать
-                </button>
-                <button type="button" class="btn btn-default">
-                    <span class="glyphicon glyphicon-trash"></span>
-                    Удалить
-                </button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Разделы каталога продуктов</div>
+                    <form id="sectionsForm">
+                        <table class="table table-condensed">
+                            <tbody id="sections">
+                            </tbody>
+                        </table>
+                        <div class="btn-group btn-group-xs">
+                            <button id="addButton" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Добавить">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button id="editButton" disabled class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Переименовать">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button id="deleteButton" disabled class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Удалить">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
+            <div class="col-md-4"></div>
         </div>
+    </div>
+
+    <div id="addSectionForm" title="Добавление нового раздела каталога продуктов">
+
+    </div>
 
     </body>
 </html>

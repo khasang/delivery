@@ -1,0 +1,12 @@
+.ui-selecting {
+    background: #ccc;
+}
+
+.ui-selected {
+    background: #999;
+}
+
+.delivery-invisible {
+    display: none;
+}
+
