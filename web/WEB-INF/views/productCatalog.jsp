@@ -23,31 +23,34 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">Разделы каталога продуктов</div>
-                    <form id="sectionsForm">
-                        <table class="table table-condensed">
-                            <tbody id="sections">
-                            </tbody>
-                        </table>
-                        <div class="btn-group btn-group-xs">
-                            <button id="addButton" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Добавить">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                            <button id="editButton" disabled class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Переименовать">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </button>
-                            <button id="deleteButton" disabled class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Удалить">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                        </div>
-                    </form>
+                    <table class="table table-condensed">
+                        <tbody id="sections">
+                        </tbody>
+                    </table>
+                    <div class="btn-group btn-group-xs">
+                        <button id="addButton" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Добавить">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        <button id="editButton" disabled class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Переименовать">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button id="deleteButton" disabled class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Удалить">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4"></div>
         </div>
     </div>
 
-    <div id="addSectionForm" title="Добавление нового раздела каталога продуктов">
-
+    <div id="addSectionDialog" title="Добавление нового раздела">
+        <form id="addSectionForm">
+            <div class="form-group">
+                <label for="sectionName">Раздел</label>
+                <input type="text" name="sectionName" id="sectionName" class="form-control">
+            </div>
+        </form>
     </div>
 
     </body>
