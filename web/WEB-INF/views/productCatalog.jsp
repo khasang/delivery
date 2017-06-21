@@ -4,6 +4,7 @@
     <head>
         <title>Delivery - Разделы каталога продуктов</title>
         <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.serialize-object.min.js"></script>
         <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/js/product-catalog-sections-crud.js"></script>
@@ -18,6 +19,15 @@
     <body>
 
     <div class="container-fluid">
+        <div id="addSectionDialog">
+            <form id="addSectionForm">
+                <div class="form-group">
+                    <label for="name">Раздел</label>
+                    <input type="text" required name="name" class="form-control" >
+                </div>
+            </form>
+        </div>
+
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
@@ -42,15 +52,6 @@
             </div>
             <div class="col-md-4"></div>
         </div>
-    </div>
-
-    <div id="addSectionDialog" title="Добавление нового раздела">
-        <form id="addSectionForm">
-            <div class="form-group">
-                <label for="sectionName">Раздел</label>
-                <input type="text" name="sectionName" id="sectionName" class="form-control">
-            </div>
-        </form>
     </div>
 
     </body>

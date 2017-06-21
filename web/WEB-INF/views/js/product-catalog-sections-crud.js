@@ -21,9 +21,38 @@ $(document).ready(function () {
     }
 
     function addSection() {
-        var valid = true;
-        addProductCatalogSectionDialog.dialog("close");
-        return valid;
+        var sectionName = $("#addSectionForm input[name='name']")[0].value;
+        var json;
+        if (sectionName.length !== 0) {
+            json = $("#addSectionForm").serializeJSON();
+            $.ajax("/products/addCatalogSection", {
+                method: "POST",
+                dataType: "json",
+                data: json,
+                timeout: 180000,
+                contentType: "application/json; charset=UTF-8",
+                success: function (data, textStatus, jqXHR) {
+                    addProductCatalogSectionDialog.dialog("close");
+                    showCatalogSections();
+                },
+                error: function (jqXHR, textStatus, errorThrown ) {
+                    if (textStatus === "timeout") {
+                        $("body").popover({
+                            content: "Нет ответа от сервера",
+                            title: "Ошибка сервера",
+                            selector: "#addSectionDialog"
+                        });
+                    }
+                    else {
+                        $("body").popover({
+                            content: errorThrown,
+                            title: "Ошибка сервера",
+                            selector: "#addSectionDialog"
+                        });
+                    }
+                }
+            });
+        }
     }
 
     showCatalogSections();
@@ -51,16 +80,15 @@ $(document).ready(function () {
     addProductCatalogSectionDialog = $("#addSectionDialog").dialog({
         autoOpen: false,
         modal: true,
-        height: "auto",
-        width: "auto",
+        title: "Добавление нового раздела",
         buttons: {
             "Создать": addSection,
             "Отмена": function() {
-                addProductCatalogSectionDialog.dialog("close");
+                addProductCatalogSectionDialog.dialog("close")
             }
         },
         close: function() {
-            $("#addSectionForm").reset();
+            $("#addSectionForm")[0].reset();
             $("#sectionName").removeClass("ui-state-error");
         }
     });
