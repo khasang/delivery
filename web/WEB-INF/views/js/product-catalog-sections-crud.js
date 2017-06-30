@@ -1,5 +1,7 @@
 $(document).ready(function () {
     var addProductCatalogSectionDialog;
+    var serverInteractionAlarm;
+    var loadPanel;
 
     function showCatalogSections () {
         $.getJSON("/products/getAllCatalogSections", function (resp) {
@@ -14,7 +16,7 @@ $(document).ready(function () {
                 sectionsHtml += "</td>";
                 sectionsHtml += "</tr>";
             });
-            var sectionsElement = $("tbody#sections");
+            var sectionsElement = $("#sections");
             sectionsElement.empty();
             sectionsElement.html(sectionsHtml);
         });
@@ -25,11 +27,11 @@ $(document).ready(function () {
         var json;
         if (sectionName.length !== 0) {
             json = $("#addSectionForm").serializeJSON();
-            $.ajax("/products/addCatalogSection", {
+            $.ajax("/products/addCatalogSectionError", {
                 method: "POST",
                 dataType: "json",
                 data: json,
-                timeout: 180000,
+                timeout: 10000,
                 contentType: "application/json; charset=UTF-8",
                 success: function (data, textStatus, jqXHR) {
                     addProductCatalogSectionDialog.dialog("close");
@@ -37,25 +39,17 @@ $(document).ready(function () {
                 },
                 error: function (jqXHR, textStatus, errorThrown ) {
                     if (textStatus === "timeout") {
-                        $("body").popover({
-                            content: "Нет ответа от сервера",
-                            title: "Ошибка сервера",
-                            selector: "#addSectionDialog"
-                        });
+                        $("#serverInteractionAlarm p").text("Нет ответа от сервера");
+                        serverInteractionAlarm.dialog("open");
                     }
                     else {
-                        $("body").popover({
-                            content: errorThrown,
-                            title: "Ошибка сервера",
-                            selector: "#addSectionDialog"
-                        });
+                        $("#serverInteractionAlarm p").text(errorThrown.toString());
+                        serverInteractionAlarm.dialog("open");
                     }
                 }
             });
         }
     }
-
-    showCatalogSections();
 
     $("tbody#sections").selectable({
         stop: function () {
@@ -93,6 +87,17 @@ $(document).ready(function () {
         }
     });
 
+    serverInteractionAlarm = $("#serverInteractionAlarm").dialog({
+        autoOpen: false,
+        modal: true,
+        title: "Ошибка взаимодействия с сервером",
+        buttons: {
+            "Отмена": function() {
+                serverInteractionAlarm.dialog("close")
+            }
+        }
+    });
+
     $("#addButton").on("click", function () {
         addProductCatalogSectionDialog.dialog("open");
         showCatalogSections();
@@ -103,4 +108,23 @@ $(document).ready(function () {
         addSection();
     });
 
+    loadPanel = $("#loadPanel").dxLoadPanel({
+        shadingColor: "rgba(0,0,0,0.4)",
+        position: { of: "#sections" },
+        visible: false,
+        showIndicator: true,
+        showPane: true,
+        shading: true,
+        closeOnOutsideClick: false
+        // onShown: function(){
+        //     setTimeout(function () {
+        //         loadPanel.hide();
+        //     }, 3000);
+        // },
+        // onHidden: function(){
+        //     showEmployeeInfo(employee);
+        // }
+    }).dxLoadPanel("instance");
+
+    showCatalogSections();
 });
