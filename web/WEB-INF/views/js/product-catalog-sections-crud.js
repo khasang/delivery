@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var add_modifySectionDialog;
+    var deleteSectionDialog;
     var loadPanel;
     var modificationMode = {
         addition : {value: 0},
@@ -8,21 +9,23 @@ $(document).ready(function () {
     var currentSectionModificationMode;
 
     function showCatalogSections () {
+        $("#editButton").prop("disabled", true);
+        $("#deleteButton").prop("disabled", true);
         $("#loadPanel").dxLoadPanel("show");
         $.ajax("/products/getAllCatalogSections", {
             method: "GET",
             dataType: "json",
             timeout: 10000,
-            contentType: "application/json; charset=UTF-8",
+            contentType: "application/json; charset=UTF-8"
         })
             .done(function (resp) {
                 var sectionsHtml = "";
-                $.each( resp, function( key, value ) {
+                $.each(resp, function( key, value) {
                     sectionsHtml += "<tr>";
-                    sectionsHtml += "<td class=\"delivery-invisible\">";
+                    sectionsHtml += "<td class=\"delivery-invisible delivery-id\">";
                     sectionsHtml += value.id;
                     sectionsHtml += "</td>";
-                    sectionsHtml += "<td>";
+                    sectionsHtml += "<td class=\"delivery-name\">";
                     sectionsHtml += value.name;
                     sectionsHtml += "</td>";
                     sectionsHtml += "</tr>";
@@ -55,7 +58,7 @@ $(document).ready(function () {
                 dataType: "json",
                 data: JSON.stringify(json),
                 timeout: 10000,
-                contentType: "application/json; charset=UTF-8",
+                contentType: "application/json; charset=UTF-8"
             })
             .done(function () {
                 add_modifySectionDialog.dialog("close");
@@ -76,7 +79,62 @@ $(document).ready(function () {
         }
     }
 
-    $("tbody#sections").selectable({
+    function editSection() {
+        var sectionName = $("#sectionNameFormInput")[0].value;
+        var json;
+        if (sectionName.length !== 0) {
+            json = {
+                id: $("#sectionIdFormInput")[0].value,
+                name: sectionName
+            };
+            $.ajax("/products/updateCatalogSection", {
+                method: "PUT",
+                dataType: "json",
+                data: JSON.stringify(json),
+                timeout: 10000,
+                contentType: "application/json; charset=UTF-8"
+            })
+                .done(function () {
+                    add_modifySectionDialog.dialog("close");
+                    showCatalogSections();
+                })
+                .fail(function (jqXHR, textStatus, errorThrown ) {
+                    if (textStatus === "timeout") {
+                        DevExpress.ui.notify("Нет ответа от сервера", "error");
+                    }
+                    else {
+                        DevExpress.ui.notify("Ошибка сервера: " + jqXHR.status + " " + errorThrown, "error");
+                    }
+                });
+        }
+        else {
+            $("#sectionNameFormGroup").addClass("has-error");
+            DevExpress.ui.notify("Наименование раздела каталога не может быть пустым", "error", 2000);
+        }
+    }
+
+    function deleteSection() {
+        var i;
+        for (i = 0; i < $(".ui-selected").length; i++) {
+            $.ajax("/products/deleteCatalogSection/" + $(".ui-selected .delivery-id")[i].innerText, {
+                method: "DELETE",
+                timeout: 10000,
+                async: false,
+                error: function (jqXHR, textStatus, errorThrown ) {
+                    if (textStatus === "timeout") {
+                        DevExpress.ui.notify("Нет ответа от сервера", "error");
+                    }
+                    else {
+                        DevExpress.ui.notify("Ошибка сервера: " + jqXHR.status + " " + errorThrown, "error");
+                    }
+                }
+            });
+        }
+        deleteSectionDialog.dialog("close");
+        showCatalogSections();
+    }
+
+    $("#sections").selectable({
         stop: function () {
             var numSelected = $(".ui-selected").length;
             if (numSelected > 1) {
@@ -102,7 +160,14 @@ $(document).ready(function () {
         title: "Добавление нового раздела",
         closeText: "Отмена",
         buttons: {
-            "Создать": addSection,
+            "Сохранить": function() {
+                if (currentSectionModificationMode === modificationMode.addition) {
+                    addSection();
+                }
+                else {
+                    editSection();
+                }
+            },
             "Отмена": function() {
                 add_modifySectionDialog.dialog("close")
             }
@@ -113,16 +178,44 @@ $(document).ready(function () {
         }
     });
 
+    deleteSectionDialog = $("#deleteSectionDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        title: "Удаление разделов каталога",
+        closeText: "Отмена",
+        buttons: {
+            "Удалить": deleteSection,
+            "Отмена": function() {
+                deleteSectionDialog.dialog("close")
+            }
+        }
+    });
+
     $("#addButton").on("click", function () {
         currentSectionModificationMode = modificationMode.addition;
-        add_modifySectionDialog.dialog.options("title", "Добавление нового раздела");
+        add_modifySectionDialog.dialog("option", "title", "Добавление нового раздела");
         add_modifySectionDialog.dialog("open");
+    });
+
+    $("#editButton").on("click", function () {
+        currentSectionModificationMode = modificationMode.edition;
+        add_modifySectionDialog.dialog("option", "title", "Изменение раздела");
+        $("#sectionIdFormInput")[0].value = $(".ui-selected .delivery-id")[0].innerText;
+        $("#sectionNameFormInput")[0].value = $(".ui-selected .delivery-name")[0].innerText;
+        add_modifySectionDialog.dialog("open");
+    });
+
+    $("#deleteButton").on("click", function () {
+        deleteSectionDialog.dialog("open");
     });
 
     $("#add-modifySectionForm").on("submit", function(event) {
         event.preventDefault();
         if (currentSectionModificationMode === modificationMode.addition) {
             addSection();
+        }
+        else {
+            editSection();
         }
     });
 

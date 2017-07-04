@@ -18,8 +18,32 @@
     </head>
 
     <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Разделы каталога продуктов</div>
+                        <table class="table table-condensed">
+                            <tbody id="sections">
+                            </tbody>
+                        </table>
+                        <div class="btn-group btn-group-xs">
+                            <button id="addButton" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Добавить">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                            <button id="editButton" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Переименовать">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button id="deleteButton" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Удалить">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="container-fluid">
         <div id="add-modifySectionDialog">
             <form id="add-modifySectionForm">
                 <div id="sectionNameFormGroup" class="form-group">
@@ -30,33 +54,13 @@
             </form>
         </div>
 
-        <div id="loadPanel"></div>
-
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Разделы каталога продуктов</div>
-                    <table class="table table-condensed">
-                        <tbody id="sections">
-                        </tbody>
-                    </table>
-                    <div class="btn-group btn-group-xs">
-                        <button id="addButton" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Добавить">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                        <button id="editButton" disabled class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Переименовать">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                        <button id="deleteButton" disabled class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Удалить">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4"></div>
+        <div id="deleteSectionDialog">
+            <p>
+                <span class="glyphicon glyphicon-question-sign"></span>
+                Уверены, что хотите удалить выбранные разделы каталога?
+            </p>
         </div>
-    </div>
 
+        <div id="loadPanel"></div>
     </body>
 </html>
