@@ -4,7 +4,7 @@ import io.delivery.entity.Document;
 
 import java.util.List;
 
-public interface DocumentDao extends Basicdao<Document> {
+public interface DocumentDao extends BasicDao<Document> {
 
     /**
      * Find documents by name at database

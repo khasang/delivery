@@ -1,6 +1,8 @@
 package io.delivery.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "document")
@@ -11,10 +13,20 @@ public class Document {
     private long id;
     @Column(name = "document_name")
     private String name;
-
+    @Transient
     private String specificInnerInfo;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<DocumentItem> documentItems = new ArrayList<>();
 
     public Document() {
+    }
+
+    public List<DocumentItem> getDocumentItems() {
+        return documentItems;
+    }
+
+    public void setDocumentItems(List<DocumentItem> documentItems) {
+        this.documentItems = documentItems;
     }
 
     public String getSpecificInnerInfo() {
