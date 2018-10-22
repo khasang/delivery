@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <spring.version>4.3.7.RELEASE</spring.version>
+        <spring.version>4.3.18</spring.version>
         <spring.security.version>4.2.0.RELEASE</spring.security.version>
         <hibernate.version>5.2.10.Final</hibernate.version>
         <jackson.version>2.7.8</jackson.version>
