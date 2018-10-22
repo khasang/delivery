@@ -13,7 +13,7 @@
         <spring.version>4.3.18</spring.version>
         <spring.security.version>4.2.0.RELEASE</spring.security.version>
         <hibernate.version>5.2.10.Final</hibernate.version>
-        <jackson.version>2.7.8</jackson.version>
+        <jackson.version>[2.8.11.1,)</jackson.version>
         <jsoup.version>1.10.2</jsoup.version>
         <servlet-api.version>3.0.1</servlet-api.version>
         <jstl.version>1.2</jstl.version>
